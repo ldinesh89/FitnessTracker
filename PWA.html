@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="FitTrack">
+<title>FitTrack</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FFF8F0;color:#2C2C2A;min-height:100vh;-webkit-tap-highlight-color:transparent}
+.app{max-width:430px;margin:0 auto;padding-bottom:80px}
+.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:0.5px solid #FAC775;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.tab{flex:1;padding:10px 4px 8px;text-align:center;cursor:pointer;font-size:11px;color:#B4B2A9;border:none;background:none;-webkit-tap-highlight-color:transparent}
+.tab.active{color:#BA7517}
+.tab i{display:block;font-size:22px;margin-bottom:2px}
+.screen{display:none;padding:16px}
+.screen.active{display:block}
+.hero-header{background:#EF9F27;padding:20px 16px 16px;margin:-16px -16px 16px;border-radius:0 0 20px 20px}
+.hero-header h1{font-size:21px;font-weight:500;color:#412402}
+.hero-header p{font-size:13px;color:#633806;margin-top:2px}
+.std-header{padding:16px 16px 8px;background:#fff;border-bottom:0.5px solid #FAC775;margin:-16px -16px 16px}
+.std-header h1{font-size:20px;font-weight:500}
+.std-header p{font-size:13px;color:#888780;margin-top:2px}
+.card{background:#fff;border:0.5px solid #FAC775;border-radius:12px;padding:16px;margin-bottom:12px}
+.card h3{font-size:14px;font-weight:500;color:#888780;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.metric{border-radius:8px;padding:12px;text-align:center}
+.metric .val{font-size:22px;font-weight:500}
+.metric .lbl{font-size:11px;margin-top:2px}
+.m-amber{background:#FAEEDA}.m-amber .val{color:#854F0B}.m-amber .lbl{color:#BA7517}
+.m-coral{background:#FAECE7}.m-coral .val{color:#993C1D}.m-coral .lbl{color:#D85A30}
+.m-teal{background:#E1F5EE}.m-teal .val{color:#0F6E56}.m-teal .lbl{color:#1D9E75}
+.m-purple{background:#EEEDFE}.m-purple .val{color:#534AB7}.m-purple .lbl{color:#7F77DD}
+.progress-row{margin-bottom:10px}
+.progress-row .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;color:#854F0B;font-weight:500}
+.progress-bar{height:8px;background:#FAEEDA;border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px;transition:width 0.4s}
+.pf-amber{background:#EF9F27}.pf-coral{background:#D85A30}.pf-teal{background:#1D9E75}.pf-purple{background:#7F77DD}.pf-red{background:#E24B4A}
+.streak-banner{background:#EF9F27;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.streak-banner .s-num{font-size:26px;font-weight:500;color:#412402}
+.streak-banner .s-sub{font-size:12px;color:#633806;margin-top:2px}
+.btn{width:100%;padding:12px;border:0.5px solid #FAC775;border-radius:8px;background:none;color:#2C2C2A;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.btn:active{transform:scale(0.98);background:#FAEEDA}
+.btn-primary{background:#EF9F27;color:#412402;border-color:#EF9F27;font-weight:500}
+.btn-teal{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.star-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.star-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;background:#FAEEDA;font-size:9px;color:#BA7517}
+.star-cell i{font-size:15px;color:#FAC775}
+.star-cell.earned{background:#EF9F27;color:#412402}
+.star-cell.earned i{color:#412402}
+.star-cell.today{border:2px solid #D85A30}
+.day-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.day-lbl{text-align:center;font-size:10px;color:#B4B2A9}
+.food-search{width:100%;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px;margin-bottom:10px}
+.food-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;margin-bottom:6px;cursor:pointer;background:#fff}
+.food-item:active{background:#FAEEDA}
+.food-item .fname{font-size:13px;font-weight:500;color:#2C2C2A}
+.food-item .fcal{font-size:12px;color:#BA7517;font-weight:500}
+.food-item .fport{font-size:11px;color:#888780}
+.logged-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FAEEDA;font-size:13px}
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.b-amber{background:#FAEEDA;color:#854F0B}
+.b-teal{background:#E1F5EE;color:#0F6E56}
+.b-coral{background:#FAECE7;color:#993C1D}
+.sec-title{font-size:12px;font-weight:500;color:#854F0B;margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.5px}
+.input-row{display:flex;gap:8px;margin-bottom:8px}
+.fi{flex:1;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px}
+.phase-badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;background:#EF9F27;color:#412402;font-weight:500;margin-bottom:8px}
+.run-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.run-day{aspect-ratio:1;border-radius:6px;background:#FAEEDA;display:flex;align-items:center;justify-content:center;font-size:10px;color:#BA7517;font-weight:500;border:0.5px solid #FAC775}
+.run-day.done{background:#E1F5EE;color:#0F6E56;border-color:#9FE1CB}
+.run-day.today-run{border:2px solid #D85A30}
+.run-day.rest{background:#F1EFE8;color:#B4B2A9;border-color:#D3D1C7}
+.achievement{display:flex;align-items:center;gap:10px;padding:10px;background:#FAEEDA;border-radius:8px;margin-bottom:6px}
+.achievement i{font-size:24px;color:#EF9F27}
+.achievement .atitle{font-size:13px;font-weight:500;color:#412402}
+.achievement .adesc{font-size:11px;color:#854F0B}
+.water-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.water-btn{padding:8px 14px;border:0.5px solid #FAC775;border-radius:20px;background:#FAEEDA;color:#854F0B;font-size:13px;cursor:pointer;font-weight:500}
+.water-btn:active{background:#FAC775}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:430px;max-height:80vh;overflow-y:auto}
+.modal h2{font-size:17px;font-weight:500;margin-bottom:14px;color:#412402}
+.modal-fi{width:100%;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px;margin-bottom:12px}
+.wk-card{background:#fff;border:0.5px solid #FAC775;border-radius:12px;padding:14px;margin-bottom:8px}
+.wk-card.current{border-left:3px solid #EF9F27}
+.goals-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #FAEEDA}
+.goals-row:last-child{border-bottom:none}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+<div class="app" id="app">
+
+<div class="screen active" id="s-dash">
+  <div class="hero-header">
+    <h1><i class="ti ti-bolt"></i> Day <span id="day-num">1</span> of 90</h1>
+    <p id="today-date">Loading...</p>
+  </div>
+
+  <div class="streak-banner">
+    <i class="ti ti-flame" style="font-size:30px;color:#412402"></i>
+    <div><div class="s-num"><span id="streak-num">0</span> day streak</div><div class="s-sub"><span class="badge b-amber" id="phase-label">Phase 1 · 16:8</span></div></div>
+    <div style="margin-left:auto;text-align:right"><div style="font-size:11px;color:#633806">kg to goal</div><div style="font-size:20px;font-weight:500;color:#412402"><span id="kg-to-go">15</span></div></div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-chart-bar" style="color:#EF9F27"></i> Today</h3>
+    <div class="metric-grid">
+      <div class="metric m-amber"><div class="val" id="m-weight">—</div><div class="lbl">current kg</div></div>
+      <div class="metric m-coral"><div class="val" id="m-lost">0</div><div class="lbl">kg lost</div></div>
+      <div class="metric m-teal"><div class="val" id="m-cal">0</div><div class="lbl">kcal eaten</div></div>
+      <div class="metric m-purple"><div class="val" id="m-burn">0</div><div class="lbl">kcal burned</div></div>
+    </div>
+    <div class="progress-row">
+      <div class="top"><span>Calories</span><span id="cal-txt">0 / 1800 kcal</span></div>
+      <div class="progress-bar"><div class="pf pf-amber" id="cal-bar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="top"><span>Water</span><span id="water-txt">0 / 4L</span></div>
+      <div class="progress-bar"><div class="pf pf-purple" id="water-bar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="top"><span>Fasting window</span><span id="fast-txt">Pending</span></div>
+      <div class="progress-bar"><div class="pf pf-teal" id="fast-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-run" style="color:#D85A30"></i> Today's run</h3>
+    <div id="run-plan-text" style="font-size:13px;color:#888780;margin-bottom:10px"></div>
+    <div id="run-status-dash" style="margin-bottom:8px"></div>
+    <button class="btn btn-primary" id="log-run-btn" onclick="openLogRun()"><i class="ti ti-player-play"></i> Log today's run</button>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-droplet" style="color:#7F77DD"></i> Water</h3>
+    <div class="water-btns">
+      <button class="water-btn" onclick="addWater(250)">+250ml</button>
+      <button class="water-btn" onclick="addWater(500)">+500ml</button>
+      <button class="water-btn" onclick="addWater(750)">+750ml</button>
+      <button class="water-btn" onclick="addWater(1000)">+1L</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-star" style="color:#EF9F27"></i> This week</h3>
+    <div class="day-labels" id="wk-day-labels"></div>
+    <div class="star-grid" id="wk-stars"></div>
+  </div>
+
+  <button class="btn" onclick="showTab('s-log')"><i class="ti ti-pencil"></i> Log meals, weight & fasting</button>
+</div>
+
+<div class="screen" id="s-food">
+  <div class="std-header"><h1>Food library</h1><p>South Indian meal tracker</p></div>
+  <div class="sec-title">Today — <span id="food-cal-total">0</span> kcal</div>
+  <div id="logged-meals"></div>
+  <input class="food-search" id="food-search" placeholder="Search food..." oninput="filterFood()">
+  <div class="sec-title">Breakfast</div><div id="fl-breakfast"></div>
+  <div class="sec-title">Lunch / dinner</div><div id="fl-main"></div>
+  <div class="sec-title">Proteins</div><div id="fl-protein"></div>
+  <div class="sec-title">Snacks & drinks</div><div id="fl-snacks"></div>
+</div>
+
+<div class="screen" id="s-run">
+  <div class="std-header"><h1>Run program</h1><p>Couch to 10K — 12 weeks</p></div>
+  <div class="card">
+    <div class="phase-badge" id="run-phase-lbl">Month 1</div>
+    <div id="run-wk-summary" style="font-size:13px;color:#888780;margin-bottom:10px"></div>
+    <div class="sec-title">This week</div>
+    <div class="run-week" id="run-wk-grid"></div>
+  </div>
+  <div class="sec-title">Full 12-week program</div>
+  <div id="full-program"></div>
+</div>
+
+<div class="screen" id="s-log">
+  <div class="std-header"><h1>Daily log</h1><p>Track weight, fasting & goals</p></div>
+
+  <div class="card">
+    <h3><i class="ti ti-scale" style="color:#EF9F27"></i> Weight</h3>
+    <div class="input-row">
+      <input class="fi" type="number" id="weight-input" placeholder="kg e.g. 108.5" step="0.1">
+      <button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0" onclick="logWeight()">Save</button>
+    </div>
+    <p style="font-size:12px;color:#854F0B">Start: 109kg · Target: 94kg</p>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-clock" style="color:#EF9F27"></i> Fasting window</h3>
+    <p style="font-size:13px;color:#888780;margin-bottom:10px" id="fast-window-desc">Month 1: Eat 11am – 7pm</p>
+    <div class="input-row">
+      <div style="flex:1"><div style="font-size:12px;color:#854F0B;margin-bottom:4px">Fast start</div><input class="fi" type="time" id="fast-start" value="19:00"></div>
+      <div style="flex:1"><div style="font-size:12px;color:#854F0B;margin-bottom:4px">Fast end</div><input class="fi" type="time" id="fast-end" value="11:00"></div>
+    </div>
+    <button class="btn btn-teal" onclick="logFast()"><i class="ti ti-check"></i> Mark fasting window kept</button>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-flame" style="color:#D85A30"></i> Calories burned</h3>
+    <div class="input-row">
+      <input class="fi" type="number" id="burn-input" placeholder="kcal e.g. 320">
+      <button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0" onclick="logBurn()">Save</button>
+    </div>
+    <p style="font-size:12px;color:#854F0B">Running ~80–120 kcal/km · aim for 500+ kcal deficit/day</p>
+  </div>
+
+  <div class="card">
+    <h3><i class="ti ti-star" style="color:#EF9F27"></i> Today's goals</h3>
+    <div id="goals-checklist"></div>
+  </div>
+</div>
+
+<div class="screen" id="s-history">
+  <div class="std-header"><h1>History</h1><p>90-day journey</p></div>
+  <div class="card">
+    <h3><i class="ti ti-trending-down" style="color:#1D9E75"></i> Weight trend</h3>
+    <canvas id="weight-chart" height="140"></canvas>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-calendar" style="color:#EF9F27"></i> Star calendar</h3>
+    <p style="font-size:12px;color:#854F0B;margin-bottom:10px"><i class="ti ti-star" style="color:#EF9F27;font-size:14px"></i> filled = all 5 goals met</p>
+    <div id="full-calendar"></div>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-medal" style="color:#EF9F27"></i> Achievements</h3>
+    <div id="achievements-list"></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="showTab('s-dash')"><i class="ti ti-home"></i>Home</button>
+  <button class="tab" onclick="showTab('s-food')"><i class="ti ti-salad"></i>Food</button>
+  <button class="tab" onclick="showTab('s-run')"><i class="ti ti-run"></i>Run</button>
+  <button class="tab" onclick="showTab('s-log')"><i class="ti ti-pencil"></i>Log</button>
+  <button class="tab" onclick="showTab('s-history')"><i class="ti ti-chart-line"></i>History</button>
+</div>
+
+</div>
+
+<div class="modal-bg" id="run-modal">
+  <div class="modal">
+    <h2><i class="ti ti-run" style="color:#EF9F27"></i> Log run</h2>
+    <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Distance (km)</div>
+    <input class="modal-fi" type="number" id="run-dist" placeholder="e.g. 2.5" step="0.1">
+    <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Duration (minutes)</div>
+    <input class="modal-fi" type="number" id="run-mins" placeholder="e.g. 30">
+    <button class="btn btn-primary" onclick="saveRun()"><i class="ti ti-check"></i> Save run</button>
+    <button class="btn" onclick="closeModal('run-modal')" style="margin-top:4px">Cancel</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+const START=new Date('2026-05-28');
+const WT_START=109,WT_TARGET=94,CAL_GOAL=1800,WATER_GOAL=4000;
+
+const FOODS={
+  breakfast:[
+    {n:'Idli (2 pieces)',c:140,p:'2 pcs'},{n:'Dosa (plain)',c:170,p:'1 medium'},
+    {n:'Rava upma',c:220,p:'1 cup'},{n:'Oats upma',c:200,p:'1 cup'},
+    {n:'Poha',c:180,p:'1 cup'},{n:'Ragi mudde',c:190,p:'1 ball'},
+    {n:'Boiled egg',c:78,p:'1 egg'},{n:'Egg white omelette',c:90,p:'2 whites'},
+    {n:'Idiyappam (2)',c:150,p:'2 pcs'},{n:'Pongal (ven)',c:250,p:'1 cup'},
+    {n:'Puttu',c:200,p:'1 cup'},{n:'Adai dosa',c:190,p:'1 medium'},
+    {n:'Pesarattu',c:175,p:'1 medium'},{n:'Rava dosa',c:195,p:'1 medium'},
+  ],
+  main:[
+    {n:'Sambar',c:80,p:'1 cup'},{n:'Rasam',c:45,p:'1 cup'},
+    {n:'Dal tadka',c:150,p:'1 cup'},{n:'Brown rice',c:215,p:'1 cup cooked'},
+    {n:'White rice',c:240,p:'1 cup cooked'},{n:'Chapati (1)',c:100,p:'1 roti'},
+    {n:'Curd rice',c:200,p:'1 cup'},{n:'Kootu (mixed veg)',c:120,p:'1 cup'},
+    {n:'Aviyal',c:130,p:'1 cup'},{n:'Poriyal (beans)',c:90,p:'half cup'},
+    {n:'Poriyal (cabbage)',c:75,p:'half cup'},{n:'Poriyal (drumstick)',c:85,p:'half cup'},
+    {n:'Brinjal gothsu',c:95,p:'half cup'},{n:'Tomato rasam',c:40,p:'1 cup'},
+    {n:'Keerai masiyal',c:70,p:'half cup'},{n:'Papad (roasted)',c:35,p:'1 piece'},
+    {n:'Curd / yoghurt',c:60,p:'half cup'},{n:'Mor kuzhambu',c:90,p:'1 cup'},
+    {n:'Vendakkai poriyal',c:80,p:'half cup'},{n:'Kaalan curry',c:110,p:'half cup'},
+    {n:'Potato curry',c:130,p:'half cup'},{n:'Raw banana poriyal',c:100,p:'half cup'},
+  ],
+  protein:[
+    {n:'Chicken curry',c:220,p:'1 cup / 150g'},{n:'Chicken breast (grilled)',c:165,p:'150g'},
+    {n:'Egg curry',c:190,p:'2 eggs'},{n:'Scrambled eggs',c:200,p:'2 eggs'},
+    {n:'Boiled eggs (2)',c:156,p:'2 eggs'},{n:'Fish curry',c:200,p:'1 cup'},
+    {n:'Prawn curry',c:180,p:'1 cup'},{n:'Paneer (50g)',c:140,p:'50g'},
+    {n:'Chana masala',c:175,p:'1 cup'},{n:'Rajma curry',c:160,p:'1 cup'},
+    {n:'Chicken pepper fry',c:240,p:'150g'},{n:'Egg bhurji',c:180,p:'2 eggs'},
+    {n:'Chettinad chicken',c:255,p:'150g'},{n:'Meen kuzhambu',c:190,p:'1 cup'},
+  ],
+  snacks:[
+    {n:'Roasted peanuts',c:160,p:'30g'},{n:'Murukku (1)',c:70,p:'1 piece'},
+    {n:'Banana',c:90,p:'1 medium'},{n:'Papaya (1 cup)',c:55,p:'1 cup'},
+    {n:'Watermelon (1 cup)',c:45,p:'1 cup'},{n:'Black coffee (no sugar)',c:5,p:'1 cup'},
+    {n:'Green tea',c:2,p:'1 cup'},{n:'Buttermilk (neer moru)',c:35,p:'1 glass'},
+    {n:'Coconut water',c:45,p:'1 glass'},{n:'Roasted chana',c:120,p:'30g'},
+    {n:'Sundal (chickpeas)',c:130,p:'half cup'},{n:'Mango (1 cup)',c:100,p:'1 cup'},
+    {n:'Guava',c:55,p:'1 medium'},{n:'Pomegranate (half cup)',c:65,p:'half cup'},
+  ]
+};
+
+const PROGRAM=[
+  {wk:1,ph:'Month 1',lbl:'First steps',desc:'Run 1 min, walk 2 min × 8',dist:'~2.5km',days:[1,3,5,8,10]},
+  {wk:2,ph:'Month 1',lbl:'Build intervals',desc:'Run 2 min, walk 2 min × 6',dist:'~3km',days:[15,17,19,22,24]},
+  {wk:3,ph:'Month 1',lbl:'Longer runs',desc:'Run 3 min, walk 1 min × 6',dist:'~3.5km',days:[29,31,33,36,38]},
+  {wk:4,ph:'Month 1',lbl:'Consolidate',desc:'Run 5 min, walk 1 min × 5',dist:'~4km',days:[43,45,47,50,52]},
+  {wk:5,ph:'Month 2 · 18:6 starts',lbl:'Continuous 15 min',desc:'Run 15 min + 5 min walk',dist:'~2.5km',days:[57,59,61,64,66]},
+  {wk:6,ph:'Month 2',lbl:'Continuous 20 min',desc:'Run 20 min continuous',dist:'~3km',days:[71,73,75,78,80]},
+  {wk:7,ph:'Month 2',lbl:'5K approach',desc:'Run 25 min continuous',dist:'~4km',days:[85,87,89,92,94]},
+  {wk:8,ph:'Month 2',lbl:'First 5K!',desc:'Run 5K — no walk breaks',dist:'5km',days:[99,101,103,106,108]},
+  {wk:9,ph:'Month 3',lbl:'Extend to 6K',desc:'Run 30–35 min, target 6km',dist:'6km',days:[113,115,117,120,122]},
+  {wk:10,ph:'Month 3',lbl:'Push to 7–8K',desc:'Run 40 min, target 7–8km',dist:'7–8km',days:[127,129,131,134,136]},
+  {wk:11,ph:'Month 3',lbl:'9K endurance',desc:'Run 45–50 min, target 9km',dist:'9km',days:[141,143,145,148,150]},
+  {wk:12,ph:'Month 3',lbl:'10K goal!',desc:'Full 10K — you made it!',dist:'10km',days:[155,157,159,162,164]},
+];
+
+let S=JSON.parse(localStorage.getItem('ft3')||'{}');
+if(!S.days)S.days={};if(!S.weights)S.weights=[];
+const save=()=>localStorage.setItem('ft3',JSON.stringify(S));
+const todayKey=()=>new Date().toISOString().split('T')[0];
+const dayOf90=()=>Math.max(1,Math.min(90,Math.floor((new Date()-START)/864e5)+1));
+const getPhase=()=>dayOf90()<=30?{lbl:'Phase 1 · 16:8',win:'Eat 11am – 7pm'}:{lbl:'Phase 2 · 18:6',win:'Eat 12pm – 6pm'};
+const getTD=()=>{const k=todayKey();if(!S.days[k])S.days[k]={meals:[],water:0,fastKept:false,runDone:false,runDist:0,runMins:0,calBurned:0,weight:null};return S.days[k]};
+const getCW=()=>{const d=dayOf90();for(const w of PROGRAM)if(w.days.includes(d))return w;for(const w of [...PROGRAM].reverse())if(w.days[0]<=d)return w;return PROGRAM[0]};
+const isRunDay=()=>{const d=dayOf90();return PROGRAM.some(w=>w.days.includes(d))};
+const isPerfect=d=>{const c=d.meals?d.meals.reduce((s,m)=>s+m.c,0):0;return d.fastKept&&d.runDone&&c>0&&c<=CAL_GOAL&&(d.water||0)>=WATER_GOAL&&d.weight};
+const calcStreak=()=>{let s=0;const t=todayKey();for(const k of Object.keys(S.days).sort().reverse()){if(k>t)continue;if(isPerfect(S.days[k]))s++;else break;}return s};
+
+function showTab(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx=['s-dash','s-food','s-run','s-log','s-history'].indexOf(id);
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  if(id==='s-dash')renderDash();
+  if(id==='s-food')renderFood();
+  if(id==='s-run')renderRun();
+  if(id==='s-log')renderLog();
+  if(id==='s-history')renderHistory();
+}
+
+function renderDash(){
+  const td=getTD();const ph=getPhase();const dn=dayOf90();
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('day-num').textContent=dn;
+  document.getElementById('phase-label').textContent=ph.lbl;
+  document.getElementById('streak-num').textContent=calcStreak();
+  const lastW=S.weights.length?S.weights[S.weights.length-1].w:null;
+  document.getElementById('m-weight').textContent=lastW?lastW:'—';
+  const lost=lastW?Math.max(0,WT_START-lastW):0;
+  document.getElementById('m-lost').textContent=lost.toFixed(1);
+  document.getElementById('kg-to-go').textContent=lastW?Math.max(0,lastW-WT_TARGET).toFixed(1):15;
+  const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  document.getElementById('m-cal').textContent=totalCal;
+  document.getElementById('m-burn').textContent=td.calBurned||0;
+  document.getElementById('cal-txt').textContent=totalCal+' / '+CAL_GOAL+' kcal';
+  document.getElementById('cal-bar').style.width=Math.min(100,Math.round(totalCal/CAL_GOAL*100))+'%';
+  document.getElementById('cal-bar').className='pf '+(totalCal>CAL_GOAL?'pf-red':'pf-amber');
+  const wml=td.water||0;
+  document.getElementById('water-txt').textContent=(wml/1000).toFixed(1)+'L / 4L';
+  document.getElementById('water-bar').style.width=Math.min(100,Math.round(wml/WATER_GOAL*100))+'%';
+  document.getElementById('fast-txt').textContent=td.fastKept?'Kept ✓':'Pending';
+  document.getElementById('fast-bar').style.width=td.fastKept?'100%':'0%';
+  const wk=getCW();
+  document.getElementById('run-plan-text').textContent=isRunDay()?'Today: '+wk.desc:'Rest day — recovery is where gains happen';
+  document.getElementById('run-status-dash').innerHTML=td.runDone?'<span class="badge b-teal"><i class="ti ti-check"></i> '+td.runDist+'km in '+td.runMins+' min</span>':'';
+  document.getElementById('log-run-btn').style.display=isRunDay()&&!td.runDone?'flex':'none';
+  renderWeekStars();
+}
+
+function renderWeekStars(){
+  const today=new Date();const dow=today.getDay();
+  const mon=new Date(today);mon.setDate(today.getDate()-(dow===0?6:dow-1));
+  document.getElementById('wk-day-labels').innerHTML=['M','T','W','T','F','S','S'].map(l=>'<div class="day-lbl">'+l+'</div>').join('');
+  let h='';
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(mon.getDate()+i);
+    const k=d.toISOString().split('T')[0];
+    const isT=k===todayKey();const earned=S.days[k]&&isPerfect(S.days[k]);
+    h+='<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'"><i class="ti ti-star"></i><span>'+d.getDate()+'</span></div>';
+  }
+  document.getElementById('wk-stars').innerHTML=h;
+}
+
+function addWater(ml){const td=getTD();td.water=(td.water||0)+ml;save();renderDash()}
+function openLogRun(){document.getElementById('run-modal').classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+
+function saveRun(){
+  const dist=parseFloat(document.getElementById('run-dist').value)||0;
+  const mins=parseFloat(document.getElementById('run-mins').value)||0;
+  if(!dist||!mins){alert('Enter distance and duration');return;}
+  const td=getTD();td.runDone=true;td.runDist=dist;td.runMins=mins;td.calBurned=Math.round(dist*80);
+  save();closeModal('run-modal');renderDash();
+}
+
+function renderFood(){
+  const td=getTD();
+  const total=td.meals.reduce((s,m)=>s+m.c,0);
+  document.getElementById('food-cal-total').textContent=total;
+  const el=document.getElementById('logged-meals');
+  el.innerHTML=td.meals.length===0?'<p style="font-size:13px;color:#B4B2A9;margin-bottom:8px">No meals logged yet</p>':
+    td.meals.map((m,i)=>'<div class="logged-item"><span>'+m.n+'</span><span style="display:flex;align-items:center;gap:8px"><span class="badge b-amber">'+m.c+' kcal</span><button onclick="removeFood('+i+')" style="border:none;background:none;cursor:pointer;color:#B4B2A9;font-size:20px">×</button></span></div>').join('');
+  ['breakfast','main','protein','snacks'].forEach(cat=>{
+    document.getElementById('fl-'+cat).innerHTML=FOODS[cat].map(f=>'<div class="food-item" data-name="'+f.n.toLowerCase()+'" onclick=\'addFood('+JSON.stringify(f.n)+','+f.c+')\' ><div><div class="fname">'+f.n+'</div><div class="fport">'+f.p+'</div></div><div class="fcal">+'+f.c+' kcal</div></div>').join('');
+  });
+}
+
+function filterFood(){
+  const q=document.getElementById('food-search').value.toLowerCase();
+  document.querySelectorAll('.food-item').forEach(el=>{el.style.display=el.dataset.name.includes(q)?'flex':'none'});
+}
+
+function addFood(n,c){const td=getTD();td.meals.push({n,c});save();renderFood();renderDash()}
+function removeFood(i){const td=getTD();td.meals.splice(i,1);save();renderFood();renderDash()}
+
+function renderRun(){
+  const wk=getCW();
+  document.getElementById('run-phase-lbl').textContent=wk.ph;
+  document.getElementById('run-wk-summary').textContent='Week '+wk.wk+': '+wk.lbl+' — '+wk.desc+' ('+wk.dist+')';
+  const dn=dayOf90();const days=['M','T','W','T','F','S','S'];
+  let g='';
+  for(let i=0;i<7;i++){
+    const d=dn-((dn-1)%7)+i;const isRun=wk.days.includes(d);const isT=d===dn;
+    g+='<div class="run-day'+(isRun?' done':'')+(isT?' today-run':'')+(isRun?'':' rest')+'">'+(isRun?days[i]:'·')+'</div>';
+  }
+  document.getElementById('run-wk-grid').innerHTML=g;
+  document.getElementById('full-program').innerHTML=PROGRAM.map(w=>'<div class="wk-card'+(w.wk===wk.wk?' current':'')+'"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:500;color:'+(w.wk===wk.wk?'#854F0B':'#2C2C2A')+'">Week '+w.wk+' · '+w.lbl+'</div><div style="font-size:12px;color:#888780;margin-top:2px">'+w.desc+'</div></div><span class="badge '+(w.wk===wk.wk?'b-amber':'b-coral')+'">'+w.dist+'</span></div></div>').join('');
+}
+
+function renderLog(){
+  document.getElementById('fast-window-desc').textContent=getPhase().win;
+  const td=getTD();const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  const goals=[
+    {lbl:'Fasting window kept',done:td.fastKept,icon:'ti-clock'},
+    {lbl:'Run completed',done:td.runDone,icon:'ti-run'},
+    {lbl:'Calorie goal (≤'+CAL_GOAL+' kcal)',done:totalCal>0&&totalCal<=CAL_GOAL,icon:'ti-flame'},
+    {lbl:'Weight logged',done:!!td.weight,icon:'ti-scale'},
+    {lbl:'Water goal (4L)',done:(td.water||0)>=WATER_GOAL,icon:'ti-droplet'},
+  ];
+  document.getElementById('goals-checklist').innerHTML=goals.map(g=>'<div class="goals-row"><i class="ti '+g.icon+'" style="font-size:18px;color:'+(g.done?'#1D9E75':'#FAC775')+'"></i><span style="flex:1;font-size:13px">'+g.lbl+'</span><i class="ti '+(g.done?'ti-circle-check':'ti-circle')+'" style="color:'+(g.done?'#1D9E75':'#FAC775')+';font-size:20px"></i></div>').join('');
+}
+
+function logWeight(){
+  const v=parseFloat(document.getElementById('weight-input').value);
+  if(!v||v<40||v>300){alert('Enter a valid weight');return;}
+  const td=getTD();td.weight=v;const k=todayKey();
+  S.weights=S.weights.filter(x=>x.date!==k);S.weights.push({date:k,w:v});S.weights.sort((a,b)=>a.date.localeCompare(b.date));
+  save();renderLog();renderDash();
+}
+
+function logFast(){getTD().fastKept=true;save();renderLog();renderDash()}
+function logBurn(){const v=parseFloat(document.getElementById('burn-input').value);if(!v){alert('Enter calories');return;}getTD().calBurned=v;save();renderLog();renderDash()}
+
+let wChart=null;
+function renderHistory(){
+  const labels=S.weights.map(x=>x.date.slice(5));const data=S.weights.map(x=>x.w);
+  const ctx=document.getElementById('weight-chart').getContext('2d');
+  if(wChart)wChart.destroy();
+  wChart=new Chart(ctx,{type:'line',data:{labels:labels.length?labels:['Start'],datasets:[
+    {data:data.length?data:[WT_START],borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',tension:0.3,pointRadius:3,pointBackgroundColor:'#EF9F27',fill:true},
+    {data:labels.length?labels.map(()=>WT_TARGET):[WT_TARGET],borderColor:'#D85A30',borderDash:[4,4],pointRadius:0,fill:false,label:'Target'}
+  ]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:Math.max(80,WT_TARGET-5),suggestedMax:WT_START+2,grid:{color:'rgba(239,159,39,0.15)'},ticks:{font:{size:11},color:'#854F0B'}},x:{grid:{display:false},ticks:{font:{size:10},color:'#854F0B',maxTicksLimit:6}}}}});
+
+  const allDates=[];const s=new Date(START);
+  for(let i=0;i<90;i++){const d=new Date(s);d.setDate(s.getDate()+i);allDates.push(d.toISOString().split('T')[0]);}
+  const months=[{lbl:'Month 1',dates:allDates.slice(0,30)},{lbl:'Month 2',dates:allDates.slice(30,60)},{lbl:'Month 3',dates:allDates.slice(60,90)}];
+  document.getElementById('full-calendar').innerHTML=months.map(m=>{
+    const dl='<div class="day-labels" style="margin-bottom:4px">'+['M','T','W','T','F','S','S'].map(l=>'<div class="day-lbl">'+l+'</div>').join('')+'</div>';
+    const cells=m.dates.map(dt=>{
+      const dd=S.days[dt];const earned=dd&&isPerfect(dd);const isT=dt===todayKey();const past=dt<todayKey();
+      return '<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'" style="'+(past&&!earned?'opacity:0.4':'')+'"><i class="ti ti-star"></i><span>'+parseInt(dt.split('-')[2])+'</span></div>';
+    }).join('');
+    return '<div style="margin-bottom:16px"><div class="sec-title">'+m.lbl+'</div>'+dl+'<div class="star-grid">'+cells+'</div></div>';
+  }).join('');
+
+  const runs=Object.values(S.days).filter(d=>d.runDone).length;
+  const stars=Object.keys(S.days).filter(k=>S.days[k]&&isPerfect(S.days[k])).length;
+  const achs=[
+    {icon:'ti-run',t:'First run logged',d:'You laced up and went',e:runs>=1},
+    {icon:'ti-run',t:'5 runs done',d:'Consistency is building',e:runs>=5},
+    {icon:'ti-run',t:'20 runs done',d:'You are a runner now',e:runs>=20},
+    {icon:'ti-star',t:'First perfect day',d:'All 5 goals in one day',e:stars>=1},
+    {icon:'ti-star',t:'7 perfect days',d:'A full perfect week',e:stars>=7},
+    {icon:'ti-trending-down',t:'First kg lost',d:'1kg down from 109',e:S.weights.some(x=>x.w<=108)},
+    {icon:'ti-trending-down',t:'5kg milestone',d:'5kg gone — unstoppable',e:S.weights.some(x=>x.w<=104)},
+    {icon:'ti-trophy',t:'Halfway there',d:'7.5kg down, halfway to goal',e:S.weights.some(x=>x.w<=101.5)},
+    {icon:'ti-trophy',t:'Goal reached!',d:'94kg — you absolutely did it!',e:S.weights.some(x=>x.w<=94)},
+  ];
+  document.getElementById('achievements-list').innerHTML=achs.map(a=>'<div class="achievement" style="opacity:'+(a.e?1:0.3)+'"><i class="ti '+a.icon+'"></i><div><div class="atitle">'+a.t+(a.e?' ✓':'')+'</div><div class="adesc">'+a.d+'</div></div></div>').join('');
+}
+
+renderDash();
+</script>
+</body>
+</html>
