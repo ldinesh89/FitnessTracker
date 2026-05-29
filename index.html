@@ -1,801 +1,859 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<meta name="theme-color" content="#f97316"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="apple-mobile-web-app-title" content="FitTracker"/>
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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"/>
-<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,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"/>
-<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkZpdFRyYWNrZXIiLCAic2hvcnRfbmFtZSI6ICJGaXRUcmFja2VyIiwgImRlc2NyaXB0aW9uIjogIkRpbmVzaCBmaXRuZXNzIHRyYWNrZXIgXHUyMDE0IDE1IGtnIGluIDkwIGRheXMsIDEwSyBnb2FsIiwgInN0YXJ0X3VybCI6ICIuL0ZpdFRyYWNrZXIuaHRtbCIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmOGYzIiwgInRoZW1lX2NvbG9yIjogIiNmOTczMTYiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzR3dIQUFBSHdrbEVRVlI0bk8zYitZOFVSUlRBOFI2eWY0THhQdkMrNzF1alVXTTBhalNLeUxHQXFBaUNpRmU4dUc5UkVRUVJyM2h5bjU1NDM3ZlJxREZxTkJvMVJvM0dmMkw4Z1YyWVhhYW5xN3FyNnRYcituNStZV2FuWi9iUlZkV3YzdXZaUm5QTHVDd1NUZWtBRUZSRE9vQXN5N0t1ckNrMjc1andhZXMvL2lJTG9pdnc3MlBTSTAvcjNBaTJHRUprQUNZOWJBVmJERDR6QUJNZkx2VE9JeThMb2N2RFBHWGl3d2N2QzZITDhYUmw4c08zWnVad0ViaktBRXg4aE9Rc0d3eW8rZ0Vaa3g5eUtzKzlxbDBnSmora1Zkb1NsZTBDTWZFUms5SmJvakkxQUpNZnNiTE9CclpkSUNZL1ltZTFDR3d5QUpNZldoZ3ZBaGRkSUVBdDB5NFFWMzlvWTVRRlRESUFreDlhRmM3ZG9nWEE1SWQySGVldzVCL0VBT0k2WlFCV2hqYURWa2hIRUt2Y3VaelhCbVh5YXpOb1pjOERoaTVIMjZMWTlkZWhJV256S09rSTFHbVhBVmdTMmx5K3F1Y0JRMWRnaHl6QWpUQWtyWDhYaUV1SU5vTlhiLzEzMHdqWk9QVG9rd1hJQUVpYWp6K0tSeWlEMTdROFlSekxhTzBDY1FhMTJ0Z3RIWUUyMjdaQlpBQ3RybGpiOG9ReExJc2FBRW5yN1FKeENkRmt5THJ0anpjTWs0dER0MmFXWlEweWdEYXRreCtWc1FDUU5MNE9yY25ROVgyZnJ4OHFFMGVORE1qWS95TmRUZHFnV2d6ZDBPYUhqRjFWZkIxYXEzVkRwQ09vQlRLQUJzTTJ0dmtoNCtZQ1hTQWtqUzVRN0ladmF2OXp4czBKTW9CR2F3ZExSMUFiMUFBeEc3NDU1d1hHekJXNlFMSHF6cHY4R2ZQZklUS0FObXNHU1VkUUs5UUFNZXArVGpxQ1pOQUYwb2J4Y29vTUVKc1J6K2UvdHZxeWNIRWtnaHBBRmNiS05icEFNUm41UXVmWEdTdm4yQUpwc2VwUzZRaHFpUzFRTEVhK1dIQUE0K1FEV3lBdEdDY3Z5QUF4R1BWUzU5ZFhYaEltamdSUkEwZ3Jtdnp3aWh0aEdqQkczcEFCSkYzNWN2RXhLeTcySDBmQ3FBR2l4L2o0UkJkSXl1Z3Rac2N4UGw2UkFXTDI3RVhTRWRRZU5ZQ0UwYTlJUjRBZWRJRml4dGg0UndZSTdhcFh6WTU3NWtLL2NTRExNbXFBaURFdUlkQUZDdW5xMTh5UFpWeUNZQXNVbzZjdmtJNGdHUlRCb1Z6enV2bXhqRWt3WklBUWJDWS9ncUlJanMxVDUwdEhrQlNLWU4vR3ZHRjNQT01SRkJrZ09veEhTTlFBUG8xNTArNzRKOC96RXdkeTBRV0tDV01SSEJuQWwydmZrbzRBQnFnQll2SEV1ZElSSklrdWtBOWozN1ovRCtNZ2dnd1FEY1pCQWpXQWEyUGZrWTRBRnVnQ3VUVHUzWEx2ZS93Y3QzSEFHQmtBU2FNR2NHWGNleFhlekJoSW9Rc2s3Ykd6cFNOSUdsc2dGNjZyY3ZXSEpMWkE0amova3RnQ1ZUWCsvZkx2ZmZRc1YxR2dKREtBS002OU5HcUFLc1ovSUIwQkt1SkdtSlJIenBTT0FCa1pvTHdKSDBwSEFBZW9BY3FZOEpHREQrRzh4NEF1a0lTSHo1Q09BRDNJQUxhdS85akJoM0RPWTBFTmdLVFJCYkl4OFpQcW43SDg5T3FmQVdlNnBBTklqb3RGWklNRjF4RTFnS21KbjBwSFlHLzVhZElSUkk4dVVKMHh0b1VvZ2szY29QRHEveEJYZnhOc2dXcUxjVFhCRnFqSXBNK2tJN0MzN0ZUcENOUWdBeFJaZGtyWTN6ZnBjd2Nmd3BpYW9nYUlpWXZKSDNyQktzZU5zTHBoUEsyUUFlcmt3Wk9sSTFDSEdpQVdOMzdoNEVNWVMxdDBnZXBpNlVuU0VhaEVCcWlEcFNkS1I2QVdOVUFNYnZwU09vSmswUVhTYnNrSjBoR29SZ1pBMHFnQnBOMzhWZm4zTGpuZVhSeUpvZ3VrR1dOWEdSbEFxd2VPazQ2Z0ZxZ0JKTjN5dFhRRXlXTUxwTkZpcnY2dXNBVlNpVEZ6aFMyUWxGdS9LZmUreGNlNmpTTngzQWpUWk5FeDBoSFVEaGtBU2FNRzBHTFIwZElSMUJKZElBbTNmV3YvSHNiSkN6S0FCdmNmSlIxQmJWRURJR2wwZ1VLNy9UdTc0eGNlNlNjT1pGbEdCa0RpcUFGaXR2QUk2UWhxank1UVNIZDhiM2M4WStNZEdTQlc5eDB1SFVFU3FBRml4T1FQaGkxUUtIZitZSDRzWXhJTVc2RFkzSHVZZEFSSklRUEVodkVJaWd3UXdsMC9taDEzejZGKzQ4QU9LSUtSTkw0S0VZc0ZoMGhIa0NReWdHK1RmNUtPQUIxUUE4Umd3Y0hTRVNTTExsQU1HQU14WkFDZnB2eGNmTXpkQi9tUEE3bW9BWkEwdWtDUzVoOG9IVUh5eUFDK1RQMmw4K3RNL2loUUE0amh2TWVBTHBDRWVRZElSNEFlWkFBZnB2MWFjQURuUEJiVUFLSE4yMTg2QXJSZ0N4UWE1enNxYklGY20vNWIvbXR6OXdzWEI0eXdCVUxTdUJFV3lweDlwU05BRzJRQWwyYjhMaDBCTEZFRGhEQm5vSFFFeUVFWHlMZlpBNlVqUUFka0FGZG0vcEh6QXVjM1p0UUFQczNlUnpvQ0ZLQUw1QlBuTm5wa0FGOW03UzBkQVF4UUE3Z3c2ODgyUCtTOGFrQVh5SWVaZTBsSEFFTmRXZFpzWkZ5dUhPTjBLdEdnQnFocTlsOTluOC9jVXlZT2xNSVd5RFhPcHlvVXdTN04yRU02QWxqcTNRSTFSS1BRYXM3ZjJ4OHorYlZwWkJrM3d0emhQS3BFRWV6QzlOMmxJMEJKclRVQTdWQWJjLzlwZWNKcFUyYmJscDh1VUZYVGRwT09BQlhRQmFxTTg2ZFoveHFBYnBDSmVmOXUvWGZhcnJKeG9JdytjNXd1VUJXY08vWGFkWUhJQWlhbTdpSWRBZXp0TUxlcEFXek4vNi9uQWVldER2SzZRTFJFTzVteXMzUUVzTmQyWjlOb1R0NnAwNXRZQktpRDNHMDlkNEtSdEtJdUVGc2hhTmV4cVdPU0FlZ0tRYXZDdVd1NkJXSVJRQnVqT2N1Tk1DVE5wZ2dtQzBBTDQ3bHFleU9Nb2hpeHM3cFFsL2s2TklzQXNiTGVwWlQ5S2tUdkwySWhJQWFsdCtkVmI0UlJGMEJhcFRub29ndkVsZ2hTS2wrQXUxeEVrYkVsUWxqT2RoNnV2dzVOTm9CdlRyZmRQdjRvbm13QUg3elVtejcvSUlhRkFCZThObHBjMVFDZHRQNEhXQXd3RWF5N0dQcTdRQ3dHNUJGcHFZZklBSG42LzRkWkVHbUo0aDdTLytXMnB6MG05NVFZQUFBQUFFbEZUa1N1UW1DQyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIn0sIHsic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQVV1MGxFUVZSNG5PM2RaYjl0VjNVSDRIWDU3WS9RWDEyb3UwSGQzWVhHRllLRllxVjRreHMzZ2hjcnhVdVVrSVRTbHJxN3V6djFsaTl4K3VMZWs1eDd6dGExNTV4anl2TzhBY0s1ZTgvc1pLL3hIMk91dWM2cGd3OWNQUkh1SUhvQkFJV2RpbDdBNkJiVGdkcFRpQThhNEZIcnJvbkNRUUdMNkFWMFNyRUhtRy9aTlZRb1NFd0EySjlpRDVDZlVKQ1lBRENQb2c4UTcraTFXQmpZa1FDd1BVVWZvRjdDd0k0VzZ0cGFQaHlBOWdnRFd6QUJPRW5SQitpSE1MRENRcmw3aEU4Q29HK0gxM2xCWURJQlVQUUJ4bU1xTUkwYkFCUitBS1pwNEtuQWFBRkE0UWRnbWVHQ3dDaW5BSWI0bXdSZ2I4TUVnZDRuQUFvL0FITjBId1FlRTcyQWpCUi9BUGJWYlMzcGNRTFE3VDhzQUVKME9RM282VGtBL2Z5ZEFGQ2pyb0pBTDFzQWlqOEFwWFJSYzFvL0JkRDA0Z0ZvVnZQVGdKWW5BSW8vQU5HYXJVV3RCb0JtUDNBQXV0TmtUV3J0RkVDVEh6SUEzV3R1UzZDbENZRGlEMER0bXFsVnJkd0UyTVFpQVdBNlU3T3Fud1RVL2h5QXVsY0hBTXRWdnlWUTh4YUE0ZzlBNjZxdFpiVUdnR28vTUFEWVVaVTFyY1lBVU9VSEJRQjdxSzYyMVJZQXF2dUFBQ0NScW1wY1RhY0FxbGtJQUdSU3pRbUJXaVlBaWo4QW82aWk1dFVRQUtyNElBQ2dvUERhRi8wY2dQQVBBQUNDaEc0SFJFNEFGSDhBUmhkV0M2TUNnT0lQQUdlRTFNU0lVd0NLUHdDY3EvaDJRT2tKZ09JUEFNc1ZyWkVsQTREaUR3RHJGYXVWcFFLQTRnOEEyeWxTTTBzRUFNVWZBSGFUdlhZdXBnUDFHUUJHazNzQ0lGMEF3RHhaYTJqT0FLRDRBOEIrc3RYU1hBRkE4UWVBTkxMVTFCcCtHUkFBVUZpT0FLRDdCNEMwa3RmVzFJOENWdndCSUkra2p3dE9PUUZRL0FFZ3IyUzFkcUZzQThCNFVrMEF4QWdBS0NOSnpVMFJBQlIvQUNocjc5cnJHQ0RRaC9QdWlsNEJOR1hmVXdDNmZ5RGVlWGVmL1M4dVNReGxyMU1CSmdCQUg5NTNaZlFLb0NuN0JBQlJHNGozU1BjUFE1cGRpK2NHQU1VZkFPb3dxeVo3RGdEUXJ2UFBkdjhQRy8vRHJ1YmNCQ2d5QUpWeFdXSjRPOThRNkNaQW9FM24zeE85QW1qYXJnRkF6QWJxOHZBVjBTdUFXdXhVbzAwQWdQYm8vbUZ2dXdRQTNUOEExRzNyV20wQ0FMUkY5dzlKYkhzS1FQY1B4RHYvM25QLzk4T1h4NndENnJiVmlRRFBBUURhNWZvRnM5a0NBTnB3d2IyYmZ3YlkyallCUU1ZRzZ2T1E4VCtzc2JGMm13QUE5ZFA5UTNLYkFvRHVId0RhdExhR3ovbGRBQURsWEhEZnliLzIwR1hsMXdHZHNRVUFBQU5hZHd6UWFBQ0lkZUdTN24rYVhKMWdleXVmQ1dBQ0FMVGxRZU4vU0VFQUFPcTBxdnNIa2xoMUU2QUJHMUFwbHlmWTBkSnRBQk1Bb0Q0WDNyLzhyejk0YWRsMVFNY0VBS0F1cTRvL2tOU3lBR0MrQmdCOU9WSGJUUUNBZXF6ci9vMy9JU20vRGhob2cyc1ZKSFg4RklDdkdCRGpvdmRzK0FHWEo5alRPYWNCYkFFQXdJQUVBQ0RlcHU3L3ZaZVVXUWNNUkFBQWdBRUpBRUNzalh2L1FBNUhBNEE3YklENkdQOURTby9VK2xXL0N3QWd2NHNlMk9LSFhLTWdCODhCQUdKY3ZFM3huOVIveU1ROUFFQzlIcmc0ZWdYUUxRRUFLRy9iN2gvSTVqQUFHTElCd0JnT3Bza0VBQ2h0Mis3ZitCK3ljZ29BcUpSckUrUmtBZ0NVYy9GN28xY0FuQ1VBQVBWNTRLTG9GVUQzUEFjQUtPT1NIYnAvMXlYSXpnUUFBQWEwbUtZRFdSdkk2NUlIdC8vWjkxeVlieDNBb1FNVEFDQ3ZYWW8vVUl3QUFBQURFZ0NBZkhidC9vMy9vUmdCQUFBR0pBQUFlZGo3aDZvdEhBSUFxdUY2Qk1XWUFBRHBYZnJRN24vbS9ndlNyd05ZU1FBQWdBRUpBRUJhYzdwL29EZ0JBSWhuL0EvRkNRQkFPcnAvYU1iQ3I5MEM0cmtPUVdrbUFFQWFsejQ4NzgvZGYzN2FkUUJiV1FqZXdONHVtMW44cDBuekQwRk1BQUJnUUFJQXNKOTl1di83alA4aGlwc0FnVUN1UHhERkJBQ1k3N0wzUmE4QW1Fa0FBR0xjZDE3MENtQm9BZ0F3ais0Zm1pWUFBTUNBUEFjQTJOM2xlM2IvOXhyL1F6U25BSUFBcmpzUXpSWUFzSnZMZnp4NkJVQUNBZ0N3UGNVZnVpRUFBR1hkKzMzUkt3QW1BUURZbHU0ZnVpSUFBTUNBbkFJQU5ydjgvV2xlNTk0bnBIa2RZRytlQXdDVTQzb0QxYkFGQUt4M3hmdWpWd0JrSUFBQVpkenpoT2dWQUVjSUFNQnF1bi9vbHBzQWdVSmNhNkFtSmdEQWNsZjhSTHJYdXVkNzA3MFdrSVFBQUp5VXN2Z0RWWElNRU1qUGRRYXFZd0lBbk92S3hOMy8zY2IvVUNNQkFBQUc1QlFBOEtncmZ6TERpN3JHUUkxTUFJQjg3djZlNkJVQUt3Z0F3QmxadW4rZ1ZnSUFBQXhJQUFCMC96QWd6d0VBOHJqTC9qL1V6Q2tBR04wVGZ5clRDN3UyUU0xc0FRREFnQVFBR0ZtdTd2K3U3ODd6dWtBeUFnQ01LdHZvSDJpQkFBQUFBM0lUSUl6b2lSL0k5OXAzZlZlKzF3YVNNUUVBZ0FGNURnQ001a2tadS85cE1sU0VScGdBQU9tODIvZ2ZXaUVBd0VoeWQvOUFNd1FBQUJpUVV3QXdpaWY5ZE43WGYvZDM1bjE5SUNrVEFBQVlrQUFBSThqZC9RUE5FUUNnZHlXS3YvRS9OTWR6QUlEOXVZNUFjMHdBb0dkWEdmMER5emtGQU96bng3NGplZ1hBRENZQTBLdXJmaVo2QlVERkJBQUFHSkFBQUQzUy9RTWJDQURBZlBiL29WbHVBb1RlWFBXekJkL005UU5hNVRrQXdIeXVIOUFzV3dEUWt5Y1g3UDdmOWUzbDNndElUZ0NBWHBRcy9rRHpCQUFBR0pBQUFEMG8zZjBiLzBQem5BSUFabkRkZ05hWkFFRHJudnh6MFNzQUdpUUFBTHQ1MTdkRnJ3Qkl3SE1Bb0dWUENlaitYVE9nQ3lZQUFEQWdBUUJhRmRIOXY5UDRIM3JoRkFDd0E5Y0w2SVVKQUxUb0tUOGZ2UUtnY1FJQXNKMTNmbXYwQ29DRUJBQm9qZTRmU0VBQWdKWW8va0FpbmdNQWJNZTFBcnJpRkFDMDRxbS9FUGZlNy9pV3VQY0dzckFGQUFBREVnQ2dCWkhkUDlBbEFRQll6L2dmdWlRQVFPMTAvMEFHYmdJRU5uQ05nQjZaQUVETm52cUxzZS8vam0rT2ZYOGdHODhCQUZaemZZQnVtUUJBclo0VzNQMERYUk1Bb0VZMUZQKzNHLzlEendRQUFCaVFVd0JRbTZmOVV2UUt6bkp0Z0o2WkFBQW52ZjJib2xjQVpDWUFRRTJxNmY2QjNqa0dDSnprdWdEZE13R0FXank5a3U3L2JjYi9NQUlCQUFBRzVCUUExT0Rwdnh5OWdpTmNFMkFFSmdBQU1DQUJBS0xWMVAyLzdSdWpWd0FVSWdCQXBKcUtQekFVQVFBQUJyU1lEdHp3QXlHdS9wWG9GWnpycmQ4UXZRS2dJQk1BQUJpUUFBQVJhdXYrZ2VFSUFJRHhQd3hJQUlEU2RQOUFCUVFBQUJpUVJ3RkRTVmYvYXZRS1RucnIxMGV2QUFoZ0FnQUFBMW9ZQUVBaHo2aXcrNThtUTBBWWxBa0FqT3d0eHY4d0tnRUFTcWkxK3dlR0pRQkFib28vVUNHbkFHQlViL202NkJVQWdVd0FJS2RuL0ZyMENnQ1dFZ0FBWUVBQ0FPUlNjL2R2L0EvRDh4d0FHSkh2UFF6UFRZQ1F3L2YvZXZRS052QzloOUhaQWdDQUFRa0FrRnJ0M2YrUGZtMzBDb0FLQ0FBQU1DQUJBRktxdmZzSE9Fc0FnRlJhS1A3Ry84QlpUZ0hBVUh6ZmdUTThCd0JTZU9adlJLOWdPNzd2d0ZtMkFHQVViLzZhNkJVQUZSRUFZRit0ZFA4QVJ3Z0FBREFnQVFEMjBVcjNiL3dQSE9NVUFBekI5eHc0bHdrQXpQWE0zNHhlQWNCc0FnRDA3czFmSGIwQ29FS2VBd0J6UEt1aDd0OTNIRmpDQkFCMjFWTHhCMWpCVFlEUXN4LzVxdWdWQUpVeUFZQmRQT3Uzb2xjQWtJUUFBQUFERWdCZ1c3cC9vQ01DQVBUSy9qK3doZ0FBMjlEOUE1MVpUQWRPQVVDWGZMZUJOVXdBWUpObi8zYjBDbmIzcHErTVhnRlFPUUVBQUFZa0FNQTZMWGIvQUZzUUFLQTN4di9BRmhiUkM0QnF0ZHI5dDdydTBnUWxCdWQzQWNBeXovNmQ2QldRMDV1K0lub0ZFTTRXQUFBTWFHRUFBTWM4Ui9mZnRUZnEvbUdhVEFBQVlFZ0NBQnlsKysrYjdoOGVJUUFBd0lDY0FvQkR6L25kNkJXUTB4dS9QSG9GVUJVVEFBQVlrQUFBMDZUNzc1M3VIMDV3REJEb24rc2NuR0FDQU0vVi9YZnREYnAvV01aTmdQQ0dMNHRlUVJ1ZSszdlJLOWlkZjdhd2tna0FzRm1MeFI5WVN3QUErcVQ3aDdVRUFBQVlrQUFBck5maStGLzNEeHNKQUFBd29NVjA0QlFBMEpIWGYybjBDcUFKSmdEQWFqL3crOUVyQURJUkFJQis2UDVoYXdJQUFBeElBQUQ2b1B1SG5RZ0F3SEwyLzZGcmZoY0EwTDdYZjBuMENxQTVKZ0JBMnhSL21HVmhBQUNjOEx3L2lGN0I5bHpEWUJZVEFLQmRyOVA5dzF3Q0FBQU15RTJBd0xtZTk0ZlJLOWpPNjc0NGVnWFFOQk1BQUJpUUFBQzBSL2NQZXhNQWdFZTFNdjRIOWlZQUFHM1IvVU1TbmdNQXRNVTFDNUp3Q2dBNDR3Zi9LSG9GbS8zd0YwV3ZBTHBoQ3dCb2crSVBTUWtBQURBZ0FRQ29mL3l2KzRma0JBQUFHSkFBQU5STjl3OVpPQVVBVk00MUNuTHdIQUFZM2ZQL09Ib0ZxNzMyOGRFcmdHN1pBZ0NBQVFrQVFKMTAvNUNWQUFBanEzbjhEMlRsSmtDZ1BxOTlYUFFLb0hzbUFFQmRGSDhvUWdDQVVUMy9UNkpYQUFRU0FJQjY2UDZoR004QkFPcmhlZ1RGbUFEQWlGNVE0ZmovTmJwL0tNa3BBS0FTcmtWUWtna0FFTzgxWHhpOUFoaU9BQUNqZWNHZlJxOEFxSUFBQU1UUy9VTUlBUUFBQmlRQXdFaHFHLy9yL2lITVlqcHc1eTBReFBVSHdwZ0FBREZlL1FYUks0Q2hDUUF3aWhmK1dmUUtIcVg0UXpnQkFBQUdKQUFBWmVuK29Rb2VCUXdVNXBvRE5UQUJnQkc4OE0ralYzREdxejgvZWdYQVdRSUFBQXhvWVJvSEZQRXEzVC9VeEFRQWV2ZWlTc2IvUUZVRUFDQS8zVDlVeHlrQW9BRFhHYWlOQ1FEMDdFVi9FYjJDYVhyVjUwV3ZBRmhDQUFEeVVmeWhXZ0lBQUF6SU1VRG8xWXVEeC8rdjFQMUR6VXdBQUdCQVRnRUE2YjN5YzZOWEFHeGdBZ0E5ZXZGZlJxOEFxSndBQUtTbCs0Y21DQUFBTUNBQkFIb1RPZjdYL1VNejNBUUlKT1I2QXEzd0hBQWdqVmQ4VHZRS2dCM1lBZ0QycC9oRGN3UUE2TWxML2lwNkJVQWpCQUJnUDdwL2FKSUFBQUFEY2dvQWV2R1N2eTcvbnEvNDdQTHZDU1JoQWdBQUF4SUFnSGwwLzlBMHp3R0FIcncwWVB6djJnRk5Nd0VBZHZkeTNUKzBUZ0FBZ0FFNUJRQ3RlK25mbEgyL2wzOVcyZmNEc2pBQkFJQUJDUURBOW5ULzBBMEJBRnBXY3Z5ditFTlhCQUFBR0pEbkFBQ2IzYW43aDk0NEJRQ3QrcUcvTGZobXJoUFFHMXNBd0hwM2ZtYjBDb0FNQkFBQUdKQUFBS3ltKzRkdUNRRFFvcUw3LzBDUDNBUUlMSGZuWjBTdkFNaklCQUFBQnVRNUFOQ2FhLzR1LzN1OFRQY1B2VE1CQU02bCtNTVFCQUFBR0pBQUFDM0pQZjdYL2NNd25BSUFqbkE5Z0ZHWUFBQm52T3pUbzFjQUZDUUFRQ3V1K2Z2b0ZRQWRFUUFBM1Q4TXlITUFBRnYvTUNBVEFHakJ0Um5ILzNmby9tRkVUZ0hBOEZ3RFlFUW1BREN5T3o0dGVnVkFFQUVBYW5mdFArUjVYY1VmaGlZQUFNQ0FCQUFZa2U0Zmh1Y21RS2padGYrWTZZVjk3MkYwbmdNQW83bjlVNk5YQUZUQUZnQUFERWdBZ0pIby9vR3pCQUNvMWVsYysvOEFBZ0NNUS9jUEhPRVVBQXpEZHgxNGxBa0ExT2owUDZWOXZkcy9KZTNyQWMwVEFBQmdRSjREQUwyN1RmY1BuR1FDQUxXNUx1SDRYL0VIVmhBQUFHQkFUZ0ZBcjI3NzVPZ1ZBQlV6QVlDYVhQZlAwU3NBQmlFQVFJOTAvOEFHQWdBQURNZ3hRS2pGOVluRy83ZnEvb0hOM0FRSTNmR2RCamF6QlFBOXVmV1RvbGNBTkVJQWdCcGMveS9SS3dBR0l3QkFMM1Qvd0E0RUFPaUI0Zy9zU0FBQWdBRTVCUURScnYvWC9mNzhyWitZWmgzQVVEd0hBRnJuT3d6TVlBc0FXbmFMN2grWVJ3Q0FTRGZzT2Y0SG1Fa0FnRmJwL29FOUNBQUFNQ0NuQUNES0RSK2MvMmR2ZVd5cVZRQ0RNZ0VBZ0FFSkFOQWEzVCtRZ09jQVFJUWJQemp2ejkzODJKU3JBQVptQWdBQUEzSVRJTFRpNWsrSVhnSFFFUk1BS08zR2Y0dGVBWUFBQUUzUS9RT0pDUUFBTUNBQkFFcWFNLzdYL1FNWkNBQUFNS0RGZE9BVUFGVHJwbytQWGdIUUtSTUFBQmlRQUFDbDNQVHZPLzY4N2gvSVJ3QUFnQUVKQUZBajNUK1EyV09tYVRvVnZRam8zaTdqZjhVZnlPK1Uzd1VBMWZHZEJQS3pCUUExdWVuam9sY0FER0toMllETWJ2NlA3WC9XOXhFb3hBUUFhbkdqN2g4b1J3QUFnQUc1Q1JCeXV2ay90L3U1R3o4Mjd6b0Fqam1jQURnS0NBQmpPRFZOdGdBZ251NGZDQ0FBUUM3Ymp2OEJBZ2dBRUVuM0R3VHhIQUNJY29QaUQ4UTVlZ3JnMU9SSUFLUnh5Mzl0OFVPK2JrQnhqOXowYndzQUl0endNZEVyQUFZbkFBREFnQVFBU0czVCtGLzNEMVJBQUFDQUFSMFBBSjRJQ0RucC9vRTQ1OVI0dndzQWl2SjlBK3JnT1FDUTBxMy92ZnIvdS82ank2MERZSU5sOXdEWUJnQ0F2cHlvN1c0Q2hCSjAvMEJsQkFCSVpkWDRYL0VIS3JRcUFOZ0dBSUErTEszcFRnRkFUdGQvVlBRS0FKYXlCUUFwM1BvLzBTc0EyTW02QUdBYkFQYWgrd2ZpcmF6bG5nTUF1Zmh1QVJXekJRRDd1bTNKK1A4NjNUOVF0MDAzQVo2YTlERXdnNjhORUc3dFZyNEpBS1IyM1VkR3J3QmdvMjBDZ0pzQllaWGIvamQ2QlFETGJLemRKZ0NRa3U0ZmFJUUFBQUFEMnZZWW9Kc0I0YmpiajQzL1QrditnU3BzdFhYdlVjQ1F3dW1QaUY0QndFNTIyUUp3TXlBQTFHM3JXdTBlQU5pWDdoOW8wSzRCd0JRQXBtbWFidisvNkJVQUhMZFRqVFlCZ0gzby9vRkd6UWtBcGdBQVVKZWRhN05UQUxDcjJ6OTA1ajlQZjNqc09nRDJNUGZYQVhzdUFQZ0dBSFdZTlpuZjV4NEFXd0dNNjFyZFAxQ0YyYlhZVFlDd2l6cytGTDBDZ0NUMkRRQ21BSXhIOXcvVVlhOGFmT3JnbWcvYmR3RjJRZ0dndkwwQ1FJb3RBRk1BQUNocjc5cWI2aDRBSVFBQXlraFNjOTBFQ0FBRG12c2NnR1U4R3dBQThrbzJjVTg5QWJBVkFBQjVKSzJ4T1I0RmJCSUFBR2tsYjdEZEF3QUFBOG9WQUd3RkFFQWFXV3BxemdtQUVBQUErOGxXUzNOdkFRZ0JBREJQMWhycUhnQUFHTkJpT3NoK3c3NVRBUUN3bSt3VDlGSVRBRnNCQUxDZElqV3o1QmFBRUFBQTZ4V3JsYVh2QVJBQ0FHQzVvalV5NGlaQUlRQUF6bFc4TnVaNEZQQTIzQmdJQUdlRU5NYVJ4d0JOQWdBWVhWZ3RqSDRPZ0JBQXdLaENhK0NpZ2tHODdRQUFSaFBlQUVkUEFBNkZmeEFBVUVnVk5hK1dBREJObFh3Z0FKQlJOYlV1NmhUQUtyWURBT2hWTmNWL211cWFBQnlxNmdNQ2dBU3FxMjAxQm9CcHF2Q0RBb0NacXF4cHRRYUFhYXIwQXdPQUhWUmJ5eGJSQzlqZzhJTnpYd0FBTGFtMjhCK3E0VGtBMjNCeklBQ3RxTDc0VDFOOXB3RFdFUUlBcUYwVHhYK2E2dDhDT002V0FBQTFhcWJ3SDZyNUpzQjFtdnVnQWVoV2t6V3AxUUF3VFkxKzRBQjBwZGxhMU5vV3dIRzJCQUNJMEd6aFA5VFNUWURydUVFUWdGS2FMLzdUMVA0RTRDalRBQUJ5NnFMd0gycmxPUUM3RUFRQVNLbXJ3bitvNVpzQU4rbnlIeGdBUlhWYlMzcmFBbGpHTkFDQU9ib3QvSWQ2RHdDSEJBRUF0dEY5NFQvVXl5bUFiUWtDQUN3elRPRS9OTW9FNERoQkFJQnBHckR3SHhvMUFCdzYrZzllR0FBWXc3QkYvNmpSQThCUnBnSUFmVlA0aitqeE9RRDdNaFVBNkllaXY0SUp3SHJDQUVCN0ZQMHRqSFlLWUIvQ0FFQzlGUDBkbVFETUl3d0F4RlAwOXlBQTdHL1p2NEJDQVVCYWluMWlBa0FlUWdIQWZJcDlBUUpBT2V2K2hSWU9nTkVvOHNIK0grL1E0L29HcTlkREFBQUFBRWxGVGtTdVFtQ0MiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3BuZyIsICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSJ9XX0="/>
-<title>FitTracker</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="FitTrack">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjQwIiBmaWxsPSIjRUY5RjI3Ii8+PHRleHQgeD0iNTAlIiB5PSI1NSUiIGZvbnQtc2l6ZT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPvCflab8n6+8PC90ZXh0Pjwvc3ZnPg==">
+<title>FitTrack</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
-:root{
-  --xs:clamp(.7rem,.65rem + .2vw,.8rem);
-  --sm:clamp(.8rem,.75rem + .25vw,.9rem);
-  --base:clamp(.9rem,.85rem + .2vw,1rem);
-  --md:clamp(1rem,.95rem + .25vw,1.1rem);
-  --lg:clamp(1.1rem,1rem + .5vw,1.3rem);
-  --xl:clamp(1.3rem,1.1rem + .9vw,1.8rem);
-  --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.25rem;--s6:1.5rem;--s8:2rem;
-  --rm:.4rem;--rg:.7rem;--rl:1rem;--rx:1.3rem;--rf:999px;
-  --font:'Inter',-apple-system,sans-serif;
-  --bg:#fff8f3;--sf:#fff;--sf2:#fff3ea;--sf3:#ffe8d5;
-  --br:rgba(160,80,20,.1);--br2:rgba(160,80,20,.18);
-  --tc:#2c1a0e;--tm:#7a5035;--tf:#ba9278;
-  --pr:#f97316;--ph:#ea580c;--pa:#c2410c;--phl:#ffe0c8;
-  --ok:#22863a;--okhl:#d5f0db;
-  --wn:#ca6a00;--wnhl:#ffecd1;
-  --bl:#1d6fb8;--blhl:#dbeafe;
-  --st:#f59e0b;
-  --sd-sm:0 1px 3px rgba(59,26,10,.06);
-  --sd-md:0 4px 14px rgba(59,26,10,.08),0 2px 4px rgba(59,26,10,.05);
-  --ease:200ms cubic-bezier(.16,1,.3,1);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:none;text-size-adjust:none;-webkit-font-smoothing:antialiased}
-body{font-family:var(--font);font-size:var(--base);color:var(--tc);background:var(--bg);min-height:100dvh;line-height:1.55}
-button,input,select,textarea{font:inherit;color:inherit;background:none;border:0}
-button{cursor:pointer}
-h1,h2,h3{text-wrap:balance;line-height:1.2}
-
-.app{max-width:900px;margin:0 auto;padding:0 var(--s4) 120px;padding-top:calc(env(safe-area-inset-top) + var(--s3))}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding-bottom:var(--s4)}
-.brand{display:flex;align-items:center;gap:var(--s3)}
-.logo{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:linear-gradient(160deg,#ffb066,#f97316,#ea580c);display:grid;place-items:center;box-shadow:0 4px 14px rgba(249,115,22,.3);color:#fff}
-.logo svg{width:22px;height:22px}
-.appname{font-size:var(--xl);font-weight:800;line-height:1}
-.appsub{font-size:var(--xs);color:var(--tm);margin-top:2px}
-.daybadge{font-size:var(--xs);font-weight:700;padding:.28rem .7rem;border-radius:var(--rf);background:var(--phl);color:#9b3200;letter-spacing:.03em}
-
-.card{background:var(--sf);border:1px solid var(--br);border-radius:var(--rx);box-shadow:var(--sd-md);padding:var(--s5);margin-bottom:var(--s4)}
-.ct{font-size:var(--md);font-weight:700;margin-bottom:2px}
-.cs{font-size:var(--sm);color:var(--tm);margin-bottom:var(--s4)}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3)}
-.stack{display:grid;gap:var(--s3)}
-.row{display:flex;gap:var(--s3);align-items:center}
-.jb{justify-content:space-between}
-.wrap{flex-wrap:wrap}
-@media(max-width:640px){.g2,.g4{grid-template-columns:1fr 1fr}.app{padding-inline:var(--s3)}}
-@media(max-width:400px){.g4{grid-template-columns:1fr 1fr}}
-
-.kpi{border:1px solid var(--br);border-radius:var(--rl);padding:var(--s3) var(--s4);box-shadow:var(--sd-sm)}
-.kpi.or{background:linear-gradient(160deg,#fff8f3,#ffe8d5)}
-.kpi.gr{background:linear-gradient(160deg,#f3fbf5,#d5f0db)}
-.kpi.bl{background:linear-gradient(160deg,#f3f7fb,#d5e8f5)}
-.kpi.st{background:linear-gradient(160deg,#fffbf0,#fdefc1)}
-.klb{font-size:var(--xs);font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
-.kv{font-size:clamp(1.5rem,1.1rem + 1.5vw,2.1rem);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.kn{font-size:var(--xs);color:var(--tf);margin-top:2px}
-
-.field{display:grid;gap:3px}
-.lbl{font-size:var(--xs);font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.04em}
-input[type=text],input[type=number],input[type=time],input[type=date],select,textarea{
-  width:100%;padding:.72rem var(--s4);border-radius:var(--rg);border:1px solid var(--br2);
-  background:#fff;color:var(--tc);transition:border-color var(--ease),box-shadow var(--ease);font-size:var(--base)}
-input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pr);box-shadow:0 0 0 3px rgba(249,115,22,.13)}
-.hint{font-size:var(--xs);color:var(--tf);margin-top:2px}
-.calc{font-size:var(--xs);background:var(--okhl);color:var(--ok);border-radius:var(--rm);padding:.22rem .55rem;display:inline-flex;align-items:center;gap:.3rem}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);padding:.8rem var(--s5);border-radius:var(--rg);font-size:var(--sm);font-weight:600;transition:all var(--ease);white-space:nowrap}
-.bp{background:linear-gradient(180deg,#fb923c,var(--ph));color:#fff;box-shadow:0 4px 14px rgba(249,115,22,.22)}
-.bp:hover{background:linear-gradient(180deg,var(--ph),var(--pa))}
-.bs{background:var(--sf);color:var(--ph);border:1px solid rgba(249,115,22,.25)}
-.bs:hover{background:var(--phl)}
-.bg_{background:transparent;color:var(--tm);border:1px solid var(--br2)}
-.bg_:hover{background:var(--sf2)}
-.bsm{padding:.45rem var(--s3);font-size:var(--xs)}
-
-.pbar{width:100%;height:9px;border-radius:var(--rf);background:var(--sf3);overflow:hidden}
-.pfill{height:100%;border-radius:var(--rf);background:linear-gradient(90deg,#fb923c,var(--ph));transition:width .5s cubic-bezier(.16,1,.3,1)}
-
-.stars{display:flex;gap:2px;color:var(--st)}
-.star{font-size:1rem}
-
-.pill{display:inline-flex;align-items:center;border-radius:var(--rf);padding:.25rem .65rem;font-size:var(--xs);font-weight:600}
-.po{background:var(--phl);color:#9b3200}
-.pg{background:var(--okhl);color:#155724}
-.pw{background:var(--wnhl);color:#7a3c00}
-.pb{background:var(--blhl);color:#1e3a8a}
-
-.li{background:var(--sf);border:1px solid var(--br);border-radius:var(--rl);padding:var(--s3) var(--s4)}
-.li+.li{margin-top:var(--s2)}
-.lname{font-weight:600;font-size:var(--md)}
-.lmeta{font-size:var(--sm);color:var(--tm);margin-top:2px}
-
-.checklist{display:grid;gap:var(--s2)}
-.ci{background:var(--sf);border:1px solid var(--br);border-radius:var(--rl);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3)}
-.ci input[type=checkbox]{width:18px;height:18px;flex-shrink:0;accent-color:var(--pr)}
-
-.tl{padding-left:var(--s5);border-left:3px solid var(--phl);position:relative;padding-bottom:var(--s4)}
-.tl::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--pr);border:2px solid #fff}
-.tl:last-child{padding-bottom:0}
-.tllb{font-size:var(--xs);font-weight:700;color:var(--ph);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
-
-.fi{border-radius:var(--rl);padding:var(--s3) var(--s4);display:flex;gap:var(--s3);align-items:center;margin-bottom:var(--s4);border:1px solid var(--br)}
-.fi.eating{background:var(--phl);border-color:rgba(249,115,22,.2)}
-.fi.fasting{background:var(--okhl);border-color:rgba(34,134,58,.18)}
-.fdot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-.fdot.g{background:var(--ok)}
-.fdot.o{background:var(--pr)}
-
-.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:var(--tc);color:#fff;padding:.7rem 1.2rem;border-radius:var(--rf);font-size:var(--sm);font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1}
-
-.navwrap{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,248,243,.97);backdrop-filter:blur(16px);border-top:1px solid var(--br);padding-bottom:env(safe-area-inset-bottom)}
-.navscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.navscroll::-webkit-scrollbar{display:none}
-.nav{display:flex;padding:6px 8px;gap:2px;min-width:max-content}
-.nb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;border-radius:var(--rg);color:var(--tm);font-size:.62rem;font-weight:600;transition:all var(--ease);white-space:nowrap;min-width:54px;border:0;background:none;cursor:pointer}
-.nb svg{width:18px;height:18px;flex-shrink:0}
-.nb.active{color:var(--ph);background:var(--phl)}
-
-.tab{display:none;animation:fadeUp .2s ease both}
-.tab.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.divider{height:1px;background:var(--br);margin:var(--s4) 0}
-.empty{text-align:center;padding:var(--s8);color:var(--tf);font-size:var(--sm)}
-
-.itabs{display:flex;gap:var(--s2);margin-bottom:var(--s4);background:var(--sf2);padding:4px;border-radius:var(--rl)}
-.itb{flex:1;padding:.6rem var(--s3);border-radius:var(--rg);font-size:var(--sm);font-weight:600;color:var(--tm);transition:all var(--ease);text-align:center;border:0;background:none;cursor:pointer}
-.itb.active{background:#fff;color:var(--ph);box-shadow:var(--sd-sm)}
-.itc{display:none}
-.itc.active{display:block}
-
-.mhdr{font-size:var(--md);font-weight:700;margin-bottom:var(--s3)}
-.mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:var(--s6)}
-.mdlbl{font-size:.6rem;text-align:center;color:var(--tf);font-weight:600;padding-bottom:3px}
-.mday{aspect-ratio:1;border-radius:var(--rm);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.6rem;font-weight:700}
-.mday.emp{background:transparent}
-.mday.nd{background:var(--sf2);color:var(--tf)}
-.mday.s5{background:linear-gradient(160deg,#fde68a,#f59e0b);color:#78350f}
-.mday.s4{background:linear-gradient(160deg,#fed7aa,#f97316);color:#7c2d12}
-.mday.s3{background:linear-gradient(160deg,#ffe4c4,#fb923c);color:#9a3412}
-.mday.s2{background:linear-gradient(160deg,#fff3e0,#fdba74);color:#b45309}
-.mday.s1{background:linear-gradient(160deg,#fef9f0,#fcd9a8);color:#c2793a}
-.mday.s0{background:#f0ede8;color:var(--tf)}
-
-.chwrap{position:relative;width:100%}
-.we{display:flex;align-items:center;justify-content:space-between;padding:var(--s3) var(--s4);border-radius:var(--rg);background:var(--sf2);border:1px solid var(--br)}
-.we+.we{margin-top:var(--s2)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FFF8F0;color:#2C2C2A;min-height:100vh;-webkit-tap-highlight-color:transparent}
+.app{max-width:430px;margin:0 auto;padding-bottom:80px}
+/* ── tabs ── */
+.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:0.5px solid #FAC775;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.tab{flex:1;padding:10px 2px 8px;text-align:center;cursor:pointer;font-size:10px;color:#B4B2A9;border:none;background:none}
+.tab.active{color:#BA7517}
+.tab i{display:block;font-size:20px;margin-bottom:2px}
+.screen{display:none;padding:16px}
+.screen.active{display:block}
+/* ── headers ── */
+.hero-header{background:#EF9F27;padding:20px 16px 16px;margin:-16px -16px 16px;border-radius:0 0 20px 20px}
+.hero-header h1{font-size:21px;font-weight:500;color:#412402}
+.hero-header p{font-size:13px;color:#633806;margin-top:2px}
+.std-header{padding:16px 16px 8px;background:#fff;border-bottom:0.5px solid #FAC775;margin:-16px -16px 16px}
+.std-header h1{font-size:20px;font-weight:500}
+.std-header p{font-size:13px;color:#888780;margin-top:2px}
+/* ── cards ── */
+.card{background:#fff;border:0.5px solid #FAC775;border-radius:12px;padding:16px;margin-bottom:12px}
+.card h3{font-size:14px;font-weight:500;color:#888780;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+/* ── metrics ── */
+.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.metric{border-radius:8px;padding:12px;text-align:center}
+.metric .val{font-size:22px;font-weight:500}
+.metric .lbl{font-size:11px;margin-top:2px}
+.m-amber{background:#FAEEDA}.m-amber .val{color:#854F0B}.m-amber .lbl{color:#BA7517}
+.m-coral{background:#FAECE7}.m-coral .val{color:#993C1D}.m-coral .lbl{color:#D85A30}
+.m-teal{background:#E1F5EE}.m-teal .val{color:#0F6E56}.m-teal .lbl{color:#1D9E75}
+.m-purple{background:#EEEDFE}.m-purple .val{color:#534AB7}.m-purple .lbl{color:#7F77DD}
+/* ── progress ── */
+.progress-row{margin-bottom:10px}
+.progress-row .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;color:#854F0B;font-weight:500}
+.progress-bar{height:8px;background:#FAEEDA;border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px;transition:width 0.4s}
+.pf-amber{background:#EF9F27}.pf-coral{background:#D85A30}.pf-teal{background:#1D9E75}.pf-purple{background:#7F77DD}.pf-red{background:#E24B4A}
+/* ── streak ── */
+.streak-banner{background:#EF9F27;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.streak-banner .s-num{font-size:26px;font-weight:500;color:#412402}
+.streak-banner .s-sub{font-size:12px;color:#633806;margin-top:2px}
+/* ── buttons ── */
+.btn{width:100%;padding:12px;border:0.5px solid #FAC775;border-radius:8px;background:none;color:#2C2C2A;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.btn:active{transform:scale(0.98);background:#FAEEDA}
+.btn-primary{background:#EF9F27;color:#412402;border-color:#EF9F27;font-weight:500}
+.btn-teal{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.btn-danger{background:#E24B4A;color:#fff;border-color:#E24B4A}
+/* ── stars ── */
+.star-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.star-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;background:#FAEEDA;font-size:9px;color:#BA7517}
+.star-cell i{font-size:14px;color:#FAC775}
+.star-cell.earned{background:#EF9F27;color:#412402}
+.star-cell.earned i{color:#412402}
+.star-cell.today{border:2px solid #D85A30}
+.day-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.day-lbl{text-align:center;font-size:10px;color:#B4B2A9}
+/* ── food ── */
+.food-search{width:100%;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px;margin-bottom:10px}
+.food-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;margin-bottom:6px;cursor:pointer;background:#fff}
+.food-item:active{background:#FAEEDA}
+.food-item .fname{font-size:13px;font-weight:500;color:#2C2C2A}
+.food-item .fcal{font-size:12px;color:#BA7517;font-weight:500}
+.food-item .fport{font-size:11px;color:#888780}
+.logged-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid #FAEEDA;font-size:13px}
+/* ── badges ── */
+.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.b-amber{background:#FAEEDA;color:#854F0B}
+.b-teal{background:#E1F5EE;color:#0F6E56}
+.b-coral{background:#FAECE7;color:#993C1D}
+/* ── misc ── */
+.sec-title{font-size:12px;font-weight:500;color:#854F0B;margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.5px}
+.input-row{display:flex;gap:8px;margin-bottom:8px}
+.fi{flex:1;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px}
+.fi:focus{outline:2px solid #EF9F27}
+.phase-badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;background:#EF9F27;color:#412402;font-weight:500;margin-bottom:8px}
+.run-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.run-day{aspect-ratio:1;border-radius:6px;background:#FAEEDA;display:flex;align-items:center;justify-content:center;font-size:10px;color:#BA7517;font-weight:500;border:0.5px solid #FAC775}
+.run-day.done{background:#E1F5EE;color:#0F6E56;border-color:#9FE1CB}
+.run-day.today-run{border:2px solid #D85A30}
+.run-day.rest{background:#F1EFE8;color:#B4B2A9;border-color:#D3D1C7}
+.achievement{display:flex;align-items:center;gap:10px;padding:10px;background:#FAEEDA;border-radius:8px;margin-bottom:6px}
+.achievement i{font-size:24px;color:#EF9F27}
+.achievement .atitle{font-size:13px;font-weight:500;color:#412402}
+.achievement .adesc{font-size:11px;color:#854F0B}
+.water-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.water-btn{padding:8px 14px;border:0.5px solid #FAC775;border-radius:20px;background:#FAEEDA;color:#854F0B;font-size:13px;cursor:pointer;font-weight:500}
+.water-btn:active{background:#FAC775}
+/* ── modal ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:430px;max-height:85vh;overflow-y:auto}
+.modal h2{font-size:17px;font-weight:500;margin-bottom:14px;color:#412402}
+.modal-fi{width:100%;padding:10px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:14px;margin-bottom:12px}
+.modal-fi:focus{outline:2px solid #EF9F27}
+/* ── goals checklist ── */
+.goals-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:0.5px solid #FAEEDA}
+.goals-row:last-child{border-bottom:none}
+/* ── guide ── */
+.guide-section{margin-bottom:20px}
+.guide-section h4{font-size:15px;font-weight:500;color:#854F0B;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.guide-item{background:#FAEEDA;border-radius:8px;padding:10px 12px;margin-bottom:6px;font-size:13px;color:#412402;line-height:1.5}
+.guide-item strong{color:#854F0B}
+/* ── onboarding ── */
+.onboard{position:fixed;inset:0;background:#EF9F27;z-index:999;display:flex;align-items:center;justify-content:center;padding:24px}
+.onboard-card{background:#fff;border-radius:20px;padding:28px 22px;width:100%;max-width:380px}
+.onboard-card h1{font-size:24px;font-weight:600;color:#412402;margin-bottom:6px}
+.onboard-card p{font-size:14px;color:#854F0B;margin-bottom:20px;line-height:1.5}
+.onboard-card label{font-size:12px;font-weight:500;color:#854F0B;display:block;margin-bottom:4px;margin-top:12px}
+.onboard-card input,.onboard-card select{width:100%;padding:11px 12px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:15px;margin-bottom:4px}
+.onboard-card input:focus,.onboard-card select:focus{outline:2px solid #EF9F27}
+/* ── settings ── */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:0.5px solid #FAEEDA}
+.setting-row:last-child{border-bottom:none}
+.setting-row .slbl{font-size:14px;color:#2C2C2A}
+.setting-row .ssub{font-size:12px;color:#888780;margin-top:2px}
+.setting-row input,.setting-row select{padding:8px 10px;border:0.5px solid #FAC775;border-radius:8px;background:#FAEEDA;color:#412402;font-size:13px;width:130px}
 </style>
 </head>
 <body>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<div class="app">
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
-      </div>
-      <div>
-        <div class="appname">FitTracker</div>
-        <div class="appsub">Dinesh · 15 kg in 90 days · 10K goal</div>
-      </div>
-    </div>
-    <div id="dayBadge" class="daybadge" style="display:none">Day 1</div>
-  </header>
+<!-- ══ ONBOARDING ══ -->
+<div class="onboard" id="onboard">
+  <div class="onboard-card">
+    <h1>🔥 FitTrack</h1>
+    <p>Your personal 90-day weight loss & running companion. Let's set up your goals before we begin.</p>
 
-  <!-- ===== DASHBOARD ===== -->
-  <div id="tab-dashboard" class="tab active">
-    <div id="setupCard" class="card">
-      <div class="ct">Set your plan start date</div>
-      <div class="cs">Pick today or the date you already started.</div>
-      <div class="g2" style="align-items:end;gap:var(--s3)">
-        <div class="field"><label class="lbl" for="startDate">Start date</label><input type="date" id="startDate"/></div>
-        <div style="display:flex;gap:var(--s2);flex-wrap:wrap">
-          <button class="btn bp bsm" id="btnToday">Use today</button>
-          <button class="btn bs bsm" id="btnSaveStart">Save</button>
-        </div>
-      </div>
-    </div>
-    <div id="fastStatus" class="fi eating">
-      <div class="fdot o" id="fastDot"></div>
-      <div><strong id="fastLabel">Eating window</strong><div class="hint" id="fastSub">Loading…</div></div>
-    </div>
-    <div class="g4" style="margin-bottom:var(--s4)">
-      <div class="kpi or"><div class="klb">Cal In</div><div class="kv" id="kCalIn">0</div><div class="kn">Goal ≤<span id="kCalGoal">1900</span></div></div>
-      <div class="kpi gr"><div class="klb">Cal Burnt</div><div class="kv" id="kCalOut">0</div><div class="kn">Activity</div></div>
-      <div class="kpi bl"><div class="klb">Distance</div><div class="kv"><span id="kDist">0.0</span><span style="font-size:var(--sm)"> km</span></div><div class="kn">Today</div></div>
-      <div class="kpi st"><div class="klb">Stars</div><div class="kv" id="kStars">0/5</div><div class="stars" id="kStarRow" style="margin-top:3px"></div></div>
-    </div>
-    <div class="g2">
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Today's goals</div>
-        <div class="cs">Complete all 5 for a perfect day.</div>
-        <div style="margin-bottom:var(--s3)">
-          <div class="row jb" style="margin-bottom:var(--s2)"><span style="font-size:var(--sm)">Completion</span><strong id="goalPct">0%</strong></div>
-          <div class="pbar"><div class="pfill" id="goalBar" style="width:0%"></div></div>
-        </div>
-        <div class="checklist" id="dashChecklist"></div>
-      </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Weight &amp; deficit</div>
-        <div class="cs">Target ~500 kcal deficit daily.</div>
-        <div class="g2" style="gap:var(--s3);margin-bottom:var(--s4)">
-          <div class="kpi"><div class="klb">Net deficit</div><div class="kv" id="kDeficit">0</div><div class="kn">kcal</div></div>
-          <div class="kpi"><div class="klb">Weight</div><div class="kv" id="kWeight">—</div><div class="kn">kg</div></div>
-        </div>
-        <div class="field" style="margin-bottom:var(--s3)">
-          <label class="lbl" for="wInput">Log weight (kg)</label>
-          <div class="row"><input type="number" id="wInput" min="50" max="300" step="0.1" placeholder="e.g. 109.0"/><button class="btn bp bsm" id="btnLogW">Save</button></div>
-        </div>
-        <div id="wHistory"></div>
-      </div>
-    </div>
-    <div class="card"><div class="ct">Recent history</div><div class="cs">Last 14 days.</div><div id="recentHistory"></div></div>
+    <label>Start date</label>
+    <input type="date" id="ob-start" />
+
+    <label>Starting weight (kg)</label>
+    <input type="number" id="ob-start-wt" placeholder="e.g. 109" step="0.1" value="109">
+
+    <label>Target weight (kg)</label>
+    <input type="number" id="ob-target-wt" placeholder="e.g. 94" step="0.1" value="94">
+
+    <label>Program duration (days)</label>
+    <select id="ob-duration">
+      <option value="90" selected>90 days (3 months)</option>
+      <option value="60">60 days (2 months)</option>
+      <option value="120">120 days (4 months)</option>
+      <option value="180">180 days (6 months)</option>
+    </select>
+
+    <label>Daily calorie goal (kcal)</label>
+    <input type="number" id="ob-calories" placeholder="e.g. 1800" value="1800">
+
+    <label>Daily water goal (litres)</label>
+    <input type="number" id="ob-water" placeholder="e.g. 4" step="0.5" value="4">
+
+    <label>Fasting protocol (Month 1)</label>
+    <select id="ob-fast1">
+      <option value="16:8" selected>16:8 — Eat 11am–7pm</option>
+      <option value="18:6">18:6 — Eat 12pm–6pm</option>
+      <option value="14:10">14:10 — Eat 10am–8pm</option>
+    </select>
+
+    <label>Fasting protocol (Month 2+)</label>
+    <select id="ob-fast2">
+      <option value="16:8">16:8 — Eat 11am–7pm</option>
+      <option value="18:6" selected>18:6 — Eat 12pm–6pm</option>
+      <option value="20:4">20:4 — Eat 2pm–6pm</option>
+    </select>
+
+    <br>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="saveOnboard()"><i class="ti ti-rocket"></i> Start my journey</button>
   </div>
+</div>
 
-  <!-- ===== GUIDE ===== -->
-  <div id="tab-guide" class="tab">
-    <div class="g2">
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Fasting schedule</div>
-        <div class="cs" id="guideSubFast">Eating window 12:00 PM – 8:00 PM</div>
-        <div class="stack" id="fastTimeline"></div>
-      </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Diet rules</div>
-        <div class="cs">37M · 109 kg · TDEE ~2,450 kcal · desk job</div>
-        <div class="stack" style="font-size:var(--sm)">
-          <div class="li"><div class="lname">Daily calorie target</div><div class="lmeta">1,800–1,950 kcal → ~500–700 kcal daily deficit</div></div>
-          <div class="li"><div class="lname">Protein goal</div><div class="lmeta">120 g+ per day — chicken, eggs, curd, legumes</div></div>
-          <div class="li"><div class="lname">Rice</div><div class="lmeta">Max 1 cup per meal · max 2 cups total per day</div></div>
-          <div class="li"><div class="lname">Oil &amp; ghee</div><div class="lmeta">1 tsp ghee = 45 kcal · measure every portion</div></div>
-          <div class="li"><div class="lname">Water</div><div class="lmeta">Minimum 3 litres per day</div></div>
-        </div>
-      </div>
+<!-- ══ MAIN APP ══ -->
+<div class="app" id="app" style="display:none">
+
+<!-- HOME -->
+<div class="screen active" id="s-dash">
+  <div class="hero-header">
+    <h1><i class="ti ti-bolt"></i> Day <span id="day-num">1</span> of <span id="day-total">90</span></h1>
+    <p id="today-date">Loading...</p>
+  </div>
+  <div class="streak-banner">
+    <i class="ti ti-flame" style="font-size:30px;color:#412402"></i>
+    <div><div class="s-num"><span id="streak-num">0</span> day streak</div><div class="s-sub"><span class="badge b-amber" id="phase-label">Phase 1</span></div></div>
+    <div style="margin-left:auto;text-align:right"><div style="font-size:11px;color:#633806">kg to goal</div><div style="font-size:20px;font-weight:500;color:#412402"><span id="kg-to-go">15</span></div></div>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-chart-bar" style="color:#EF9F27"></i> Today</h3>
+    <div class="metric-grid">
+      <div class="metric m-amber"><div class="val" id="m-weight">—</div><div class="lbl">current kg</div></div>
+      <div class="metric m-coral"><div class="val" id="m-lost">0</div><div class="lbl">kg lost</div></div>
+      <div class="metric m-teal"><div class="val" id="m-cal">0</div><div class="lbl">kcal eaten</div></div>
+      <div class="metric m-purple"><div class="val" id="m-burn">0</div><div class="lbl">kcal burned</div></div>
     </div>
-    <div class="card">
-      <div class="ct">12-week running plan</div>
-      <div class="cs">From occasional runner → 10K in 3 months.</div>
-      <div class="stack" id="runPlan"></div>
+    <div class="progress-row">
+      <div class="top"><span>Calories</span><span id="cal-txt">0 / 1800 kcal</span></div>
+      <div class="progress-bar"><div class="pf pf-amber" id="cal-bar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="top"><span>Water</span><span id="water-txt">0 / 4L</span></div>
+      <div class="progress-bar"><div class="pf pf-purple" id="water-bar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-row">
+      <div class="top"><span>Fasting window</span><span id="fast-txt">Pending</span></div>
+      <div class="progress-bar"><div class="pf pf-teal" id="fast-bar" style="width:0%"></div></div>
     </div>
   </div>
-
-  <!-- ===== FOOD ===== -->
-  <div id="tab-food" class="tab">
-    <div class="g2">
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Add food</div>
-        <div class="cs">South Indian foods with calorie lookup.</div>
-        <div class="stack">
-          <div class="field"><label class="lbl" for="foodSel">Food item</label><select id="foodSel"></select></div>
-          <div class="g2" style="gap:var(--s3)">
-            <div class="field"><label class="lbl" for="foodQty">Servings</label><input type="number" id="foodQty" min="0.5" step="0.5" value="1"/></div>
-            <div class="field"><label class="lbl" for="mealType">Meal</label><select id="mealType"><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
-          </div>
-          <div id="foodPreview" class="calc" style="display:none">0 kcal</div>
-          <button class="btn bp" id="btnAddFood">Add to today</button>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Custom entry</div>
-        <div class="cs">For meals not in the list.</div>
-        <div class="stack">
-          <div class="field"><label class="lbl" for="cName">Meal name</label><input type="text" id="cName" placeholder="Chicken kurma…"/></div>
-          <div class="g2" style="gap:var(--s3)">
-            <div class="field"><label class="lbl" for="cCal">Calories</label><input type="number" id="cCal" min="1" step="1" placeholder="320"/></div>
-            <div class="field"><label class="lbl" for="cQty">Servings</label><input type="number" id="cQty" min="0.5" step="0.5" value="1"/></div>
-          </div>
-          <div class="field"><label class="lbl" for="cMeal">Meal</label><select id="cMeal"><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
-          <div style="display:flex;gap:var(--s2);flex-wrap:wrap">
-            <button class="btn bs bsm" id="btnSaveCustom">Save to list</button>
-            <button class="btn bp bsm" id="btnAddCustom">Add to today</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card"><div class="ct">Today's food log</div><div class="cs" id="foodSummary">Nothing logged yet.</div><div id="foodLog"></div></div>
+  <div class="card">
+    <h3><i class="ti ti-run" style="color:#D85A30"></i> Today's run</h3>
+    <div id="run-plan-text" style="font-size:13px;color:#888780;margin-bottom:10px"></div>
+    <div id="run-status-dash" style="margin-bottom:8px"></div>
+    <button class="btn btn-primary" id="log-run-btn" onclick="openLogRun()"><i class="ti ti-player-play"></i> Log today's run</button>
   </div>
-
-  <!-- ===== EXERCISE ===== -->
-  <div id="tab-exercise" class="tab">
-    <div class="g2">
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Log activity</div>
-        <div class="cs">Calories calculated from your body weight.</div>
-        <div class="stack">
-          <div class="field"><label class="lbl" for="actType">Activity</label>
-            <select id="actType"><option>Outdoor run</option><option>Brisk walk</option><option>Run/walk intervals</option><option>Easy jog</option><option>Other workout</option></select>
-          </div>
-          <div class="g2" style="gap:var(--s3)">
-            <div class="field"><label class="lbl" for="actDist">Distance (km)</label><input type="number" id="actDist" min="0" step="0.1" value="2"/></div>
-            <div class="field"><label class="lbl" for="actMins">Duration (min)</label><input type="number" id="actMins" min="1" step="1" value="25"/></div>
-          </div>
-          <div class="field"><label class="lbl">Estimated calories</label><div id="actCalc" class="calc">Enter details above</div></div>
-          <div class="field"><label class="lbl" for="actOver">Override calories (optional)</label><input type="number" id="actOver" min="1" step="1" placeholder="From your fitness tracker"/></div>
-          <button class="btn bp" id="btnAddAct">Log activity</button>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Running milestones</div>
-        <div class="cs">3-month progression.</div>
-        <div class="stack">
-          <div class="li row jb"><div><div class="lname">Month 1</div><div class="lmeta">Run 3 km continuously</div></div><span class="pill po">Wk 1–4</span></div>
-          <div class="li row jb"><div><div class="lname">Month 2</div><div class="lmeta">Run 5–6 km without stopping</div></div><span class="pill pw">Wk 5–8</span></div>
-          <div class="li row jb"><div><div class="lname">Month 3</div><div class="lmeta">Complete a full 10K</div></div><span class="pill pg">Wk 9–12</span></div>
-          <div class="li"><div class="lname">Total distance logged</div><div class="kv" id="totalDist">0.0 km</div></div>
-        </div>
-      </div>
-    </div>
-    <div class="card"><div class="ct">Today's activity log</div><div class="cs">Sessions logged today.</div><div id="actLog"></div></div>
-  </div>
-
-  <!-- ===== STARS ===== -->
-  <div id="tab-stars" class="tab">
-    <div class="g2">
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Earn today's stars</div>
-        <div class="cs">1 star per goal · 5 max per day.</div>
-        <div class="checklist" id="starList"></div>
-        <div class="divider"></div>
-        <div class="row jb"><span style="font-size:var(--sm)">Stars today</span><div class="stars" id="starRowBig"></div></div>
-      </div>
-      <div class="card" style="margin-bottom:0">
-        <div class="ct">Totals &amp; streak</div>
-        <div class="cs">Aim for 4+ star days every day.</div>
-        <div class="g2" style="gap:var(--s3);margin-bottom:var(--s3)">
-          <div class="kpi st"><div class="klb">Total stars</div><div class="kv" id="sTotal">0</div></div>
-          <div class="kpi st"><div class="klb">Best streak</div><div class="kv" id="sBest">0</div><div class="kn">days 4+★</div></div>
-        </div>
-        <div class="g2" style="gap:var(--s3);margin-bottom:var(--s3)">
-          <div class="kpi"><div class="klb">Plan day</div><div class="kv" id="sPlanDay">—</div><div class="kn">of 90</div></div>
-          <div class="kpi"><div class="klb">Days logged</div><div class="kv" id="sDays">0</div></div>
-        </div>
-        <div class="li"><div class="lname">Weight lost so far</div><div class="kv" id="sWeightLost">—</div></div>
-      </div>
-    </div>
-    <div class="card"><div class="ct">Star history</div><div class="cs">Last 14 days.</div><div id="starHist"></div></div>
-  </div>
-
-  <!-- ===== HISTORY / PROGRESS ===== -->
-  <div id="tab-history" class="tab">
-    <div class="itabs">
-      <button class="itb active" data-inner="graphs">📈 Graphs</button>
-      <button class="itb" data-inner="monthly">📅 Monthly</button>
-    </div>
-    <div id="inner-graphs" class="itc active">
-      <div class="card"><div class="ct">Weight over time</div><div class="cs">Target: reach 94 kg by day 90.</div><div class="chwrap"><canvas id="cwt" height="200"></canvas></div></div>
-      <div class="card"><div class="ct">Calories in vs out</div><div class="cs">Orange = eaten · Green = burnt</div><div class="chwrap"><canvas id="ccal" height="200"></canvas></div></div>
-      <div class="card"><div class="ct">Run distance per day</div><div class="cs">Building toward 10K.</div><div class="chwrap"><canvas id="cdist" height="180"></canvas></div></div>
-      <div class="card"><div class="ct">Stars per day</div><div class="cs">How consistently you hit your goals.</div><div class="chwrap"><canvas id="cstars" height="180"></canvas></div></div>
-    </div>
-    <div id="inner-monthly" class="itc">
-      <div class="card" style="margin-bottom:var(--s4)">
-        <div class="ct">Legend</div>
-        <div style="display:flex;flex-wrap:wrap;gap:var(--s3);font-size:var(--xs)">
-          <span><span style="background:linear-gradient(160deg,#fde68a,#f59e0b);border-radius:4px;padding:2px 8px;font-weight:700">5★</span> Perfect</span>
-          <span><span style="background:linear-gradient(160deg,#fed7aa,#f97316);border-radius:4px;padding:2px 8px;font-weight:700">4★</span> Great</span>
-          <span><span style="background:linear-gradient(160deg,#ffe4c4,#fb923c);border-radius:4px;padding:2px 8px;font-weight:700">3★</span> Good</span>
-          <span><span style="background:#f0ede8;border-radius:4px;padding:2px 8px;font-weight:700;color:#888">—</span> No data</span>
-        </div>
-      </div>
-      <div id="monthCal"></div>
+  <div class="card">
+    <h3><i class="ti ti-droplet" style="color:#7F77DD"></i> Water</h3>
+    <div class="water-btns">
+      <button class="water-btn" onclick="addWater(250)">+250ml</button>
+      <button class="water-btn" onclick="addWater(500)">+500ml</button>
+      <button class="water-btn" onclick="addWater(750)">+750ml</button>
+      <button class="water-btn" onclick="addWater(1000)">+1L</button>
     </div>
   </div>
+  <div class="card">
+    <h3><i class="ti ti-star" style="color:#EF9F27"></i> This week</h3>
+    <div class="day-labels" id="wk-day-labels"></div>
+    <div class="star-grid" id="wk-stars"></div>
+  </div>
+  <button class="btn" onclick="showTab('s-log')"><i class="ti ti-pencil"></i> Log meals, weight & fasting</button>
+</div>
 
-  <!-- ===== SETTINGS ===== -->
-  <div id="tab-settings" class="tab">
-    <div class="card">
-      <div class="ct">Fasting window</div>
-      <div class="cs">Change your eating window any time. Dashboard updates automatically.</div>
-      <div class="g2" style="margin-bottom:var(--s4)">
-        <div class="field"><label class="lbl" for="fsStart">Eating starts</label><input type="time" id="fsStart" value="12:00"/></div>
-        <div class="field"><label class="lbl" for="fsEnd">Eating ends</label><input type="time" id="fsEnd" value="20:00"/></div>
-      </div>
-      <div id="fastPreview" class="calc" style="margin-bottom:var(--s4)">16:8 — eating 8h, fasting 16h</div>
-      <button class="btn bp" id="btnSaveFast">Save fasting window</button>
+<!-- FOOD -->
+<div class="screen" id="s-food">
+  <div class="std-header"><h1>Food library</h1><p>South Indian meal tracker</p></div>
+  <div class="sec-title">Today — <span id="food-cal-total">0</span> kcal</div>
+  <div id="logged-meals"></div>
+  <input class="food-search" id="food-search" placeholder="Search food..." oninput="filterFood()">
+  <div class="sec-title">Breakfast</div><div id="fl-breakfast"></div>
+  <div class="sec-title">Lunch / dinner</div><div id="fl-main"></div>
+  <div class="sec-title">Proteins</div><div id="fl-protein"></div>
+  <div class="sec-title">Snacks & drinks</div><div id="fl-snacks"></div>
+</div>
+
+<!-- RUN -->
+<div class="screen" id="s-run">
+  <div class="std-header"><h1>Run program</h1><p>Couch to 10K — 12 weeks</p></div>
+  <div class="card">
+    <div class="phase-badge" id="run-phase-lbl">Month 1</div>
+    <div id="run-wk-summary" style="font-size:13px;color:#888780;margin-bottom:10px"></div>
+    <div class="sec-title">This week</div>
+    <div class="run-week" id="run-wk-grid"></div>
+  </div>
+  <div class="sec-title">Full program</div>
+  <div id="full-program"></div>
+</div>
+
+<!-- LOG -->
+<div class="screen" id="s-log">
+  <div class="std-header"><h1>Daily log</h1><p>Track weight, fasting & goals</p></div>
+  <div class="card">
+    <h3><i class="ti ti-scale" style="color:#EF9F27"></i> Weight</h3>
+    <div class="input-row">
+      <input class="fi" type="number" id="weight-input" placeholder="kg e.g. 108.5" step="0.1">
+      <button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0" onclick="logWeight()">Save</button>
     </div>
-    <div class="card">
-      <div class="ct">Profile</div>
-      <div class="cs">Used for calorie burn calculations.</div>
-      <div class="g2" style="margin-bottom:var(--s4)">
-        <div class="field"><label class="lbl" for="pWeight">Body weight (kg)</label><input type="number" id="pWeight" min="40" max="300" step="0.5" placeholder="109"/></div>
-        <div class="field"><label class="lbl" for="pCal">Daily calorie target</label><input type="number" id="pCal" min="1000" max="4000" step="50" placeholder="1900"/></div>
-      </div>
-      <button class="btn bp" id="btnSaveProfile">Save profile</button>
+    <p style="font-size:12px;color:#854F0B">Start: <span id="log-start-wt">109</span>kg · Target: <span id="log-target-wt">94</span>kg</p>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-clock" style="color:#EF9F27"></i> Fasting window</h3>
+    <p style="font-size:13px;color:#888780;margin-bottom:10px" id="fast-window-desc">Month 1: Eat 11am – 7pm</p>
+    <div class="input-row">
+      <div style="flex:1"><div style="font-size:12px;color:#854F0B;margin-bottom:4px">Eat from</div><input class="fi" type="time" id="fast-start" value="11:00"></div>
+      <div style="flex:1"><div style="font-size:12px;color:#854F0B;margin-bottom:4px">Eat until</div><input class="fi" type="time" id="fast-end" value="19:00"></div>
     </div>
-    <div class="card">
-      <div class="ct">Plan start date</div>
-      <div class="cs">Resets the day counter.</div>
-      <div class="g2" style="align-items:end">
-        <div class="field"><label class="lbl" for="sStartDate">Start date</label><input type="date" id="sStartDate"/></div>
-        <button class="btn bp" id="btnSaveStart2">Update</button>
-      </div>
+    <button class="btn btn-teal" onclick="logFast()"><i class="ti ti-check"></i> Mark fasting window kept</button>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-flame" style="color:#D85A30"></i> Calories burned</h3>
+    <div class="input-row">
+      <input class="fi" type="number" id="burn-input" placeholder="kcal e.g. 320">
+      <button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0" onclick="logBurn()">Save</button>
+    </div>
+    <p style="font-size:12px;color:#854F0B">Running ~80–120 kcal/km · aim for 500+ kcal deficit/day</p>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-star" style="color:#EF9F27"></i> Today's goals</h3>
+    <div id="goals-checklist"></div>
+  </div>
+</div>
+
+<!-- GUIDE -->
+<div class="screen" id="s-guide">
+  <div class="std-header"><h1>Guide</h1><p>Fitness, food & fasting tips</p></div>
+
+  <div class="card guide-section">
+    <h3><i class="ti ti-clock" style="color:#EF9F27"></i> Intermittent fasting</h3>
+    <div class="guide-item"><strong>Month 1 — 16:8:</strong> Fast for 16 hours, eat within an 8-hour window (11am–7pm). Drink water, black coffee, or plain green tea during fasting hours. Break your fast gently — don't binge.</div>
+    <div class="guide-item"><strong>Month 2+ — 18:6:</strong> Narrow your eating window to 6 hours (12pm–6pm). Your body is now fat-adapted and this shift will accelerate results.</div>
+    <div class="guide-item"><strong>Fasted morning runs</strong> are your superpower. Running before breaking your fast forces your body to burn stored fat. Just water before you head out.</div>
+    <div class="guide-item"><strong>Break your fast</strong> with a light protein meal — 2 boiled eggs, or idli with sambar. Avoid heavy carbs as your first meal.</div>
+  </div>
+
+  <div class="card guide-section">
+    <h3><i class="ti ti-run" style="color:#D85A30"></i> Running program</h3>
+    <div class="guide-item"><strong>Week 1–4:</strong> Run/walk intervals. Do not skip the walk breaks — they are part of training, not a sign of weakness. Focus on finishing, not pace.</div>
+    <div class="guide-item"><strong>Week 5–8:</strong> Continuous running. If you can't complete a session, repeat the previous week. Progress over perfection.</div>
+    <div class="guide-item"><strong>Week 9–12:</strong> Building to 10K. Run at a conversational pace — you should be able to speak short sentences while running.</div>
+    <div class="guide-item"><strong>Recovery days matter.</strong> Your muscles repair and grow stronger on rest days. Light walking on rest days is encouraged.</div>
+    <div class="guide-item"><strong>Hydrate well</strong> after every run. Rehydrate with water and electrolytes (coconut water or neer moru are ideal).</div>
+  </div>
+
+  <div class="card guide-section">
+    <h3><i class="ti ti-salad" style="color:#1D9E75"></i> South Indian diet guide</h3>
+    <div class="guide-item"><strong>Best breakfast choices:</strong> Idli (steamed, low fat), pesarattu (high protein), oats upma, boiled eggs. Avoid heavy ghee-fried items in the morning.</div>
+    <div class="guide-item"><strong>Best lunch/dinner:</strong> Sambar rice (brown rice preferred), dal with chapati, rasam, aviyal with rice. Keep portions moderate — one cup of rice maximum.</div>
+    <div class="guide-item"><strong>High-protein picks:</strong> Grilled chicken breast, boiled eggs, egg curry, fish curry, chana masala. Aim for 100–130g protein per day.</div>
+    <div class="guide-item"><strong>Avoid or limit:</strong> Biryani, deep-fried snacks (bhajis, vadas), sweets (halwa, payasam), white rice in large portions, sugary drinks including packaged juices.</div>
+    <div class="guide-item"><strong>Smart swaps:</strong> Brown rice → white rice · Grilled chicken → fried chicken · Neer moru → soda · Fruit → biscuits/sweets as snacks.</div>
+    <div class="guide-item"><strong>Eating out:</strong> Choose tandoori or grilled items, dal, rasam-based dishes. Avoid buffets. Request less oil and no butter naan.</div>
+  </div>
+
+  <div class="card guide-section">
+    <h3><i class="ti ti-droplet" style="color:#7F77DD"></i> Hydration</h3>
+    <div class="guide-item"><strong>4L daily target</strong> for your size and activity level. Start with 500ml water as soon as you wake up, before your run.</div>
+    <div class="guide-item"><strong>During fasting hours:</strong> Water, black coffee (no sugar), and green tea are all fine and do not break your fast.</div>
+    <div class="guide-item"><strong>Signs of dehydration:</strong> Dark yellow urine, headaches, fatigue, hunger (thirst is often mistaken for hunger). Drink water first.</div>
+  </div>
+
+  <div class="card guide-section">
+    <h3><i class="ti ti-heart" style="color:#E24B4A"></i> General tips</h3>
+    <div class="guide-item"><strong>Sleep 7–8 hours.</strong> Poor sleep raises cortisol (stress hormone) and directly causes fat retention around the belly. Sleep is training.</div>
+    <div class="guide-item"><strong>Weigh yourself daily</strong> at the same time (morning, after bathroom, before food). Daily fluctuations of 0.5–1kg are normal — focus on the weekly trend.</div>
+    <div class="guide-item"><strong>A caloric deficit of 500–700 kcal/day</strong> equals roughly 0.5–0.7kg of fat loss per week. Combined with your runs, 15kg in 90 days is very achievable.</div>
+    <div class="guide-item"><strong>Don't fear a bad day.</strong> One bad day does not erase a week of effort. Log it honestly and keep going. The streak will rebuild.</div>
+  </div>
+</div>
+
+<!-- SETTINGS (replaces history in tab bar, history moved inside) -->
+<div class="screen" id="s-settings">
+  <div class="std-header"><h1>Settings & history</h1><p>Goals, fasting & your journey</p></div>
+
+  <!-- Goals -->
+  <div class="card">
+    <h3><i class="ti ti-target" style="color:#EF9F27"></i> Goals</h3>
+    <div class="setting-row">
+      <div><div class="slbl">Starting weight</div><div class="ssub">kg</div></div>
+      <input type="number" id="s-start-wt" step="0.1" onchange="saveSettings()">
+    </div>
+    <div class="setting-row">
+      <div><div class="slbl">Target weight</div><div class="ssub">kg</div></div>
+      <input type="number" id="s-target-wt" step="0.1" onchange="saveSettings()">
+    </div>
+    <div class="setting-row">
+      <div><div class="slbl">Program duration</div><div class="ssub">days</div></div>
+      <select id="s-duration" onchange="saveSettings()">
+        <option value="60">60 days</option>
+        <option value="90">90 days</option>
+        <option value="120">120 days</option>
+        <option value="180">180 days</option>
+      </select>
+    </div>
+    <div class="setting-row">
+      <div><div class="slbl">Daily calorie goal</div><div class="ssub">kcal</div></div>
+      <input type="number" id="s-calories" onchange="saveSettings()">
+    </div>
+    <div class="setting-row">
+      <div><div class="slbl">Daily water goal</div><div class="ssub">litres</div></div>
+      <input type="number" id="s-water" step="0.5" onchange="saveSettings()">
+    </div>
+    <div id="settings-recalc-note" style="font-size:12px;color:#1D9E75;margin-top:8px;display:none"><i class="ti ti-check"></i> Goals updated — app recalculated</div>
+  </div>
+
+  <!-- Fasting -->
+  <div class="card">
+    <h3><i class="ti ti-clock" style="color:#EF9F27"></i> Fasting windows</h3>
+    <div class="setting-row">
+      <div><div class="slbl">Month 1 protocol</div><div class="ssub" id="fast1-desc">16:8</div></div>
+      <select id="s-fast1" onchange="saveSettings()">
+        <option value="16:8">16:8</option>
+        <option value="18:6">18:6</option>
+        <option value="14:10">14:10</option>
+      </select>
+    </div>
+    <div class="setting-row">
+      <div><div class="slbl">Month 2+ protocol</div><div class="ssub" id="fast2-desc">18:6</div></div>
+      <select id="s-fast2" onchange="saveSettings()">
+        <option value="16:8">16:8</option>
+        <option value="18:6">18:6</option>
+        <option value="20:4">20:4</option>
+      </select>
+    </div>
+    <p style="font-size:12px;color:#854F0B;margin-top:8px">Changes take effect immediately across the app</p>
+  </div>
+
+  <!-- Start date -->
+  <div class="card">
+    <h3><i class="ti ti-calendar" style="color:#EF9F27"></i> Start date</h3>
+    <div class="setting-row">
+      <div><div class="slbl">Program start date</div></div>
+      <input type="date" id="s-start-date" onchange="saveSettings()">
     </div>
   </div>
 
-</div><!-- .app -->
-
-<!-- BOTTOM NAV -->
-<nav class="navwrap" aria-label="Main navigation">
-  <div class="navscroll">
-    <div class="nav">
-      <button class="nb active" data-tab="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</button>
-      <button class="nb" data-tab="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Guide</button>
-      <button class="nb" data-tab="food"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Food</button>
-      <button class="nb" data-tab="exercise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Exercise</button>
-      <button class="nb" data-tab="stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Stars</button>
-      <button class="nb" data-tab="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progress</button>
-      <button class="nb" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
-    </div>
+  <!-- History -->
+  <div class="card">
+    <h3><i class="ti ti-trending-down" style="color:#1D9E75"></i> Weight trend</h3>
+    <canvas id="weight-chart" height="140"></canvas>
   </div>
-</nav>
+  <div class="card">
+    <h3><i class="ti ti-calendar" style="color:#EF9F27"></i> Star calendar</h3>
+    <p style="font-size:12px;color:#854F0B;margin-bottom:10px"><i class="ti ti-star" style="color:#EF9F27;font-size:14px"></i> filled = all goals met that day</p>
+    <div id="full-calendar"></div>
+  </div>
+  <div class="card">
+    <h3><i class="ti ti-medal" style="color:#EF9F27"></i> Achievements</h3>
+    <div id="achievements-list"></div>
+  </div>
 
+  <button class="btn btn-danger" style="margin-top:8px" onclick="confirmReset()"><i class="ti ti-trash"></i> Reset all data</button>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" onclick="showTab('s-dash')"><i class="ti ti-home"></i>Home</button>
+  <button class="tab" onclick="showTab('s-food')"><i class="ti ti-salad"></i>Food</button>
+  <button class="tab" onclick="showTab('s-run')"><i class="ti ti-run"></i>Run</button>
+  <button class="tab" onclick="showTab('s-log')"><i class="ti ti-pencil"></i>Log</button>
+  <button class="tab" onclick="showTab('s-guide')"><i class="ti ti-book"></i>Guide</button>
+  <button class="tab" onclick="showTab('s-settings')"><i class="ti ti-settings"></i>More</button>
+</div>
+
+</div><!-- end .app -->
+
+<!-- RUN MODAL -->
+<div class="modal-bg" id="run-modal">
+  <div class="modal">
+    <h2><i class="ti ti-run" style="color:#EF9F27"></i> Log run</h2>
+    <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Distance (km)</div>
+    <input class="modal-fi" type="number" id="run-dist" placeholder="e.g. 2.5" step="0.1">
+    <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Duration (minutes)</div>
+    <input class="modal-fi" type="number" id="run-mins" placeholder="e.g. 30">
+    <button class="btn btn-primary" onclick="saveRun()"><i class="ti ti-check"></i> Save run</button>
+    <button class="btn" onclick="closeModal('run-modal')" style="margin-top:4px">Cancel</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-// ── DATA ────────────────────────────────────────────────────────────────────
-const SK='fitTracker_v1';
-const MET={'Outdoor run':9.8,'Brisk walk':4.5,'Run/walk intervals':7.5,'Easy jog':7.0,'Other workout':6.0};
-const FOODS=[
-  {n:'Steamed rice (1 cup cooked)',c:205},{n:'Chicken curry (150g)',c:280},
-  {n:'Chicken roast (150g)',c:300},{n:'Grilled chicken breast (150g)',c:248},
-  {n:'Chicken sukka (1 serving)',c:310},{n:'Egg curry (2 eggs)',c:220},
-  {n:'Boiled eggs (2)',c:156},{n:'Egg bhurji (2 eggs)',c:215},
-  {n:'Scrambled eggs with ghee (2 eggs)',c:200},{n:'Dosa plain (1)',c:130},
-  {n:'Dosa egg (1)',c:200},{n:'Idli (2 pieces)',c:116},
-  {n:'Sambar (1 cup)',c:140},{n:'Rasam (1 cup)',c:45},
-  {n:'Appam (1)',c:120},{n:'Puttu with kadala curry',c:280},
-  {n:'Upma (1 cup)',c:220},{n:'Vegetable poriyal',c:110},
-  {n:'Curd / yoghurt (1 cup)',c:150},{n:'Parotta (1)',c:260},
-  {n:'Chapati (1)',c:100},{n:'Fish curry (1 serving)',c:210},
-  {n:'Ghee (1 tsp)',c:45},{n:'Peanut oil (1 tsp)',c:40},
-  {n:'Coconut chutney (2 tbsp)',c:80}
+// ══ FOOD DATA ══
+const FOODS={
+  breakfast:[
+    {n:'Idli (2 pieces)',c:140,p:'2 pcs'},{n:'Dosa (plain)',c:170,p:'1 medium'},
+    {n:'Rava upma',c:220,p:'1 cup'},{n:'Oats upma',c:200,p:'1 cup'},
+    {n:'Poha',c:180,p:'1 cup'},{n:'Ragi mudde',c:190,p:'1 ball'},
+    {n:'Boiled egg',c:78,p:'1 egg'},{n:'Egg white omelette',c:90,p:'2 whites'},
+    {n:'Idiyappam (2)',c:150,p:'2 pcs'},{n:'Pongal (ven)',c:250,p:'1 cup'},
+    {n:'Puttu',c:200,p:'1 cup'},{n:'Adai dosa',c:190,p:'1 medium'},
+    {n:'Pesarattu',c:175,p:'1 medium'},{n:'Rava dosa',c:195,p:'1 medium'},
+  ],
+  main:[
+    {n:'Sambar',c:80,p:'1 cup'},{n:'Rasam',c:45,p:'1 cup'},
+    {n:'Dal tadka',c:150,p:'1 cup'},{n:'Brown rice',c:215,p:'1 cup cooked'},
+    {n:'White rice',c:240,p:'1 cup cooked'},{n:'Chapati (1)',c:100,p:'1 roti'},
+    {n:'Curd rice',c:200,p:'1 cup'},{n:'Kootu (mixed veg)',c:120,p:'1 cup'},
+    {n:'Aviyal',c:130,p:'1 cup'},{n:'Poriyal (beans)',c:90,p:'half cup'},
+    {n:'Poriyal (cabbage)',c:75,p:'half cup'},{n:'Poriyal (drumstick)',c:85,p:'half cup'},
+    {n:'Brinjal gothsu',c:95,p:'half cup'},{n:'Tomato rasam',c:40,p:'1 cup'},
+    {n:'Keerai masiyal',c:70,p:'half cup'},{n:'Papad (roasted)',c:35,p:'1 piece'},
+    {n:'Curd / yoghurt',c:60,p:'half cup'},{n:'Mor kuzhambu',c:90,p:'1 cup'},
+    {n:'Vendakkai poriyal',c:80,p:'half cup'},{n:'Kaalan curry',c:110,p:'half cup'},
+    {n:'Potato curry',c:130,p:'half cup'},{n:'Raw banana poriyal',c:100,p:'half cup'},
+  ],
+  protein:[
+    {n:'Chicken curry',c:220,p:'1 cup / 150g'},{n:'Chicken breast (grilled)',c:165,p:'150g'},
+    {n:'Egg curry',c:190,p:'2 eggs'},{n:'Scrambled eggs',c:200,p:'2 eggs'},
+    {n:'Boiled eggs (2)',c:156,p:'2 eggs'},{n:'Fish curry',c:200,p:'1 cup'},
+    {n:'Prawn curry',c:180,p:'1 cup'},{n:'Paneer (50g)',c:140,p:'50g'},
+    {n:'Chana masala',c:175,p:'1 cup'},{n:'Rajma curry',c:160,p:'1 cup'},
+    {n:'Chicken pepper fry',c:240,p:'150g'},{n:'Egg bhurji',c:180,p:'2 eggs'},
+    {n:'Chettinad chicken',c:255,p:'150g'},{n:'Meen kuzhambu',c:190,p:'1 cup'},
+  ],
+  snacks:[
+    {n:'Roasted peanuts',c:160,p:'30g'},{n:'Murukku (1)',c:70,p:'1 piece'},
+    {n:'Banana',c:90,p:'1 medium'},{n:'Papaya (1 cup)',c:55,p:'1 cup'},
+    {n:'Watermelon (1 cup)',c:45,p:'1 cup'},{n:'Black coffee (no sugar)',c:5,p:'1 cup'},
+    {n:'Green tea',c:2,p:'1 cup'},{n:'Buttermilk (neer moru)',c:35,p:'1 glass'},
+    {n:'Coconut water',c:45,p:'1 glass'},{n:'Roasted chana',c:120,p:'30g'},
+    {n:'Sundal (chickpeas)',c:130,p:'half cup'},{n:'Mango (1 cup)',c:100,p:'1 cup'},
+    {n:'Guava',c:55,p:'1 medium'},{n:'Pomegranate (half cup)',c:65,p:'half cup'},
+  ]
+};
+
+// ══ RUN PROGRAM (relative to duration) ══
+const BASE_PROGRAM=[
+  {wk:1,lbl:'First steps',desc:'Run 1 min, walk 2 min × 8',dist:'~2.5km'},
+  {wk:2,lbl:'Build intervals',desc:'Run 2 min, walk 2 min × 6',dist:'~3km'},
+  {wk:3,lbl:'Longer runs',desc:'Run 3 min, walk 1 min × 6',dist:'~3.5km'},
+  {wk:4,lbl:'Consolidate',desc:'Run 5 min, walk 1 min × 5',dist:'~4km'},
+  {wk:5,lbl:'Continuous 15 min',desc:'Run 15 min + 5 min walk',dist:'~2.5km'},
+  {wk:6,lbl:'Continuous 20 min',desc:'Run 20 min continuous',dist:'~3km'},
+  {wk:7,lbl:'5K approach',desc:'Run 25 min continuous',dist:'~4km'},
+  {wk:8,lbl:'First 5K!',desc:'Run 5K — no walk breaks',dist:'5km'},
+  {wk:9,lbl:'Extend to 6K',desc:'Run 30–35 min, target 6km',dist:'6km'},
+  {wk:10,lbl:'Push to 7–8K',desc:'Run 40 min, target 7–8km',dist:'7–8km'},
+  {wk:11,lbl:'9K endurance',desc:'Run 45–50 min, target 9km',dist:'9km'},
+  {wk:12,lbl:'10K goal!',desc:'Full 10K — you made it!',dist:'10km'},
 ];
-const STAR_GOALS=[
-  {k:'fasting',l:'Stayed inside fasting window'},
-  {k:'logged',l:'Logged all meals honestly'},
-  {k:'protein',l:'Protein at every main meal'},
-  {k:'activity',l:'Completed scheduled run or walk'},
-  {k:'window',l:'Closed eating window on time'}
-];
-const RUN_PLAN=[
-  {w:1,ph:'Build base',d:'4 sessions · 25–30 min · Walk with 1-min run every 5 min · ~2 km'},
-  {w:2,ph:'Build base',d:'4 sessions · 30 min · Run 90s walk 2 min intervals · ~2.5 km'},
-  {w:3,ph:'Build base',d:'4 sessions · 30–35 min · Run 2 min walk 2 min · ~3 km'},
-  {w:4,ph:'Build base',d:'4 sessions · 35 min · Run 3 min walk 90s · finding your rhythm'},
-  {w:5,ph:'Endurance',d:'4 sessions · 35–40 min · Easy jog pace · aim for 4 km long run'},
-  {w:6,ph:'Endurance',d:'4 sessions · 40 min · Jog 8–10 min stretches · 5 km long run'},
-  {w:7,ph:'Endurance',d:'4 sessions · 45 min · One continuous jog if comfortable · 5 km'},
-  {w:8,ph:'Endurance',d:'4 sessions · 45 min · Long run targeting 6 km at easy pace'},
-  {w:9,ph:'10K prep',d:'4 sessions · 45–50 min · Long run 6–7 km'},
-  {w:10,ph:'10K prep',d:'4 sessions · 50 min · Long run 7–8 km · practice even pacing'},
-  {w:11,ph:'10K prep',d:'4 sessions · 50–55 min · Long run 8–9 km · almost there'},
-  {w:12,ph:'10K attempt',d:'3 easy sessions early week · then attempt the full 10K'}
-];
-const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-// ── STATE ───────────────────────────────────────────────────────────────────
-function load(){try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}return{startDate:'',fs:'12:00',fe:'20:00',bw:109,ct:1900,foods:[...FOODS],daily:{},weights:[]};}
-function save(){localStorage.setItem(SK,JSON.stringify(S));}
-let S=load();
-if(!S.fs)S.fs='12:00';if(!S.fe)S.fe='20:00';if(!S.bw)S.bw=109;if(!S.ct)S.ct=1900;if(!S.foods||!S.foods.length)S.foods=[...FOODS];
+// ══ FASTING WINDOWS ══
+const FAST_WINDOWS={
+  '16:8':{eat:'11am – 7pm',start:'11:00',end:'19:00',hours:16},
+  '18:6':{eat:'12pm – 6pm',start:'12:00',end:'18:00',hours:18},
+  '14:10':{eat:'10am – 8pm',start:'10:00',end:'20:00',hours:14},
+  '20:4':{eat:'2pm – 6pm',start:'14:00',end:'18:00',hours:20},
+};
 
-function today(){return new Date().toISOString().slice(0,10);}
-function ensureDay(d){if(!S.daily[d])S.daily[d]={foods:[],acts:[],stars:{fasting:false,logged:false,protein:false,activity:false,window:false}};return S.daily[d];}
-function getDay(){return ensureDay(today());}
-function sum(a,f){return a.reduce((t,x)=>t+f(x),0);}
-function sc(s){return Object.values(s||{}).filter(Boolean).length;}
-function rStar(n,t=5){return Array.from({length:t}).map((_,i)=>`<span class="star">${i<n?'★':'☆'}</span>`).join('');}
+// ══ STATE ══
+let S=JSON.parse(localStorage.getItem('ft4')||'{}');
+if(!S.days)S.days={};
+if(!S.weights)S.weights=[];
 
-// ── TOAST ───────────────────────────────────────────────────────────────────
-function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2400);}
+const save=()=>localStorage.setItem('ft4',JSON.stringify(S));
+const todayKey=()=>new Date().toISOString().split('T')[0];
 
-// ── FASTING ─────────────────────────────────────────────────────────────────
-function updateFast(){
-  const now=new Date(),mins=now.getHours()*60+now.getMinutes();
-  const [sh,sm]=S.fs.split(':').map(Number),[eh,em]=S.fe.split(':').map(Number);
-  const st=sh*60+sm,en=eh*60+em;
-  const inW=mins>=st&&mins<en;
-  const fi=document.getElementById('fastStatus');
-  fi.className='fi '+(inW?'eating':'fasting');
-  document.getElementById('fastDot').className='fdot '+(inW?'o':'g');
-  document.getElementById('fastLabel').textContent=inW?'Eating window open':'Fasting — window closed';
-  if(inW){const r=en-mins;document.getElementById('fastSub').textContent=`Closes at ${S.fe} · ${r} min remaining`;}
-  else{let w=mins<st?st-mins:(st+1440-mins);document.getElementById('fastSub').textContent=`Opens at ${S.fs} · ${w<60?w+'m':Math.floor(w/60)+'h '+w%60+'m'} away`;}
-}
-function eatHrs(){const[sh,sm]=S.fs.split(':').map(Number),[eh,em]=S.fe.split(':').map(Number);let d=(eh*60+em)-(sh*60+sm);if(d<0)d+=1440;return d/60;}
+function cfg(k){return S.config?.[k]}
 
-// ── FOOD SELECT ─────────────────────────────────────────────────────────────
-function buildFoodSel(){
-  document.getElementById('foodSel').innerHTML=S.foods.map((f,i)=>`<option value="${i}">${f.n} — ${f.c} kcal</option>`).join('');
-  updateFoodPrev();
-}
-function updateFoodPrev(){
-  const i=Number(document.getElementById('foodSel').value),q=Number(document.getElementById('foodQty').value)||1,f=S.foods[i];
-  if(!f)return;const el=document.getElementById('foodPreview');el.style.display='inline-flex';el.textContent=Math.round(f.c*q)+' kcal';
+function dayOfProgram(){
+  if(!cfg('startDate'))return 1;
+  const diff=Math.floor((new Date()-new Date(cfg('startDate')))/864e5);
+  return Math.max(1,Math.min(cfg('duration')||90,diff+1));
 }
 
-// ── ACTIVITY CALC ────────────────────────────────────────────────────────────
-function updateActCalc(){
-  const t=document.getElementById('actType').value,d=Number(document.getElementById('actDist').value)||0,m=Number(document.getElementById('actMins').value)||0;
-  const c=Math.round((MET[t]||6)*S.bw*(m/60));
-  document.getElementById('actCalc').textContent=`~${c} kcal (${S.bw} kg · ${m} min)`;
+function getPhaseInfo(){
+  const d=dayOfProgram();
+  const dur=cfg('duration')||90;
+  const phase1end=Math.floor(dur/3);
+  if(d<=phase1end){
+    const fw=FAST_WINDOWS[cfg('fast1')||'16:8'];
+    return {label:'Phase 1 · '+(cfg('fast1')||'16:8'),window:fw.eat,start:fw.start,end:fw.end};
+  }
+  const fw=FAST_WINDOWS[cfg('fast2')||'18:6'];
+  return {label:'Phase 2 · '+(cfg('fast2')||'18:6'),window:fw.eat,start:fw.start,end:fw.end};
 }
 
-// ── DASHBOARD ────────────────────────────────────────────────────────────────
-function renderDash(){
-  const d=getDay();
-  const ci=sum(d.foods,f=>Number(f.tc||0)),co=sum(d.acts,a=>Number(a.cal||0)),dist=sum(d.acts,a=>Number(a.dist||0)),stars=sc(d.stars);
-  document.getElementById('kCalIn').textContent=ci;
-  document.getElementById('kCalGoal').textContent=S.ct;
-  document.getElementById('kCalOut').textContent=co;
-  document.getElementById('kDist').textContent=dist.toFixed(1);
-  document.getElementById('kStars').textContent=stars+'/5';
-  document.getElementById('kStarRow').innerHTML=rStar(stars);
-  const def=co-ci;
-  document.getElementById('kDeficit').textContent=def;
-  document.getElementById('kDeficit').style.color=def>=0?'var(--ok)':'var(--wn)';
-  const lw=S.weights.length?S.weights[S.weights.length-1].w:null;
-  document.getElementById('kWeight').textContent=lw||'—';
-  const pct=Math.round(stars/5*100);
-  document.getElementById('goalPct').textContent=pct+'%';
-  document.getElementById('goalBar').style.width=pct+'%';
-  document.getElementById('dashChecklist').innerHTML=STAR_GOALS.map(g=>`<div class="ci">${d.stars[g.k]?'✅':'⬜'} ${g.l}</div>`).join('');
-  renderWHistory();renderRecent();updateDayBadge();updateFast();
-}
-function renderWHistory(){
-  const e=S.weights.slice(-4).reverse();
-  document.getElementById('wHistory').innerHTML=e.map(x=>`<div class="we"><span>${x.d}</span><strong>${x.w} kg</strong></div>`).join('');
-}
-function renderRecent(){
-  const keys=Object.keys(S.daily).sort().reverse().slice(0,14);
-  if(!keys.length){document.getElementById('recentHistory').innerHTML='<div class="empty">No history yet. Start logging today.</div>';return;}
-  document.getElementById('recentHistory').innerHTML=keys.map(date=>{
-    const d=S.daily[date];
-    const ci=sum(d.foods||[],f=>Number(f.tc||0)),co=sum(d.acts||[],a=>Number(a.cal||0)),km=sum(d.acts||[],a=>Number(a.dist||0)).toFixed(1),s=sc(d.stars||{});
-    return`<div class="li row jb wrap" style="gap:var(--s2)"><div><div class="lname">${date}</div><div class="lmeta">${km} km · ${ci} kcal in · ${co} kcal out</div></div><div class="stars">${rStar(s)}</div></div>`;
-  }).join('');
-}
-function updateDayBadge(){
-  const b=document.getElementById('dayBadge'),sc2=document.getElementById('setupCard');
-  if(!S.startDate){b.style.display='none';if(sc2)sc2.style.display='';return;}
-  if(sc2)sc2.style.display='none';
-  const diff=Math.floor((new Date(today()+'T00:00:00')-new Date(S.startDate+'T00:00:00'))/86400000);
-  b.textContent='Day '+Math.min(Math.max(1,diff+1),90)+' of 90';b.style.display='';
+function getTD(){
+  const k=todayKey();
+  if(!S.days[k])S.days[k]={meals:[],water:0,fastKept:false,runDone:false,runDist:0,runMins:0,calBurned:0,weight:null};
+  return S.days[k];
 }
 
-// ── GUIDE ────────────────────────────────────────────────────────────────────
-function renderGuide(){
-  const eh=eatHrs(),fh=24-eh;
-  document.getElementById('guideSubFast').textContent=`Eating window ${S.fs} – ${S.fe} · ${eh.toFixed(0)}:${fh.toFixed(0)} protocol`;
-  const [sh]=S.fs.split(':').map(Number),[eh2]=S.fe.split(':').map(Number);
-  const items=[
-    {l:`${S.fe} – ${S.fs} next day`,t:`Fasting (${fh.toFixed(0)}h). Water, black tea, or black coffee only.`},
-    {l:`${S.fs} – Meal 1`,t:`Break fast with a full South Indian lunch. Chicken or eggs. 1 cup rice. Sambar/rasam.`},
-    {l:`${sh+3}:00 – Snack`,t:`Optional: 2 boiled eggs, grilled chicken strips, or plain curd.`},
-    {l:`${eh2-1}:00 – Final meal`,t:`Max 1 cup rice. High protein. Light on oil. Must finish by ${S.fe}.`},
-    {l:`After ${S.fe}`,t:`Fasting starts again. Water only until ${S.fs} tomorrow.`}
-  ];
-  document.getElementById('fastTimeline').innerHTML=items.map(i=>`<div class="tl"><div class="tllb">${i.l}</div><div style="font-size:var(--sm)">${i.t}</div></div>`).join('');
-  const pc={'Build base':'po','Endurance':'pw','10K prep':'pb','10K attempt':'pg'};
-  document.getElementById('runPlan').innerHTML=RUN_PLAN.map(r=>`<div class="li"><div class="row jb wrap" style="gap:var(--s2);margin-bottom:5px"><div class="lname">Week ${r.w}</div><span class="pill ${pc[r.ph]||'po'}">${r.ph}</span></div><div class="lmeta">${r.d}</div></div>`).join('');
-}
-
-// ── FOOD LOG ─────────────────────────────────────────────────────────────────
-function renderFoodLog(){
-  const d=getDay(),t=sum(d.foods,f=>Number(f.tc||0));
-  document.getElementById('foodSummary').textContent=d.foods.length?`${d.foods.length} item${d.foods.length>1?'s':''} · ${t} kcal · goal ${S.ct} kcal`:'Nothing logged yet.';
-  if(!d.foods.length){document.getElementById('foodLog').innerHTML=`<div class="empty">No food logged. Start at ${S.fs}.</div>`;return;}
-  document.getElementById('foodLog').innerHTML=d.foods.map((f,i)=>`<div class="li row jb wrap" style="gap:var(--s2)"><div><div class="lname">${f.n}</div><div class="lmeta">${f.meal} · ${f.qty} serving${f.qty>1?'s':''}</div></div><div class="row" style="gap:var(--s3)"><strong>${f.tc} kcal</strong><button class="btn bg_ bsm" onclick="rmFood(${i})">✕</button></div></div>`).join('');
-}
-function rmFood(i){getDay().foods.splice(i,1);save();renderFoodLog();renderDash();toast('Removed.');}
-
-// ── ACTIVITY LOG ──────────────────────────────────────────────────────────────
-function renderActLog(){
-  const d=getDay();
-  if(!d.acts.length){document.getElementById('actLog').innerHTML='<div class="empty">No activity logged today.</div>';return;}
-  document.getElementById('actLog').innerHTML=d.acts.map((a,i)=>`<div class="li row jb wrap" style="gap:var(--s2)"><div><div class="lname">${a.type}</div><div class="lmeta">${a.dist} km · ${a.mins} min</div></div><div class="row" style="gap:var(--s3)"><strong>${a.cal} kcal${a.ov?' (tracker)':''}</strong><button class="btn bg_ bsm" onclick="rmAct(${i})">✕</button></div></div>`).join('');
-  document.getElementById('totalDist').textContent=Object.values(S.daily).reduce((t,d)=>t+sum(d.acts||[],a=>Number(a.dist||0)),0).toFixed(1)+' km';
-}
-function rmAct(i){getDay().acts.splice(i,1);save();renderActLog();renderDash();toast('Removed.');}
-
-// ── STARS ─────────────────────────────────────────────────────────────────────
-function renderStars(){
-  const d=getDay();
-  document.getElementById('starList').innerHTML=STAR_GOALS.map(g=>`<label class="ci"><input type="checkbox" data-star="${g.k}"${d.stars[g.k]?' checked':''}/>${g.l}</label>`).join('');
-  document.querySelectorAll('[data-star]').forEach(cb=>{
-    cb.addEventListener('change',()=>{getDay().stars[cb.dataset.star]=cb.checked;save();renderDash();renderStars();renderStarStats();toast(cb.checked?'⭐ Star earned!':'Star removed.');});
+function buildProgram(){
+  const dur=cfg('duration')||90;
+  const weeks=Math.min(12,Math.floor(dur/7));
+  const runDaysPerWeek=[1,3,5,8,10]; // offsets within each week
+  return BASE_PROGRAM.slice(0,weeks).map(w=>{
+    const weekStart=(w.wk-1)*7+1;
+    const days=runDaysPerWeek.map(offset=>weekStart+offset-1).filter(d=>d<=dur);
+    return {...w,days,ph:w.wk<=Math.ceil(weeks/2)?'Month 1':'Month 2+'};
   });
-  document.getElementById('starRowBig').innerHTML=rStar(sc(d.stars));
-  renderStarHist();renderStarStats();
-}
-function renderStarHist(){
-  const keys=Object.keys(S.daily).sort().reverse().slice(0,14);
-  if(!keys.length){document.getElementById('starHist').innerHTML='<div class="empty">No history yet.</div>';return;}
-  document.getElementById('starHist').innerHTML=keys.map(date=>`<div class="li row jb"><span class="lname">${date}</span><div class="stars">${rStar(sc(S.daily[date].stars||{}))}</div></div>`).join('');
-}
-function renderStarStats(){
-  const total=Object.values(S.daily).reduce((a,d)=>a+sc(d.stars||{}),0);
-  document.getElementById('sTotal').textContent=total;
-  let best=0,cur=0;
-  Object.keys(S.daily).sort().forEach(dt=>{const s=sc(S.daily[dt].stars||{});if(s>=4){cur++;best=Math.max(best,cur);}else cur=0;});
-  document.getElementById('sBest').textContent=best;
-  document.getElementById('sDays').textContent=Object.keys(S.daily).length;
-  if(S.startDate){const diff=Math.floor((new Date(today()+'T00:00:00')-new Date(S.startDate+'T00:00:00'))/86400000);document.getElementById('sPlanDay').textContent=Math.min(Math.max(1,diff+1),90);}
-  if(S.weights.length>=2){const lost=(S.weights[0].w-S.weights[S.weights.length-1].w).toFixed(1);document.getElementById('sWeightLost').textContent=`${lost} kg ${Number(lost)>0?'lost 🎉':'gained'}`;}
-  else document.getElementById('sWeightLost').textContent='Log weight to track';
 }
 
-// ── CHARTS ────────────────────────────────────────────────────────────────────
-let CH={};
-function destroyChart(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
-function renderCharts(){
-  const keys=Object.keys(S.daily).sort().slice(-30);
-  const lb=keys.map(k=>k.slice(5));
-  const ci=keys.map(k=>sum(S.daily[k].foods||[],f=>Number(f.tc||0)));
-  const co=keys.map(k=>sum(S.daily[k].acts||[],a=>Number(a.cal||0)));
-  const di=keys.map(k=>sum(S.daily[k].acts||[],a=>Number(a.dist||0)));
-  const st=keys.map(k=>sc(S.daily[k].stars||{}));
-  const wo=S.weights.slice(-30);
-  const base={responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.05)'}}}};
-
-  destroyChart('w');
-  if(wo.length){charts_w(wo,base);}
-  else{const c=document.getElementById('cwt').parentElement;c.innerHTML='<div class="empty">Log weight entries to see this chart.</div>';}
-
-  destroyChart('c');
-  CH['c']=new Chart(document.getElementById('ccal'),{type:'bar',data:{labels:lb,datasets:[{label:'Eaten',data:ci,backgroundColor:'rgba(249,115,22,.7)',borderRadius:4},{label:'Burnt',data:co,backgroundColor:'rgba(34,134,58,.6)',borderRadius:4}]},options:{...base,plugins:{legend:{display:true,position:'top'}}}});
-
-  destroyChart('d');
-  CH['d']=new Chart(document.getElementById('cdist'),{type:'bar',data:{labels:lb,datasets:[{data:di,backgroundColor:'rgba(29,111,184,.65)',borderRadius:4}]},options:base});
-
-  destroyChart('s');
-  CH['s']=new Chart(document.getElementById('cstars'),{type:'bar',data:{labels:lb,datasets:[{data:st,backgroundColor:st.map(s=>s>=5?'#f59e0b':s>=4?'#f97316':s>=3?'#fb923c':'#fdba74'),borderRadius:4}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,max:5,ticks:{stepSize:1}}}}});
-}
-function charts_w(wo,base){
-  CH['w']=new Chart(document.getElementById('cwt'),{type:'line',data:{labels:wo.map(x=>x.d.slice(5)),datasets:[{data:wo.map(x=>x.w),borderColor:'#f97316',backgroundColor:'rgba(249,115,22,.08)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#f97316'}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,suggestedMin:90,suggestedMax:115}}}});
+function getCW(){
+  const d=dayOfProgram();const prog=buildProgram();
+  for(const w of prog)if(w.days.includes(d))return w;
+  for(const w of [...prog].reverse())if(w.days[0]<=d)return w;
+  return prog[0]||BASE_PROGRAM[0];
 }
 
-// ── MONTHLY ───────────────────────────────────────────────────────────────────
-function renderMonthly(){
-  const host=document.getElementById('monthCal');
-  const all=Object.keys(S.daily).sort();
-  if(!all.length){host.innerHTML='<div class="empty">Start logging to see your monthly calendar.</div>';return;}
-  const months={};all.forEach(d=>{const ym=d.slice(0,7);if(!months[ym])months[ym]=[];months[ym].push(d);});
-  let html='';
-  Object.keys(months).sort().reverse().forEach(ym=>{
-    const[y,m]=ym.split('-').map(Number);
-    const first=new Date(y,m-1,1).getDay(),dim=new Date(y,m,0).getDate();
-    html+=`<div class="card"><div class="mhdr">${MONTHS[m-1]} ${y}</div><div class="mgrid">`;
-    DAYS.forEach(d=>html+=`<div class="mdlbl">${d}</div>`);
-    for(let i=0;i<first;i++)html+=`<div class="mday emp"></div>`;
-    for(let day=1;day<=dim;day++){
-      const ds=`${ym}-${String(day).padStart(2,'0')}`,dd=S.daily[ds];
-      let cls='nd',tx='';
-      if(dd){const s=sc(dd.stars||{});cls='s'+s;tx=s>0?s+'★':'';}
-      html+=`<div class="mday ${cls}">${day}<br><small>${tx}</small></div>`;
-    }
-    html+=`</div></div>`;
-  });
-  host.innerHTML=html;
+function isRunDay(){
+  const d=dayOfProgram();
+  return buildProgram().some(w=>w.days.includes(d));
 }
 
-// ── SETTINGS ──────────────────────────────────────────────────────────────────
-function renderSettings(){
-  document.getElementById('fsStart').value=S.fs;
-  document.getElementById('fsEnd').value=S.fe;
-  document.getElementById('pWeight').value=S.bw;
-  document.getElementById('pCal').value=S.ct;
-  if(S.startDate)document.getElementById('sStartDate').value=S.startDate;
-  updateFastPrev();
-}
-function updateFastPrev(){
-  const s=document.getElementById('fsStart').value,e=document.getElementById('fsEnd').value;
-  if(!s||!e)return;
-  const[s1,s2]=s.split(':').map(Number),[e1,e2]=e.split(':').map(Number);
-  let d=(e1*60+e2)-(s1*60+s2);if(d<0)d+=1440;
-  const eh=Math.round(d/60),fh=24-eh;
-  document.getElementById('fastPreview').textContent=`${fh}:${eh} — fasting ${fh}h, eating ${eh}h`;
+function isPerfect(d){
+  const c=d.meals?d.meals.reduce((s,m)=>s+m.c,0):0;
+  const calGoal=cfg('calGoal')||1800;
+  const waterGoal=(cfg('waterGoal')||4)*1000;
+  return d.fastKept&&d.runDone&&c>0&&c<=calGoal&&(d.water||0)>=waterGoal&&d.weight;
 }
 
-// ── EVENTS ────────────────────────────────────────────────────────────────────
-document.getElementById('btnToday').addEventListener('click',()=>{document.getElementById('startDate').value=today();});
-document.getElementById('btnSaveStart').addEventListener('click',()=>{
-  const v=document.getElementById('startDate').value;if(!v){toast('Pick a date.');return;}
-  S.startDate=v;save();renderDash();toast('Start date saved!');
-});
-document.getElementById('btnLogW').addEventListener('click',()=>{
-  const w=Number(document.getElementById('wInput').value);
-  if(!w||w<40||w>400){toast('Enter a valid weight.');return;}
-  const td=today(),idx=S.weights.findIndex(e=>e.d===td);
-  if(idx>=0)S.weights[idx].w=w;else S.weights.push({d:td,w});
-  save();renderDash();renderStarStats();document.getElementById('wInput').value='';toast('Weight '+w+' kg logged ✅');
-});
-document.getElementById('foodSel').addEventListener('change',updateFoodPrev);
-document.getElementById('foodQty').addEventListener('input',updateFoodPrev);
-document.getElementById('btnAddFood').addEventListener('click',()=>{
-  const i=Number(document.getElementById('foodSel').value),q=Number(document.getElementById('foodQty').value)||1,ml=document.getElementById('mealType').value,f=S.foods[i];
-  if(!f){toast('Select a food.');return;}
-  getDay().foods.push({n:f.n,qty:q,meal:ml,tc:Math.round(f.c*q)});
-  save();renderFoodLog();renderDash();toast(f.n+' added ✅');
-});
-document.getElementById('btnSaveCustom').addEventListener('click',()=>{
-  const n=document.getElementById('cName').value.trim(),c=Number(document.getElementById('cCal').value);
-  if(!n||!c){toast('Enter name and calories.');return;}
-  S.foods.push({n,c});save();buildFoodSel();toast(n+' saved to list ✅');
-  document.getElementById('cName').value='';document.getElementById('cCal').value='';
-});
-document.getElementById('btnAddCustom').addEventListener('click',()=>{
-  const n=document.getElementById('cName').value.trim(),c=Number(document.getElementById('cCal').value),q=Number(document.getElementById('cQty').value)||1,ml=document.getElementById('cMeal').value;
-  if(!n||!c){toast('Enter name and calories.');return;}
-  S.foods.push({n,c});getDay().foods.push({n,qty:q,meal:ml,tc:Math.round(c*q)});
-  save();buildFoodSel();renderFoodLog();renderDash();toast(n+' added ✅');
-  document.getElementById('cName').value='';document.getElementById('cCal').value='';
-});
-document.getElementById('actType').addEventListener('change',updateActCalc);
-document.getElementById('actDist').addEventListener('input',updateActCalc);
-document.getElementById('actMins').addEventListener('input',updateActCalc);
-document.getElementById('btnAddAct').addEventListener('click',()=>{
-  const type=document.getElementById('actType').value,dist=Number(document.getElementById('actDist').value)||0,mins=Number(document.getElementById('actMins').value)||0;
-  if(!mins){toast('Enter duration.');return;}
-  const auto=Math.round((MET[type]||6)*S.bw*(mins/60)),ov=document.getElementById('actOver').value;
-  const cal=(ov&&Number(ov)>0)?Number(ov):auto;
-  getDay().acts.push({type,dist,mins,cal,ov:!!(ov&&Number(ov)>0)});
-  save();renderActLog();renderDash();document.getElementById('actOver').value='';
-  toast(`Logged ${cal} kcal 🏃`);
-});
-document.getElementById('fsStart').addEventListener('input',updateFastPrev);
-document.getElementById('fsEnd').addEventListener('input',updateFastPrev);
-document.getElementById('btnSaveFast').addEventListener('click',()=>{
-  const s=document.getElementById('fsStart').value,e=document.getElementById('fsEnd').value;
-  if(!s||!e){toast('Enter both times.');return;}
-  S.fs=s;S.fe=e;save();renderGuide();renderDash();toast('Fasting window saved ✅');
-});
-document.getElementById('btnSaveProfile').addEventListener('click',()=>{
-  const w=Number(document.getElementById('pWeight').value),c=Number(document.getElementById('pCal').value);
-  if(!w||!c){toast('Enter weight and target.');return;}
-  S.bw=w;S.ct=c;save();updateActCalc();toast('Profile saved ✅');
-});
-document.getElementById('btnSaveStart2').addEventListener('click',()=>{
-  const v=document.getElementById('sStartDate').value;if(!v){toast('Pick a date.');return;}
-  S.startDate=v;save();renderDash();toast('Start date updated ✅');
-});
+function calcStreak(){
+  let s=0;const t=todayKey();
+  for(const k of Object.keys(S.days).sort().reverse()){
+    if(k>t)continue;if(isPerfect(S.days[k]))s++;else break;
+  }
+  return s;
+}
 
-// ── TAB SWITCHING ─────────────────────────────────────────────────────────────
-function switchTab(name){
+// ══ ONBOARDING ══
+function saveOnboard(){
+  const start=document.getElementById('ob-start').value;
+  const sw=parseFloat(document.getElementById('ob-start-wt').value)||109;
+  const tw=parseFloat(document.getElementById('ob-target-wt').value)||94;
+  const dur=parseInt(document.getElementById('ob-duration').value)||90;
+  const cal=parseInt(document.getElementById('ob-calories').value)||1800;
+  const water=parseFloat(document.getElementById('ob-water').value)||4;
+  const f1=document.getElementById('ob-fast1').value;
+  const f2=document.getElementById('ob-fast2').value;
+  if(!start){alert('Please choose a start date');return;}
+  S.config={startDate:start,startWeight:sw,targetWeight:tw,duration:dur,calGoal:cal,waterGoal:water,fast1:f1,fast2:f2};
+  save();
+  document.getElementById('onboard').style.display='none';
+  document.getElementById('app').style.display='block';
+  renderDash();
+}
+
+// ══ NAVIGATION ══
+function showTab(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  document.querySelector(`.nb[data-tab="${name}"]`).classList.add('active');
-  if(name==='dashboard')renderDash();
-  if(name==='guide')renderGuide();
-  if(name==='food'){buildFoodSel();renderFoodLog();}
-  if(name==='exercise'){renderActLog();updateActCalc();}
-  if(name==='stars')renderStars();
-  if(name==='history'){renderCharts();renderMonthly();}
-  if(name==='settings')renderSettings();
+  document.getElementById(id).classList.add('active');
+  const idx=['s-dash','s-food','s-run','s-log','s-guide','s-settings'].indexOf(id);
+  if(idx>=0)document.querySelectorAll('.tab')[idx].classList.add('active');
+  if(id==='s-dash')renderDash();
+  if(id==='s-food')renderFood();
+  if(id==='s-run')renderRun();
+  if(id==='s-log')renderLog();
+  if(id==='s-settings')renderSettings();
 }
-document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
 
-// Inner tabs
-document.querySelectorAll('.itb').forEach(b=>{
-  b.addEventListener('click',()=>{
-    const t=b.dataset.inner;
-    document.querySelectorAll('.itb').forEach(x=>x.classList.toggle('active',x.dataset.inner===t));
-    document.querySelectorAll('.itc').forEach(x=>x.classList.toggle('active',x.id==='inner-'+t));
-    if(t==='graphs')renderCharts();
-    if(t==='monthly')renderMonthly();
+// ══ DASHBOARD ══
+function renderDash(){
+  const td=getTD();const ph=getPhaseInfo();const dn=dayOfProgram();
+  const dur=cfg('duration')||90;
+  const calGoal=cfg('calGoal')||1800;
+  const waterGoal=(cfg('waterGoal')||4)*1000;
+  const startWt=cfg('startWeight')||109;
+  const targetWt=cfg('targetWeight')||94;
+
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('day-num').textContent=dn;
+  document.getElementById('day-total').textContent=dur;
+  document.getElementById('phase-label').textContent=ph.label;
+  document.getElementById('streak-num').textContent=calcStreak();
+
+  const lastW=S.weights.length?S.weights[S.weights.length-1].w:null;
+  document.getElementById('m-weight').textContent=lastW||'—';
+  const lost=lastW?Math.max(0,startWt-lastW):0;
+  document.getElementById('m-lost').textContent=lost.toFixed(1);
+  document.getElementById('kg-to-go').textContent=lastW?Math.max(0,lastW-targetWt).toFixed(1):(startWt-targetWt);
+
+  const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  document.getElementById('m-cal').textContent=totalCal;
+  document.getElementById('m-burn').textContent=td.calBurned||0;
+  document.getElementById('cal-txt').textContent=totalCal+' / '+calGoal+' kcal';
+  document.getElementById('cal-bar').style.width=Math.min(100,Math.round(totalCal/calGoal*100))+'%';
+  document.getElementById('cal-bar').className='pf '+(totalCal>calGoal?'pf-red':'pf-amber');
+
+  const wml=td.water||0;
+  document.getElementById('water-txt').textContent=(wml/1000).toFixed(1)+'L / '+(cfg('waterGoal')||4)+'L';
+  document.getElementById('water-bar').style.width=Math.min(100,Math.round(wml/waterGoal*100))+'%';
+  document.getElementById('fast-txt').textContent=td.fastKept?'Kept ✓':'Pending';
+  document.getElementById('fast-bar').style.width=td.fastKept?'100%':'0%';
+
+  const wk=getCW();
+  document.getElementById('run-plan-text').textContent=isRunDay()?'Today: '+wk.desc:'Rest day — recovery is where the gains happen';
+  document.getElementById('run-status-dash').innerHTML=td.runDone?'<span class="badge b-teal"><i class="ti ti-check"></i> '+td.runDist+'km in '+td.runMins+' min</span>':'';
+  document.getElementById('log-run-btn').style.display=isRunDay()&&!td.runDone?'flex':'none';
+  renderWeekStars();
+}
+
+function renderWeekStars(){
+  const today=new Date();const dow=today.getDay();
+  const mon=new Date(today);mon.setDate(today.getDate()-(dow===0?6:dow-1));
+  document.getElementById('wk-day-labels').innerHTML=['M','T','W','T','F','S','S'].map(l=>'<div class="day-lbl">'+l+'</div>').join('');
+  let h='';
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(mon.getDate()+i);
+    const k=d.toISOString().split('T')[0];
+    const isT=k===todayKey();const earned=S.days[k]&&isPerfect(S.days[k]);
+    h+='<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'"><i class="ti ti-star"></i><span>'+d.getDate()+'</span></div>';
+  }
+  document.getElementById('wk-stars').innerHTML=h;
+}
+
+function addWater(ml){const td=getTD();td.water=(td.water||0)+ml;save();renderDash()}
+
+// ══ RUN MODAL ══
+function openLogRun(){document.getElementById('run-modal').classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function saveRun(){
+  const dist=parseFloat(document.getElementById('run-dist').value)||0;
+  const mins=parseFloat(document.getElementById('run-mins').value)||0;
+  if(!dist||!mins){alert('Enter distance and duration');return;}
+  const td=getTD();td.runDone=true;td.runDist=dist;td.runMins=mins;td.calBurned=Math.round(dist*80);
+  save();closeModal('run-modal');renderDash();
+}
+
+// ══ FOOD ══
+function renderFood(){
+  const td=getTD();const calGoal=cfg('calGoal')||1800;
+  const total=td.meals.reduce((s,m)=>s+m.c,0);
+  document.getElementById('food-cal-total').textContent=total+' / '+calGoal+' kcal';
+  const el=document.getElementById('logged-meals');
+  el.innerHTML=td.meals.length===0?'<p style="font-size:13px;color:#B4B2A9;margin-bottom:8px">No meals logged yet</p>':
+    td.meals.map((m,i)=>'<div class="logged-item"><span>'+m.n+'</span><span style="display:flex;align-items:center;gap:8px"><span class="badge b-amber">'+m.c+' kcal</span><button onclick="removeFood('+i+')" style="border:none;background:none;cursor:pointer;color:#B4B2A9;font-size:20px">×</button></span></div>').join('');
+  ['breakfast','main','protein','snacks'].forEach(cat=>{
+    document.getElementById('fl-'+cat).innerHTML=FOODS[cat].map(f=>'<div class="food-item" data-name="'+f.n.toLowerCase()+'" onclick=\'addFood('+JSON.stringify(f.n)+','+f.c+')\' ><div><div class="fname">'+f.n+'</div><div class="fport">'+f.p+'</div></div><div class="fcal">+'+f.c+' kcal</div></div>').join('');
   });
-});
+}
+function filterFood(){
+  const q=document.getElementById('food-search').value.toLowerCase();
+  document.querySelectorAll('.food-item').forEach(el=>{el.style.display=el.dataset.name.includes(q)?'flex':'none'});
+}
+function addFood(n,c){const td=getTD();td.meals.push({n,c});save();renderFood();renderDash()}
+function removeFood(i){const td=getTD();td.meals.splice(i,1);save();renderFood();renderDash()}
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-buildFoodSel();
-renderDash();
-updateActCalc();
-setInterval(updateFast,60000);
+// ══ RUN PROGRAM ══
+function renderRun(){
+  const wk=getCW();
+  document.getElementById('run-phase-lbl').textContent=wk.ph||'Month 1';
+  document.getElementById('run-wk-summary').textContent='Week '+wk.wk+': '+wk.lbl+' — '+wk.desc+' ('+wk.dist+')';
+  const dn=dayOfProgram();const days=['M','T','W','T','F','S','S'];
+  let g='';
+  for(let i=0;i<7;i++){
+    const d=dn-((dn-1)%7)+i;const isRun=wk.days.includes(d);const isT=d===dn;
+    g+='<div class="run-day'+(isRun?' done':'')+(isT?' today-run':'')+(isRun?'':' rest')+'">'+(isRun?days[i]:'·')+'</div>';
+  }
+  document.getElementById('run-wk-grid').innerHTML=g;
+  const prog=buildProgram();
+  document.getElementById('full-program').innerHTML=prog.map(w=>'<div class="card" style="margin-bottom:8px;border-left:3px solid '+(w.wk===wk.wk?'#EF9F27':'#FAC775')+'"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:500;color:'+(w.wk===wk.wk?'#854F0B':'#2C2C2A')+'">Week '+w.wk+' · '+w.lbl+'</div><div style="font-size:12px;color:#888780;margin-top:2px">'+w.desc+'</div></div><span class="badge '+(w.wk===wk.wk?'b-amber':'b-coral')+'">'+w.dist+'</span></div></div>').join('');
+}
+
+// ══ LOG ══
+function renderLog(){
+  const ph=getPhaseInfo();
+  const calGoal=cfg('calGoal')||1800;
+  const waterGoal=cfg('waterGoal')||4;
+  document.getElementById('fast-window-desc').textContent=ph.label+': Eat '+ph.window;
+  document.getElementById('fast-start').value=ph.start;
+  document.getElementById('fast-end').value=ph.end;
+  document.getElementById('log-start-wt').textContent=cfg('startWeight')||109;
+  document.getElementById('log-target-wt').textContent=cfg('targetWeight')||94;
+  const td=getTD();const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  const goals=[
+    {lbl:'Fasting window kept',done:td.fastKept,icon:'ti-clock'},
+    {lbl:'Run completed',done:td.runDone,icon:'ti-run'},
+    {lbl:'Calorie goal (≤'+calGoal+' kcal)',done:totalCal>0&&totalCal<=calGoal,icon:'ti-flame'},
+    {lbl:'Weight logged',done:!!td.weight,icon:'ti-scale'},
+    {lbl:'Water goal ('+(waterGoal)+'L)',done:(td.water||0)>=(waterGoal*1000),icon:'ti-droplet'},
+  ];
+  document.getElementById('goals-checklist').innerHTML=goals.map(g=>'<div class="goals-row"><i class="ti '+g.icon+'" style="font-size:18px;color:'+(g.done?'#1D9E75':'#FAC775')+'"></i><span style="flex:1;font-size:13px">'+g.lbl+'</span><i class="ti '+(g.done?'ti-circle-check':'ti-circle')+'" style="color:'+(g.done?'#1D9E75':'#FAC775')+';font-size:20px"></i></div>').join('');
+}
+
+function logWeight(){
+  const v=parseFloat(document.getElementById('weight-input').value);
+  if(!v||v<40||v>300){alert('Enter a valid weight');return;}
+  const td=getTD();td.weight=v;const k=todayKey();
+  S.weights=S.weights.filter(x=>x.date!==k);S.weights.push({date:k,w:v});S.weights.sort((a,b)=>a.date.localeCompare(b.date));
+  save();renderLog();renderDash();
+}
+function logFast(){getTD().fastKept=true;save();renderLog();renderDash()}
+function logBurn(){const v=parseFloat(document.getElementById('burn-input').value);if(!v){alert('Enter calories');return;}getTD().calBurned=v;save();renderLog();renderDash()}
+
+// ══ SETTINGS ══
+function renderSettings(){
+  if(!S.config)return;
+  document.getElementById('s-start-wt').value=cfg('startWeight')||109;
+  document.getElementById('s-target-wt').value=cfg('targetWeight')||94;
+  document.getElementById('s-duration').value=cfg('duration')||90;
+  document.getElementById('s-calories').value=cfg('calGoal')||1800;
+  document.getElementById('s-water').value=cfg('waterGoal')||4;
+  document.getElementById('s-fast1').value=cfg('fast1')||'16:8';
+  document.getElementById('s-fast2').value=cfg('fast2')||'18:6';
+  document.getElementById('s-start-date').value=cfg('startDate')||'';
+  const f1=FAST_WINDOWS[cfg('fast1')||'16:8'];
+  const f2=FAST_WINDOWS[cfg('fast2')||'18:6'];
+  document.getElementById('fast1-desc').textContent='Eat '+f1.eat;
+  document.getElementById('fast2-desc').textContent='Eat '+f2.eat;
+  renderHistory();
+}
+
+function saveSettings(){
+  S.config.startWeight=parseFloat(document.getElementById('s-start-wt').value)||109;
+  S.config.targetWeight=parseFloat(document.getElementById('s-target-wt').value)||94;
+  S.config.duration=parseInt(document.getElementById('s-duration').value)||90;
+  S.config.calGoal=parseInt(document.getElementById('s-calories').value)||1800;
+  S.config.waterGoal=parseFloat(document.getElementById('s-water').value)||4;
+  S.config.fast1=document.getElementById('s-fast1').value;
+  S.config.fast2=document.getElementById('s-fast2').value;
+  S.config.startDate=document.getElementById('s-start-date').value;
+  save();
+  const note=document.getElementById('settings-recalc-note');
+  note.style.display='block';setTimeout(()=>note.style.display='none',2500);
+  const f1=FAST_WINDOWS[S.config.fast1];const f2=FAST_WINDOWS[S.config.fast2];
+  document.getElementById('fast1-desc').textContent='Eat '+f1.eat;
+  document.getElementById('fast2-desc').textContent='Eat '+f2.eat;
+}
+
+function confirmReset(){
+  if(confirm('This will delete ALL your data and restart the app. Are you sure?')){
+    localStorage.removeItem('ft4');location.reload();
+  }
+}
+
+// ══ HISTORY ══
+let wChart=null;
+function renderHistory(){
+  const startWt=cfg('startWeight')||109;const targetWt=cfg('targetWeight')||94;
+  const labels=S.weights.map(x=>x.date.slice(5));const data=S.weights.map(x=>x.w);
+  const ctx=document.getElementById('weight-chart').getContext('2d');
+  if(wChart)wChart.destroy();
+  wChart=new Chart(ctx,{type:'line',data:{labels:labels.length?labels:['Start'],datasets:[
+    {data:data.length?data:[startWt],borderColor:'#EF9F27',backgroundColor:'rgba(239,159,39,0.1)',tension:0.3,pointRadius:3,pointBackgroundColor:'#EF9F27',fill:true},
+    {data:labels.length?labels.map(()=>targetWt):[targetWt],borderColor:'#D85A30',borderDash:[4,4],pointRadius:0,fill:false}
+  ]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:Math.max(50,targetWt-5),suggestedMax:startWt+2,grid:{color:'rgba(239,159,39,0.15)'},ticks:{font:{size:11},color:'#854F0B'}},x:{grid:{display:false},ticks:{font:{size:10},color:'#854F0B',maxTicksLimit:6}}}}});
+
+  const dur=cfg('duration')||90;const sd=cfg('startDate');
+  if(!sd){document.getElementById('full-calendar').innerHTML='<p style="font-size:13px;color:#888780">Start date not set</p>';return;}
+  const allDates=[];const s=new Date(sd);
+  for(let i=0;i<dur;i++){const d=new Date(s);d.setDate(s.getDate()+i);allDates.push(d.toISOString().split('T')[0]);}
+  const months=[];
+  for(let m=0;m<Math.ceil(dur/30);m++)months.push({lbl:'Month '+(m+1),dates:allDates.slice(m*30,m*30+30)});
+  document.getElementById('full-calendar').innerHTML=months.map(m=>{
+    const dl='<div class="day-labels" style="margin-bottom:4px">'+['M','T','W','T','F','S','S'].map(l=>'<div class="day-lbl">'+l+'</div>').join('')+'</div>';
+    const cells=m.dates.map(dt=>{
+      const dd=S.days[dt];const earned=dd&&isPerfect(dd);const isT=dt===todayKey();const past=dt<todayKey();
+      return '<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'" style="'+(past&&!earned?'opacity:0.4':'')+'"><i class="ti ti-star"></i><span>'+parseInt(dt.split('-')[2])+'</span></div>';
+    }).join('');
+    return '<div style="margin-bottom:16px"><div class="sec-title">'+m.lbl+'</div>'+dl+'<div class="star-grid">'+cells+'</div></div>';
+  }).join('');
+
+  const runs=Object.values(S.days).filter(d=>d.runDone).length;
+  const stars=Object.keys(S.days).filter(k=>S.days[k]&&isPerfect(S.days[k])).length;
+  const lostSoFar=S.weights.length?(startWt-S.weights[S.weights.length-1].w):0;
+  const achs=[
+    {icon:'ti-run',t:'First run logged',d:'You laced up and went',e:runs>=1},
+    {icon:'ti-run',t:'5 runs done',d:'Consistency is building',e:runs>=5},
+    {icon:'ti-run',t:'20 runs done',d:'You are a runner now',e:runs>=20},
+    {icon:'ti-star',t:'First perfect day',d:'All goals met in one day',e:stars>=1},
+    {icon:'ti-star',t:'7 perfect days',d:'A full perfect week',e:stars>=7},
+    {icon:'ti-trending-down',t:'First kg lost',d:'1kg down — it starts here',e:lostSoFar>=1},
+    {icon:'ti-trending-down',t:'5kg milestone',d:'5kg gone — unstoppable',e:lostSoFar>=5},
+    {icon:'ti-trophy',t:'Halfway there',d:'Half your goal weight lost',e:lostSoFar>=(startWt-targetWt)/2},
+    {icon:'ti-trophy',t:'Goal reached!',d:targetWt+'kg — you absolutely did it!',e:S.weights.some(x=>x.w<=targetWt)},
+  ];
+  document.getElementById('achievements-list').innerHTML=achs.map(a=>'<div class="achievement" style="opacity:'+(a.e?1:0.3)+'"><i class="ti '+a.icon+'"></i><div><div class="atitle">'+a.t+(a.e?' ✓':'')+'</div><div class="adesc">'+a.d+'</div></div></div>').join('');
+}
+
+// ══ INIT ══
+(function init(){
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('ob-start').value=today;
+  document.getElementById('ob-start').min=today;
+
+  if(S.config&&S.config.startDate){
+    document.getElementById('onboard').style.display='none';
+    document.getElementById('app').style.display='block';
+    renderDash();
+  }
+})();
 </script>
 </body>
 </html>
