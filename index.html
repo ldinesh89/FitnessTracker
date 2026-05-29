@@ -7,8 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="FitTracker"/>
-<link rel="apple-touch-icon" sizes="180x180" href="{data_uri}"/>
-<link rel="shortcut icon" type="image/png" href="{data_uri}"/>
 <title>FitTracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -822,6 +820,41 @@ buildFoodSel();
 renderDash();
 updateActCalc();
 setInterval(updateFast,60000);
+</script>
+<script>
+// Generate PWA icon via canvas and register as apple-touch-icon
+(function(){
+  var c=document.createElement('canvas');
+  c.width=180;c.height=180;
+  var ctx=c.getContext('2d');
+  // Rounded rect background
+  var r=36;
+  ctx.beginPath();
+  ctx.moveTo(r,0);ctx.lineTo(180-r,0);ctx.quadraticCurveTo(180,0,180,r);
+  ctx.lineTo(180,180-r);ctx.quadraticCurveTo(180,180,180-r,180);
+  ctx.lineTo(r,180);ctx.quadraticCurveTo(0,180,0,180-r);
+  ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);ctx.closePath();
+  var g=ctx.createLinearGradient(0,0,0,180);
+  g.addColorStop(0,'#ffb066');g.addColorStop(0.5,'#f97316');g.addColorStop(1,'#ea580c');
+  ctx.fillStyle=g;ctx.fill();
+  // Lightning bolt
+  ctx.fillStyle='#fff';
+  ctx.beginPath();
+  ctx.moveTo(108,18);ctx.lineTo(68,92);ctx.lineTo(94,92);
+  ctx.lineTo(72,162);ctx.lineTo(112,88);ctx.lineTo(86,88);
+  ctx.closePath();ctx.fill();
+  // Create blob and link tag
+  c.toBlob(function(blob){
+    if(!blob)return;
+    var url=URL.createObjectURL(blob);
+    var lnk=document.createElement('link');
+    lnk.rel='apple-touch-icon';lnk.sizes='180x180';lnk.href=url;
+    document.head.appendChild(lnk);
+    var ico=document.createElement('link');
+    ico.rel='icon';ico.type='image/png';ico.href=url;
+    document.head.appendChild(ico);
+  },'image/png');
+})();
 </script>
 </body>
 </html>
