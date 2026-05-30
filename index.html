@@ -278,6 +278,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="sec-title">Lunch / dinner</div><div id="fl-main"></div>
   <div class="sec-title">Proteins</div><div id="fl-protein"></div>
   <div class="sec-title">Snacks & drinks</div><div id="fl-snacks"></div>
+
+  <div class="sec-title">Add custom food</div>
+  <div class="card">
+    <div style="font-size:13px;color:#888780;margin-bottom:10px">Can't find something? Add it manually.</div>
+    <div class="input-row">
+      <input class="fi" type="text" id="custom-food-name" placeholder="Food name" style="flex:2">
+    </div>
+    <div class="input-row">
+      <div style="flex:1">
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Calories (kcal)</div>
+        <input class="fi" type="number" id="custom-food-cal" placeholder="e.g. 250">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Portion / notes</div>
+        <input class="fi" type="text" id="custom-food-portion" placeholder="e.g. 1 cup">
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-primary" style="flex:2" onclick="addCustomFood()">
+        <i class="ti ti-plus"></i> Add to today
+      </button>
+      <button class="btn" style="flex:1;font-size:12px" onclick="saveToLibrary()">
+        <i class="ti ti-bookmark"></i> Save to list
+      </button>
+    </div>
+    <div id="custom-food-msg" style="font-size:12px;color:#1D9E75;margin-top:6px;display:none">
+      <i class="ti ti-check"></i> <span></span>
+    </div>
+  </div>
+  <div id="fl-custom-saved" style="display:none">
+    <div class="sec-title">My saved foods</div>
+    <div id="fl-custom-list"></div>
+  </div>
 </div>
 
 <!-- RUN -->
@@ -712,6 +745,7 @@ function renderDash(){
   document.getElementById('run-status-dash').innerHTML=td.runDone?'<span class="badge b-teal"><i class="ti ti-check"></i> '+td.runDist+'km in '+td.runMins+' min</span>':'';
   document.getElementById('log-run-btn').style.display=isRunDay()&&!td.runDone?'flex':'none';
   renderWeekStars();
+  renderMotivational();
 }
 
 function renderWeekStars(){
@@ -749,6 +783,7 @@ function renderFood(){
   const el=document.getElementById('logged-meals');
   el.innerHTML=td.meals.length===0?'<p style="font-size:13px;color:#B4B2A9;margin-bottom:8px">No meals logged yet</p>':
     td.meals.map((m,i)=>'<div class="logged-item"><span>'+m.n+'</span><span style="display:flex;align-items:center;gap:8px"><span class="badge b-amber">'+m.c+' kcal</span><button onclick="removeFood('+i+')" style="border:none;background:none;cursor:pointer;color:#B4B2A9;font-size:20px">×</button></span></div>').join('');
+  renderCustomSaved();
   ['breakfast','main','protein','snacks'].forEach(cat=>{
     document.getElementById('fl-'+cat).innerHTML=FOODS[cat].map(f=>'<div class="food-item" data-name="'+f.n.toLowerCase()+'" onclick=\'addFood('+JSON.stringify(f.n)+','+f.c+')\' ><div><div class="fname">'+f.n+'</div><div class="fport">'+f.p+'</div></div><div class="fcal">+'+f.c+' kcal</div></div>').join('');
   });
@@ -904,7 +939,231 @@ function renderHistory(){
     renderDash();
   }
 })();
+
+// ══ CUSTOM FOOD ══
+function addCustomFood(n,c){
+  if(n===undefined){
+    n=(document.getElementById('custom-food-name').value||'').trim();
+    c=parseInt(document.getElementById('custom-food-cal').value)||0;
+    if(!n){alert('Enter a food name');return;}
+    if(!c){alert('Enter calories');return;}
+    document.getElementById('custom-food-name').value='';
+    document.getElementById('custom-food-cal').value='';
+    document.getElementById('custom-food-portion').value='';
+  }
+  getTD().meals.push({n,c});save();renderFood();renderDash();
+  showCustomMsg('Added to today!');
+}
+function saveToLibrary(){
+  const n=(document.getElementById('custom-food-name').value||'').trim();
+  const c=parseInt(document.getElementById('custom-food-cal').value)||0;
+  const p=(document.getElementById('custom-food-portion').value||'').trim()||'1 serving';
+  if(!n){alert('Enter a food name');return;}
+  if(!c){alert('Enter calories');return;}
+  if(!S.customFoods)S.customFoods=[];
+  if(S.customFoods.find(f=>f.n===n)){showCustomMsg('Already saved!');return;}
+  S.customFoods.push({n,c,p});save();
+  document.getElementById('custom-food-name').value='';
+  document.getElementById('custom-food-cal').value='';
+  document.getElementById('custom-food-portion').value='';
+  renderCustomSaved();showCustomMsg('Saved to your list!');
+}
+function showCustomMsg(txt){
+  const el=document.getElementById('custom-food-msg');
+  el.querySelector('span').textContent=txt;
+  el.style.display='block';
+  setTimeout(()=>el.style.display='none',2500);
+}
+function renderCustomSaved(){
+  if(!S.customFoods||S.customFoods.length===0){
+    document.getElementById('fl-custom-saved').style.display='none';return;
+  }
+  document.getElementById('fl-custom-saved').style.display='block';
+  document.getElementById('fl-custom-list').innerHTML=S.customFoods.map((f,i)=>
+    '<div class="food-item" data-name="'+f.n.toLowerCase()+'">' +
+    '<div onclick=\'addCustomFood('+JSON.stringify(f.n)+','+f.c+')\' style="flex:1;cursor:pointer">' +
+    '<div class="fname">'+f.n+'</div><div class="fport">'+f.p+'</div></div>' +
+    '<div style="display:flex;align-items:center;gap:8px">' +
+    '<div class="fcal" onclick=\'addCustomFood('+JSON.stringify(f.n)+','+f.c+')\' style="cursor:pointer">+'+f.c+' kcal</div>' +
+    '<button onclick="deleteCustomFood('+i+')" style="border:none;background:none;cursor:pointer;color:#B4B2A9;font-size:18px">×</button>' +
+    '</div></div>'
+  ).join('');
+}
+function deleteCustomFood(i){S.customFoods.splice(i,1);save();renderCustomSaved();}
+
+// ══ MOTIVATIONAL ══
+const QUOTES=[
+  {q:"The only bad workout is the one that didn't happen.",a:"Unknown"},
+  {q:"You don't have to be great to start, but you have to start to be great.",a:"Zig Ziglar"},
+  {q:"Your body can stand almost anything. It's your mind you have to convince.",a:"Unknown"},
+  {q:"Pain is temporary. Quitting lasts forever.",a:"Lance Armstrong"},
+  {q:"The hardest lift of all is lifting your butt off the couch.",a:"Unknown 😄"},
+  {q:"You're one workout away from a good mood.",a:"Unknown"},
+  {q:"Eat idli, go for a run. Repeat. That's the whole plan.",a:"FitTrack 😄"},
+  {q:"The scale is just a number. Your effort is everything.",a:"Unknown"},
+  {q:"Sore today, stronger tomorrow.",a:"Unknown"},
+  {q:"Don't stop when you're tired. Stop when you're done.",a:"Unknown"},
+  {q:"Your future self is watching you right now through memories.",a:"Unknown"},
+  {q:"The gym doesn't care how tired you are. But your goal does.",a:"FitTrack 🔥"},
+  {q:"Sweat is just fat crying.",a:"Unknown 😂"},
+  {q:"Every km you run is a km your old self couldn't.",a:"FitTrack"},
+  {q:"A 30-minute run seemed impossible once. Now look at you.",a:"FitTrack"},
+  {q:"The bitterest sambar after a run tastes like victory.",a:"FitTrack 😄"},
+  {q:"Discipline is choosing what you want most over what you want now.",a:"Unknown"},
+  {q:"You are literally paying off fat with sweat. Best deal ever.",a:"FitTrack 🔥"},
+  {q:"Nobody ever regretted a morning run. They only regret skipping one.",a:"Unknown"},
+  {q:"15kg won't disappear overnight. But it will disappear. Keep going.",a:"FitTrack"},
+  {q:"Fasting isn't suffering. It's your body switching to fat-burning mode.",a:"FitTrack 😄"},
+  {q:"Champions are made in the 5am darkness before work.",a:"FitTrack 🔥"},
+  {q:"Your legs will forgive you. Probably. Eventually.",a:"FitTrack 😂"},
+  {q:"One day or day one. You decide.",a:"Unknown"},
+  {q:"Be better than who you were yesterday. That's the whole game.",a:"Unknown"},
+];
+function getDailyQuote(){
+  return QUOTES[Math.floor(Date.now()/86400000)%QUOTES.length];
+}
+function getMotivationalMessage(){
+  const startWt=cfg('startWeight')||109;
+  const targetWt=cfg('targetWeight')||94;
+  const lastW=S.weights.length?S.weights[S.weights.length-1].w:null;
+  const lost=lastW?Math.max(0,startWt-lastW):0;
+  const streak=calcStreak();
+  const dn=dayOfProgram();
+  const td=getTD();
+  const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  const hour=new Date().getHours();
+  const runs=Object.values(S.days).filter(d=>d.runDone).length;
+  const toGo=lastW?Math.max(0,lastW-targetWt).toFixed(1):(startWt-targetWt);
+  if(lastW&&lastW<=targetWt) return{e:'🏆',m:"YOU DID IT. "+targetWt+"kg. That's not luck — that's pure discipline. Absolute legend."};
+  if(lost>=10) return{e:'🔥',m:lost.toFixed(1)+"kg gone. More than halfway there. The finish line is real — "+toGo+"kg to go."};
+  if(lost>=7.5) return{e:'💪',m:lost.toFixed(1)+"kg down. Your body is transforming. People are starting to notice."};
+  if(lost>=5) return{e:'⚡',m:"5kg gone forever. That's a bag of rice you'll never carry again. Keep going."};
+  if(lost>=2) return{e:'🎯',m:lost.toFixed(1)+"kg down! The scale is moving. Trust the process."};
+  if(streak>=14) return{e:'🔥',m:streak+" day streak! You're not just changing your body — you're rewiring your identity."};
+  if(streak>=7) return{e:'⭐',m:"7 days straight. A full week of showing up. That's who you are now."};
+  if(streak>=3) return{e:'💥',m:streak+" days in a row! Don't you dare break this streak."};
+  if(td.runDone) return{e:'🏃',m:"Run done. Most important task checked off. Everything else today is a bonus."};
+  if(runs>=20) return{e:'🏅',m:runs+" runs completed. You are officially a runner. Own it."};
+  if(runs>=10) return{e:'👟',m:runs+" runs in the bank. Your lungs are getting stronger every single time."};
+  if(runs>=1&&!td.runDone&&isRunDay()) return{e:'👊',m:"Your run is still waiting. Get out there — your future self is watching."};
+  if(hour<11&&isRunDay()&&!td.runDone) return{e:'🌅',m:"Morning energy is your secret weapon. Run first, eat after. Let's go."};
+  if(totalCal>0&&totalCal<=(cfg('calGoal')||1800)) return{e:'✅',m:"Calories on track. Your discipline today is tomorrow's result on the scale."};
+  if(dn<=7) return{e:'🚀',m:"Day "+dn+". The first week is the hardest. Every step is building the machine."};
+  if(dn<=14) return{e:'💪',m:"Week 2. The honeymoon is over — this is where real progress happens."};
+  if(dn<=30) return{e:'🔥',m:"Still here at day "+dn+". Most people quit by now. You're not most people."};
+  return{e:'⚡',m:"Day "+dn+" of "+((cfg('duration')||90))+". You started something real. See it through."};
+}
+function checkStreakWarning(){
+  const el=document.getElementById('streak-warning');
+  if(!el)return;
+  const hour=new Date().getHours();
+  const streak=calcStreak();
+  const td=getTD();
+  const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  const cg=cfg('calGoal')||1800;
+  const wg=(cfg('waterGoal')||4)*1000;
+  const unmet=[];
+  if(!td.fastKept)unmet.push('fasting window');
+  if(isRunDay()&&!td.runDone)unmet.push('run');
+  if(totalCal===0||totalCal>cg)unmet.push('calories');
+  if((td.water||0)<wg)unmet.push('water');
+  if(!td.weight)unmet.push('weight log');
+  if(hour>=17&&unmet.length>0){
+    el.style.display='flex';
+    document.getElementById('streak-warning-text').textContent=
+      streak>=3
+        ? "Don't break your "+streak+"-day streak! Still needed: "+unmet.join(', ')+'.'
+        : "Evening check — still to do: "+unmet.join(', ')+". Finish strong.";
+  } else {
+    el.style.display='none';
+  }
+}
+const SHOWN_MS=new Set(JSON.parse(localStorage.getItem('shown_ms')||'[]'));
+function saveMS(){localStorage.setItem('shown_ms',JSON.stringify([...SHOWN_MS]));}
+function checkMilestones(){
+  const startWt=cfg('startWeight')||109;
+  const targetWt=cfg('targetWeight')||94;
+  const lastW=S.weights.length?S.weights[S.weights.length-1].w:null;
+  const lost=lastW?Math.max(0,startWt-lastW):0;
+  const streak=calcStreak();
+  const runs=Object.values(S.days).filter(d=>d.runDone).length;
+  const ms=[
+    {id:'run1',check:runs>=1,icon:'🏃',msg:"First run logged! You started. That's everything."},
+    {id:'run5',check:runs>=5,icon:'👟',msg:"5 runs done! You're building a runner's body."},
+    {id:'run10',check:runs>=10,icon:'⚡',msg:"10 runs! You are officially a runner."},
+    {id:'run20',check:runs>=20,icon:'🏅',msg:"20 runs! Your lungs are a different engine now."},
+    {id:'lost1',check:lost>=1,icon:'🎯',msg:"First kilogram gone! The journey is real."},
+    {id:'lost3',check:lost>=3,icon:'💪',msg:"3kg down! Your body is listening."},
+    {id:'lost5',check:lost>=5,icon:'🔥',msg:"5kg lost! You are unstoppable."},
+    {id:'lost10',check:lost>=10,icon:'⭐',msg:"10kg gone! You're a different person now."},
+    {id:'goal',check:!!(lastW&&lastW<=targetWt),icon:'🏆',msg:"TARGET REACHED! You absolutely did it!"},
+    {id:'streak3',check:streak>=3,icon:'🔥',msg:"3-day streak! Don't stop now."},
+    {id:'streak7',check:streak>=7,icon:'🌟',msg:"7-day streak! A perfect week. Legend."},
+    {id:'streak14',check:streak>=14,icon:'💫',msg:"14 days straight! You've built a real habit."},
+    {id:'streak30',check:streak>=30,icon:'👑',msg:"30-day streak! You are built different."},
+  ];
+  for(const m of ms){
+    if(m.check&&!SHOWN_MS.has(m.id)){
+      SHOWN_MS.add(m.id);saveMS();
+      showMilestoneToast(m.icon,m.msg);
+      launchConfetti();
+      break;
+    }
+  }
+}
+function showMilestoneToast(icon,msg){
+  const el=document.getElementById('milestone-toast');
+  if(!el)return;
+  el.innerHTML='<span style="font-size:28px;display:block;margin-bottom:4px">'+icon+'</span>'+msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),4500);
+}
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  if(!canvas)return;
+  canvas.style.display='block';
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const colors=['#EF9F27','#D85A30','#1D9E75','#7F77DD','#E879A0','#fff'];
+  const pieces=Array.from({length:120},()=>({
+    x:Math.random()*canvas.width,y:-10,
+    w:8+Math.random()*8,h:6+Math.random()*6,
+    color:colors[Math.floor(Math.random()*colors.length)],
+    vx:(Math.random()-0.5)*6,vy:3+Math.random()*5,
+    r:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.2,life:1
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.vy+=0.1;p.life-=0.008;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);
+      ctx.globalAlpha=Math.max(0,p.life);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<200&&pieces.some(p=>p.life>0))requestAnimationFrame(draw);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  draw();
+}
+function renderMotivational(){
+  try{const q=getDailyQuote();
+    const qEl=document.getElementById('quote-text');
+    const aEl=document.getElementById('quote-author');
+    if(qEl)qEl.textContent='"'+q.q+'"';
+    if(aEl)aEl.textContent='— '+q.a;
+  }catch(e){}
+  try{const m=getMotivationalMessage();
+    const mEl=document.getElementById('motiv-msg');
+    if(mEl)mEl.innerHTML='<span style="font-size:18px;margin-right:6px">'+m.e+'</span>'+m.m;
+  }catch(e){}
+  try{checkStreakWarning();}catch(e){}
+  try{checkMilestones();}catch(e){}
+}
+
 </script>
 </body>
 </html>
-
