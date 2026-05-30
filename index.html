@@ -160,6 +160,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .master-ring-inner .ml{font-size:11px;color:#854F0B;margin-top:2px;text-align:center}
 .master-ring-inner .ms{font-size:10px;color:#888780;margin-top:1px}
 
+
+/* SVG ring transitions */
+#ring-cal-fill, #ring-water-fill, #ring-burn-fill, #ring-lost-fill {
+  transition: stroke-dashoffset 0.6s ease, stroke 0.3s ease;
+}
+#master-ring-fill {
+  transition: stroke-dashoffset 0.7s ease, stroke 0.3s ease;
+}
+
 </style>
 </head>
 <body>
@@ -249,7 +258,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <circle cx="65" cy="65" r="54" fill="none" stroke="#FAEEDA" stroke-width="10"/>
           <circle cx="65" cy="65" r="54" fill="none" stroke="#EF9F27" stroke-width="10"
             stroke-dasharray="339.3" id="master-ring-fill" stroke-dashoffset="339.3"
-            stroke-linecap="round" style="transition:stroke-dashoffset 0.7s ease"/>
+            stroke-linecap="round" />
         </svg>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
           <div id="master-pct" style="font-size:30px;font-weight:700;color:#412402;line-height:1">0%</div>
@@ -268,7 +277,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <circle cx="38" cy="38" r="30" fill="none" stroke="#FAEEDA" stroke-width="8"/>
             <circle cx="38" cy="38" r="30" fill="none" stroke="#EF9F27" stroke-width="8"
               stroke-dasharray="188.5" id="ring-cal-fill" stroke-dashoffset="188.5"
-              stroke-linecap="round" style="transition:stroke-dashoffset 0.6s ease"/>
+              stroke-linecap="round" />
           </svg>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
             <div id="m-cal" style="font-size:15px;font-weight:600;color:#412402;line-height:1">0</div>
@@ -284,7 +293,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <circle cx="38" cy="38" r="30" fill="none" stroke="#FAEEDA" stroke-width="8"/>
             <circle cx="38" cy="38" r="30" fill="none" stroke="#7F77DD" stroke-width="8"
               stroke-dasharray="188.5" id="ring-water-fill" stroke-dashoffset="188.5"
-              stroke-linecap="round" style="transition:stroke-dashoffset 0.6s ease"/>
+              stroke-linecap="round" />
           </svg>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
             <div id="m-water-ring" style="font-size:15px;font-weight:600;color:#412402;line-height:1">0</div>
@@ -300,7 +309,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <circle cx="38" cy="38" r="30" fill="none" stroke="#FAEEDA" stroke-width="8"/>
             <circle cx="38" cy="38" r="30" fill="none" stroke="#D85A30" stroke-width="8"
               stroke-dasharray="188.5" id="ring-burn-fill" stroke-dashoffset="188.5"
-              stroke-linecap="round" style="transition:stroke-dashoffset 0.6s ease"/>
+              stroke-linecap="round" />
           </svg>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
             <div id="m-burn" style="font-size:15px;font-weight:600;color:#412402;line-height:1">0</div>
@@ -316,7 +325,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <circle cx="38" cy="38" r="30" fill="none" stroke="#FAEEDA" stroke-width="8"/>
             <circle cx="38" cy="38" r="30" fill="none" stroke="#1D9E75" stroke-width="8"
               stroke-dasharray="188.5" id="ring-lost-fill" stroke-dashoffset="188.5"
-              stroke-linecap="round" style="transition:stroke-dashoffset 0.6s ease"/>
+              stroke-linecap="round" />
           </svg>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
             <div id="m-lost" style="font-size:15px;font-weight:600;color:#412402;line-height:1">0</div>
@@ -820,12 +829,12 @@ function renderDash(){
   setRingEl('m-burn',calBurned);
   setRingEl('m-water-ring',(wml/1000).toFixed(1));
 
-  // ring fill helper: stroke-dashoffset = circumference * (1 - pct/100)
+  // ring fill helper — must use setAttribute for SVG presentation attributes
   const C=188.5;
   const fillRing=(id,pct,overColor)=>{
     const e=document.getElementById(id);if(!e)return;
-    e.style.strokeDashoffset=C*(1-Math.min(1,pct/100));
-    if(overColor&&pct>100)e.style.stroke=overColor;
+    e.setAttribute('stroke-dashoffset', C*(1-Math.min(1,pct/100)));
+    if(overColor&&pct>100) e.setAttribute('stroke','#E24B4A');
   };
   fillRing('ring-cal-fill', totalCal/calGoal*100, '#E24B4A');
   fillRing('ring-water-fill', wml/waterGoal*100, null);
@@ -846,8 +855,8 @@ function renderDash(){
   const MC=339.3;
   const mRing=document.getElementById('master-ring-fill');
   if(mRing){
-    mRing.style.strokeDashoffset=MC*(1-masterPct/100);
-    mRing.style.stroke=masterPct===100?'#1D9E75':'#EF9F27';
+    mRing.setAttribute('stroke-dashoffset', MC*(1-masterPct/100));
+    mRing.setAttribute('stroke', masterPct===100?'#1D9E75':'#EF9F27');
   }
   const mpEl=document.getElementById('master-pct');
   if(mpEl){mpEl.textContent=masterPct+'%';mpEl.style.color=masterPct===100?'#0F6E56':'#412402';}
