@@ -384,6 +384,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="run-plan-text" style="font-size:13px;color:#888780;margin-bottom:10px"></div>
     <div id="run-status-dash" style="margin-bottom:8px"></div>
     <button class="btn btn-primary" id="log-run-btn" onclick="openLogRun()"><i class="ti ti-player-play"></i> Log today's run</button>
+    <button class="btn" id="recovery-override-btn" style="display:none;font-size:13px;color:#854F0B;border-color:#FAC775" onclick="overrideRecovery()"><i class="ti ti-refresh"></i> Log a run on this rest day</button>
   </div>
   <div class="card">
     <h3><i class="ti ti-droplet" style="color:#7F77DD"></i> Water</h3>
@@ -790,7 +791,9 @@ function isPerfect(d){
   const c=d.meals?d.meals.reduce((s,m)=>s+m.c,0):0;
   const calGoal=cfg('calGoal')||1800;
   const waterGoal=(cfg('waterGoal')||4)*1000;
-  return d.fastKept&&d.runDone&&c>0&&c<=calGoal&&(d.water||0)>=waterGoal&&d.weight;
+  // run only required on actual run days (not recovery days), unless overridden
+  const runOk=d.runDone||(d.recoveryOverride?d.runDone:!d.isRunDay);
+  return d.fastKept&&runOk&&c>0&&c<=calGoal&&(d.water||0)>=waterGoal&&d.weight;
 }
 
 function calcStreak(){
@@ -888,7 +891,7 @@ function renderDash(){
   // master ring — 5 goals
   const goals5=[
     td.fastKept,
-    isRunDay()?td.runDone:true,
+    (isRunDay()||td.recoveryOverride)?td.runDone:true,
     totalCal>0&&totalCal<=calGoal,
     wml>=waterGoal,
     !!td.weight,
@@ -928,7 +931,17 @@ function renderDash(){
   const wk=getCW();
   document.getElementById('run-plan-text').textContent=isRunDay()?'Today: '+wk.desc:'Rest day — recovery is where the gains happen';
   document.getElementById('run-status-dash').innerHTML=td.runDone?'<span class="badge b-teal"><i class="ti ti-check"></i> '+td.runDist+'km in '+td.runMins+' min</span>':'';
-  document.getElementById('log-run-btn').style.display=isRunDay()&&!td.runDone?'flex':'none';
+  // Show log run button always if run not yet done
+  document.getElementById('log-run-btn').style.display=!td.runDone?'flex':'none';
+  // Show/hide recovery override button
+  const recovBtnEl=document.getElementById('recovery-override-btn');
+  if(recovBtnEl){
+    if(!isRunDay()&&!td.runDone&&!td.recoveryOverride){
+      recovBtnEl.style.display='flex';
+    } else {
+      recovBtnEl.style.display='none';
+    }
+  }
   renderWeekStars();
   renderMotivational();
 }
@@ -1009,9 +1022,10 @@ function renderLog(){
   document.getElementById('log-start-wt').textContent=cfg('startWeight')||109;
   document.getElementById('log-target-wt').textContent=cfg('targetWeight')||94;
   const td=getTD();const totalCal=td.meals.reduce((s,m)=>s+m.c,0);
+  const runDay=isRunDay()||td.recoveryOverride;
   const goals=[
     {lbl:'Fasting window kept',done:td.fastKept,icon:'ti-clock'},
-    {lbl:'Run completed',done:td.runDone,icon:'ti-run'},
+    {lbl:runDay?'Run completed':'Rest day (run optional)',done:runDay?td.runDone:true,icon:'ti-run'},
     {lbl:'Calorie goal (≤'+calGoal+' kcal)',done:totalCal>0&&totalCal<=calGoal,icon:'ti-flame'},
     {lbl:'Weight logged',done:!!td.weight,icon:'ti-scale'},
     {lbl:'Water goal ('+(waterGoal)+'L)',done:(td.water||0)>=(waterGoal*1000),icon:'ti-droplet'},
@@ -1098,11 +1112,17 @@ function renderHistory(){
   for(let m=0;m<Math.ceil(dur/30);m++)months.push({lbl:'Month '+(m+1),dates:allDates.slice(m*30,m*30+30)});
   document.getElementById('full-calendar').innerHTML=months.map(m=>{
     const dl='<div class="day-labels" style="margin-bottom:4px">'+['M','T','W','T','F','S','S'].map(l=>'<div class="day-lbl">'+l+'</div>').join('')+'</div>';
+    // Get weekday of first date in this month block (0=Sun..6=Sat), convert to Mon-based (0=Mon..6=Sun)
+    const firstDate=new Date(m.dates[0]);
+    const firstDow=firstDate.getDay(); // 0=Sun
+    const offset=(firstDow===0)?6:firstDow-1; // Mon-based offset
+    // Pad start with empty cells
+    const empties=Array(offset).fill('<div class="star-cell" style="background:transparent;border:none"></div>').join('');
     const cells=m.dates.map(dt=>{
       const dd=S.days[dt];const earned=dd&&isPerfect(dd);const isT=dt===todayKey();const past=dt<todayKey();
-      return '<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'" style="'+(past&&!earned?'opacity:0.4':'')+'"><i class="ti ti-star"></i><span>'+parseInt(dt.split('-')[2])+'</span></div>';
+      return '<div class="star-cell'+(earned?' earned':'')+(isT?' today':'')+'" style="'+(past&&!earned?'opacity:0.4':'')+'" onclick="openEditDay(\''+dt+'\')" ><i class="ti ti-star"></i><span>'+parseInt(dt.split('-')[2])+'</span></div>';
     }).join('');
-    return '<div style="margin-bottom:16px"><div class="sec-title">'+m.lbl+'</div>'+dl+'<div class="star-grid">'+cells+'</div></div>';
+    return '<div style="margin-bottom:16px"><div class="sec-title">'+m.lbl+'</div>'+dl+'<div class="star-grid">'+empties+cells+'</div></div>';
   }).join('');
 
   const runs=Object.values(S.days).filter(d=>d.runDone).length;
@@ -1132,6 +1152,8 @@ function renderHistory(){
     document.getElementById('onboard').style.display='none';
     document.getElementById('app').style.display='block';
     renderDash();
+    // renderMotivational needs DOM visible — call after paint
+    setTimeout(renderMotivational, 50);
   }
 })();
 
@@ -1359,6 +1381,107 @@ function renderMotivational(){
   try{checkMilestones();}catch(e){}
 }
 
+
+// ══ RECOVERY OVERRIDE ══
+function overrideRecovery(){
+  const td=getTD();
+  td.recoveryOverride=true;
+  td.isRunDay=false;
+  save();
+  renderDash();
+}
+
+// ══ EDIT PREVIOUS DAY ══
+function openEditDay(dateKey){
+  const d=S.days[dateKey]||{meals:[],water:0,fastKept:false,runDone:false,runDist:0,runMins:0,calBurned:0,weight:null,steps:0};
+  const modal=document.getElementById('edit-day-modal');
+  document.getElementById('edit-day-title').textContent='Edit '+dateKey;
+  document.getElementById('edit-weight').value=d.weight||'';
+  document.getElementById('edit-calories').value=d.meals?d.meals.reduce((s,m)=>s+m.c,0):'';
+  document.getElementById('edit-water').value=d.water?(d.water/1000).toFixed(1):'';
+  document.getElementById('edit-steps').value=d.steps||'';
+  document.getElementById('edit-run-done').checked=!!d.runDone;
+  document.getElementById('edit-run-dist').value=d.runDist||'';
+  document.getElementById('edit-fast-kept').checked=!!d.fastKept;
+  modal.dataset.dateKey=dateKey;
+  modal.classList.add('open');
+}
+
+function saveEditDay(){
+  const modal=document.getElementById('edit-day-modal');
+  const dateKey=modal.dataset.dateKey;
+  if(!S.days[dateKey]) S.days[dateKey]={meals:[],water:0,fastKept:false,runDone:false,runDist:0,runMins:0,calBurned:0,weight:null,steps:0};
+  const d=S.days[dateKey];
+  const wt=parseFloat(document.getElementById('edit-weight').value);
+  if(wt&&wt>30&&wt<300){
+    d.weight=wt;
+    S.weights=S.weights.filter(x=>x.date!==dateKey);
+    S.weights.push({date:dateKey,w:wt});
+    S.weights.sort((a,b)=>a.date.localeCompare(b.date));
+  }
+  const cal=parseInt(document.getElementById('edit-calories').value);
+  if(cal>0){
+    // store as a single 'manual entry' meal replacing any existing
+    d.meals=[{n:'Manual entry',c:cal}];
+  }
+  const water=parseFloat(document.getElementById('edit-water').value);
+  if(water>=0) d.water=Math.round(water*1000);
+  const steps=parseInt(document.getElementById('edit-steps').value);
+  if(steps>=0) d.steps=steps;
+  d.runDone=document.getElementById('edit-run-done').checked;
+  const dist=parseFloat(document.getElementById('edit-run-dist').value);
+  if(dist>0) d.runDist=dist;
+  d.fastKept=document.getElementById('edit-fast-kept').checked;
+  save();
+  closeModal('edit-day-modal');
+  renderHistory();
+}
+
 </script>
+<!-- EDIT DAY MODAL -->
+<div class="modal-bg" id="edit-day-modal">
+  <div class="modal">
+    <h2><i class="ti ti-pencil" style="color:#EF9F27"></i> <span id="edit-day-title">Edit day</span></h2>
+    <div style="font-size:12px;color:#854F0B;margin-bottom:12px">Tap a date in the star calendar to edit that day.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div>
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Weight (kg)</div>
+        <input class="modal-fi" type="number" id="edit-weight" placeholder="e.g. 107.5" step="0.1" style="margin-bottom:0">
+      </div>
+      <div>
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Calories eaten</div>
+        <input class="modal-fi" type="number" id="edit-calories" placeholder="e.g. 1650" style="margin-bottom:0">
+      </div>
+      <div>
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Water (litres)</div>
+        <input class="modal-fi" type="number" id="edit-water" placeholder="e.g. 3.5" step="0.1" style="margin-bottom:0">
+      </div>
+      <div>
+        <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Steps</div>
+        <input class="modal-fi" type="number" id="edit-steps" placeholder="e.g. 12000" style="margin-bottom:0">
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;margin-bottom:12px">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="edit-run-done" style="width:18px;height:18px;accent-color:#EF9F27">
+        Run done
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer">
+        <input type="checkbox" id="edit-fast-kept" style="width:18px;height:18px;accent-color:#EF9F27">
+        Fast kept
+      </label>
+    </div>
+    <div>
+      <div style="font-size:12px;color:#854F0B;margin-bottom:4px">Run distance (km)</div>
+      <input class="modal-fi" type="number" id="edit-run-dist" placeholder="e.g. 3.2" step="0.1">
+    </div>
+
+    <button class="btn btn-primary" onclick="saveEditDay()"><i class="ti ti-check"></i> Save changes</button>
+    <button class="btn" onclick="closeModal('edit-day-modal')" style="margin-top:4px">Cancel</button>
+  </div>
+</div>
+
 </body>
 </html>
